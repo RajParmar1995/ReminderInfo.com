@@ -1,0 +1,12 @@
+<div mat-dialog-content>
+    <h6 text-center>OTP Verification</h6>
+    <p>OTP Send on Your Register Mobile Number.</p>
+    <ng-otp [limit]="6" (otpOut)="setOtp($event)"></ng-otp>
+</div>
+<div>
+    <p (click)="resend()" style="text-align:right"><a>Click here to Resend your OTP</a></p>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onClick()">Verify</button>
+    <button mat-button (click)="close()">Cancel</button>
+</div>

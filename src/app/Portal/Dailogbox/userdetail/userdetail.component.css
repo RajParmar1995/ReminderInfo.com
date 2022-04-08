@@ -1,0 +1,23 @@
+.customAddresinfo {
+    border-bottom: 2px solid rgba(120, 130, 140, 0.13);
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 1px;
+    width: 20%;
+    text-align: left;
+}
+.customAddresinfo1 {
+    border-bottom: 2px solid rgba(120, 130, 140, 0.13);
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 1px;
+    width: 30%;
+    text-align: left;
+}
+.customhr {
+    border-bottom: 2px solid rgba(120, 130, 140, 0.13);
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 1px;
+    /* width: 50%; */
+}

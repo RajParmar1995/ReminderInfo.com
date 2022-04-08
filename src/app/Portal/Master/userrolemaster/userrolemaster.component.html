@@ -1,0 +1,68 @@
+<mat-card>
+    <mat-card-content>
+        <form [formGroup]="userroleform" (ngSubmit)="onSubmit()">
+            <div fxLayout="row wrap" fxFlexAlign="center" class="row">
+                <div fxFlex.gt-sm="80" fxFlex.gt-xs="100" fxFlex="100">
+                    <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+                        <mat-form-field>
+                            <input matInput placeholder="Role Name" type="textarea" formControlName="rolename" required>
+                        </mat-form-field>
+                        <p class="text-danger m-t-0 font-16" *ngIf="usrroleForm.rolename.touched && usrroleForm.rolename.errors?.pattern">
+                            Role Name contains only characters.</p>
+                    </div>
+                    <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+                        <mat-form-field>
+                            <mat-label>Role Status</mat-label>
+                            <mat-select formControlName="roleStatus" placeholder="Select Status" required>
+                                <mat-option value="1">Active </mat-option>
+                                <mat-option value="0">DeActive </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex.gt-sm="20" fxFlex.gt-xs="100" fxFlex="100" class="text-center m-t-30">
+                    <button class="m-r-20" *ngIf="updateid == 0" mat-raised-button color="primary" (click)="CreateUserRole()" [disabled]="!userroleform.valid">Save</button>
+                    <button class="m-r-20" *ngIf="updateid > 0" mat-raised-button color="primary" (click)="UpdateUserRoleMaster()" [disabled]="!userroleform.valid">Update</button>
+                    <button mat-raised-button color="default" (click)="resetuserroleform()">Clear</button>
+                </div>
+            </div>
+        </form>
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="25" fxFlex.gt-xs="100" fxFlex="100">
+                <mat-form-field>
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                <table mat-table matSort [dataSource]="lists.rolelist">
+
+                    <ng-container matColumnDef="rolename">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Role Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="rolestatus">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Role Status </th>
+                        <td mat-cell *matCellDef="let element"> {{element.status?'Active':'DeActive'}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                        <td mat-cell *matCellDef="let element" class="action-link">
+                            <a>
+                                <mat-icon style="color:black" (click)="EditUserRoleMaster(element)"><i
+                                        class="fa fa-pencil"></i>
+                                </mat-icon>
+                            </a>
+                            <mat-icon class="m-l-10" style="color:#E91E63" (click)="DeleteConfirmation(element)"><i
+                                    class="fa fa-trash"></i>
+                            </mat-icon>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="lists.displayedColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: lists.displayedColumns;"></tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 20,25,50]" showFirstLastButtons></mat-paginator>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

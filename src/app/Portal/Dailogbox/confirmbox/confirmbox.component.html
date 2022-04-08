@@ -1,0 +1,7 @@
+<div mat-dialog-content>
+    <p>{{lists.Message|json}}</p>
+</div>
+<div mat-dialog-actions class="pull-right">
+    <button mat-raised-button  color="primary"  (click)="onClick(true)">Yes</button>
+    <button mat-raised-button color="default"  (click)="onClick(false)">No</button>
+</div>

@@ -1,0 +1,91 @@
+<mat-card fxFlex.gt-sm="100%" fxFlex="100" class="m-0">
+    <mat-card-content >
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                <div fxLayout="row wrap">
+                    <div fxFlex.gt-sm="25" fxFlex.gt-xs="100" fxFlex="100">
+                        <mat-form-field>
+                            <input matInput (keyup)="comman.TableFilter(newUserlist,$event.target.value)"
+                                placeholder="Search">
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                        <table mat-table matSort [dataSource]="newUserlist">                            
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> User Id </th>
+                                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="user_type">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> User Type </th>
+                                <td mat-cell *matCellDef="let element"> {{element.user_type}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="name">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="email">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+                                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="mobile">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Number </th>
+                                <td mat-cell *matCellDef="let element"> {{element.mobile}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="profile_image">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Profile Image </th>
+                                <td mat-cell *matCellDef="let element"><a target="_blank" href="{{element.profile_image}}">Open</a></td>
+                            </ng-container>
+                            <ng-container matColumnDef="fcm_id">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Fcm Id </th>
+                                <td mat-cell *matCellDef="let element"> {{element.fcm_id}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="subscription_id">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Subscription Plan </th>
+                                <td mat-cell *matCellDef="let element"> {{element.subscription_id}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="expire_date">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Plan Expire date </th>
+                                <td mat-cell *matCellDef="let element"> {{element.subscription_info.expire_date | date:"MM/dd/yyyy HH:mma"}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="crated_at">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Crated Date </th>
+                                <td mat-cell *matCellDef="let element"> {{element.crated_at | date:"MM/dd/yyyy HH:mma"}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="last_login_at">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Login</th>
+                                <td mat-cell *matCellDef="let element"> {{element.last_login_at | date:"MM/dd/yyyy HH:mma"}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="updatedAt">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Updated Date </th>
+                                <td mat-cell *matCellDef="let element"> {{element.updatedAt | date:"MM/dd/yyyy HH:mma"}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="status">
+                                <th mat-header-cell *matHeaderCellDef>Status</th>
+                                <td mat-cell *matCellDef="let element"> {{element.status?'Active':'DeActive'}} </td>
+                            </ng-container>                           
+                            <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef> Action </th>
+                                <td mat-cell *matCellDef="let element" class="action-link">
+                                    <a>
+                                        <mat-icon style="color:#E91E63" (click)="UserProfileEdit(element)">edit
+                                        </mat-icon>
+                                    </a>
+                                    <a class="m-l-10">
+                                        <mat-icon style="color:#E91E63" (click)="UserAllDetail(element)"><i style="color: cornflowerblue;" class="fa fa-info-circle"></i>
+                                        </mat-icon>
+                                    </a>
+                                </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="lists.displayedColumns; sticky: true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: lists.displayedColumns;"></tr>
+                        </table>
+                        <mat-paginator [pageSizeOptions]="[10, 20,30,50,100]" showFirstLastButtons>
+                        </mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </mat-card-content>
+    </mat-card >

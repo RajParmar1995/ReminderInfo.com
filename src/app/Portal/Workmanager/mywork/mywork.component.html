@@ -1,0 +1,47 @@
+<mat-card>
+    <mat-card-content>
+        <form [formGroup]="myworkform">
+            <div fxLayout="row wrap" fxFlexAlign="center" class="row">
+                <div fxFlex.gt-sm="25" fxFlex="100" class="p-10">
+                    <mat-label>KNo:<span style="color:#1e88e5; font-weight :bold;"> {{manage.kno}}</span></mat-label>
+                </div>
+
+                <div fxFlex.gt-sm="25" fxFlex="100" class="p-10">
+                    <mat-label>Customer Name:<span style="color:#1e88e5; font-weight :bold;"> {{manage.cname}}</span>
+                    </mat-label>
+                </div>
+                <div fxFlex.gt-sm="25" fxFlex="100" class="p-10">
+                    <mat-label>Amount:<span style="color:#4caf50; font-weight :bold;"> ₹ {{manage.billamount}}</span>
+                    </mat-label>
+                </div>
+                <div fxFlex.gt-sm="25" fxFlex="100" class="p-10">
+                    <mat-label>Due Date:<span style="color:#1e88e5; font-weight :bold;"> {{manage.lastdate}}</span>
+                    </mat-label>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxFlexAlign="center" class="row">
+                <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+                    <mat-form-field>
+                        <mat-label>Transaction Status</mat-label>
+                        <mat-select formControlName="transstatus" [(ngModel)]="lists.transtype">
+                            <mat-option *ngFor="let u of lists.TransTypelist" [value]="u.name">
+                                {{u.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+                    <mat-form-field>
+                        <input matInput placeholder="Transaction" Id type="number" formControlName="transid">
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="text-right">
+                    <button mat-raised-button color="primary" class="" type="submit" [disabled]="!myworkform.valid"
+                        (click)="Save()">Submit</button>
+                </div>
+            </div>
+        </form>
+        <h2 text-center class="text-center" style="color:red" *ngIf="!myworkform.value.receiptid">Work Completed Or No
+            Work Assined to
+            You.</h2>
+    </mat-card-content>
+</mat-card>

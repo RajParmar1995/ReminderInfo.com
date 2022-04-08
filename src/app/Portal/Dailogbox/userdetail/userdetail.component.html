@@ -1,0 +1,137 @@
+<div fxLayout="row wrap" style="width:1000px">
+    <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+        <div class="text-center little-profile">
+            <!-- <img mat-card-image src="assets/images/background/profile-bg.jpg" alt="Photo of a Shiba Inu"> -->
+            <mat-card-content>
+                <div class="pro-img" style="margin: 0px;">
+                    <img src="assets/images/icon/people_Icon.png" width="50" alt="user">
+                </div>
+                <h3 class="m-0">{{lists.firstname}}&nbsp;&nbsp;{{lists.lastname}}</h3>
+                <mat-tab-group mat-align-tabs="center">
+                    <mat-tab label="Basic Info">
+                        <mat-card-content>
+                            <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                                <table class="text-left m-t-10">
+                                    <tr>
+                                        <th width="50%" class="customhr">User Type:</th>
+                                        <td width="50%" class="customhr">{{lists.usertype}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="customhr">First Name:</th>
+                                        <td class="customhr">{{lists.firstname}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="customhr">Last Name:</th>
+                                        <td class="customhr">{{lists.lastname}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="customhr">Mobile Number:</th>
+                                        <td class="customhr">{{lists.mobnumber}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="customhr">Email:</th>
+                                        <td class="customhr">{{lists.email}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </mat-card-content>
+                    </mat-tab>
+                    <mat-tab label="Address Info">
+                        <mat-card-content>
+                            <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                                <table style="width: 100%; table-layout: auto;" class="m-t-10">
+                                    <tr class="text-center">
+                                        <th class="customhr" colspan="2">Permanent Address</th>
+                                        <th class="customhr" colspan="2">Correspondance Address</th>
+                                    </tr>
+                                    <tr>
+                                         <th class="customAddresinfo" > Address:</th>
+                                        <td class="customAddresinfo1">{{lists.detailview?(lists.perAddress |
+                                            limitto:50):lists.perAddress }}
+                                            <a *ngIf="lists.detailbtn"
+                                              style="margin-left: -15px;" mat-button color="primary"
+                                              (click)='lists.detailview=!lists.detailview'>{{lists.detailview?'Read More':'Hide
+                                              More'}}</a>
+                                        </td>
+
+                                        <th class="customAddresinfo"> Address:</th>
+                                        <!-- <td class="customAddresinfo1">{{lists.corresAddress}}</td> -->
+                                        <td class="customAddresinfo1">{{lists.detailview1?(lists.corresAddress |
+                                            limitto:50):lists.corresAddress }}
+                                            <a *ngIf="lists.detailbtn1"
+                                              style="margin-left: -15px;" mat-button color="primary"
+                                              (click)='lists.detailview1=!lists.detailview1'>{{lists.detailview1?'Read More':'Hide
+                                              More'}}</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="customAddresinfo"> State:</th>
+                                        <td class="customAddresinfo1">{{lists.perState}}</td>
+                                        <th class="customAddresinfo"> State:</th>
+                                        <td class="customAddresinfo1">{{lists.corresState}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="customAddresinfo"> City:</th>
+                                        <td class="customAddresinfo1">{{lists.perCity}}</td>
+                                        <th class="customAddresinfo"> City:</th>
+                                        <td class="customAddresinfo1">{{lists.corresCity}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="customAddresinfo"> Pincode:</th>
+                                        <td class="customAddresinfo1">{{lists.perPincode}}</td>
+                                        <th class="customAddresinfo"> Pincode:</th>
+                                        <td class="customAddresinfo1">{{lists.corresPincode}}</td>
+                                    </tr>
+                                </table>                             
+                            </div>
+                        </mat-card-content>
+                    </mat-tab>
+                    <mat-tab label="Subscription Info">
+                        <mat-card-content>
+                            <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                                <table class="text-left m-t-10">
+                                    <tr>
+                                        <th width="50%" class="customhr">Subscription Plan:</th>
+                                        <td width="50%" class="customhr">{{lists.subscriptionplanid}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th width="50%" class="customhr">Plan Start Date:</th>
+                                        <td width="50%" class="customhr">{{lists.subscriptionplanstartdate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th width="50%" class="customhr">Plan End Date:</th>
+                                        <td width="50%" class="customhr">{{lists.subscriptionplanenddate}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </mat-card-content>
+                    </mat-tab>
+                    <mat-tab label="Account Info">
+                        <mat-card-content>
+                            <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                                <table class="text-left m-t-10">
+                                    <tr>
+                                        <th width="50%" class="customhr">Account Created:</th>
+                                        <td width="50%" class="customhr">{{lists.acc_create_date}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th width="50%" class="customhr">Account Updated:</th>
+                                        <td width="50%" class="customhr">{{lists.acc_update_date}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th width="50%" class="customhr">User Last Login:</th>
+                                        <td width="50%" class="customhr">{{lists.lastlogin}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </mat-card-content>
+                    </mat-tab>
+
+
+                </mat-tab-group>
+
+            </mat-card-content>
+        </div>
+    </div>
+</div>
