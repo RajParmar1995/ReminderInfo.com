@@ -10,8 +10,10 @@ export class AuthguardService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const authinfo = {
-      authenticated: window.localStorage.getItem("UserId")
+      //authenticated: window.localStorage.getItem("UserId")
+      authenticated: 1
     };
+    debugger
     if (authinfo.authenticated == null) {
       this.router.navigate(["authentication/login"]);
     }

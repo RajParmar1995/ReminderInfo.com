@@ -29,7 +29,7 @@ export class UserlistComponent implements OnInit {
     }
     // this.GetUsertype();
     // this.GetSubscriptionpan();
-    this.GetUserList();
+   // this.GetUserList();
   }
 
   ngOnInit() {

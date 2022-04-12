@@ -1,34 +1,25 @@
 <!-- ============================================================== -->
 <!-- sidebar -->
 <!-- ============================================================== -->
-<div class="user-profile">
+<!-- <div class="user-profile"> -->
     <!-- User profile image -->
-    <div style="text-align: center;margin-top:10px">
-        <img style="width: 200px;" src="assets/images/logo-icon.png" alt="user"> </div>
+    <!-- <div style="text-align: center;margin-top:10px">
+        <img style="width: 100px;" src="assets/images/reminderinfo-BlackColor.png" alt="user"> </div> -->
     <!-- User profile text-->
     <!-- ============================================================== -->
     <!-- Profile - style you can find in header.scss -->
     <!-- ============================================================== -->
-    <div class="profile-text">
+    <!-- <div class="profile-text">
         <a [matMenuTriggerFor]="sdprofile" class="text-center"> {{lists.User.name}}
             <i class="ti-angle-down font-12 m-l-5"></i>
         </a>
-    </div>
-    <mat-menu #sdprofile="matMenu" class="mymegamenu">
-        <!-- <button mat-menu-item>
-            <mat-icon>settings</mat-icon> Settings
-        </button>
-        <button mat-menu-item>
-            <mat-icon>account_box</mat-icon> Profile
-        </button>
-        <button mat-menu-item>
-            <mat-icon>notifications_off</mat-icon> Disable notifications
-        </button> -->
+    </div> -->
+    <!-- <mat-menu #sdprofile="matMenu" class="mymegamenu">        
         <button mat-menu-item (click)="common.logout()">
             <mat-icon>exit_to_app</mat-icon> Sign Out
         </button>
-    </mat-menu>
-</div>
+    </mat-menu> -->
+<!-- </div> -->
 
 <mat-nav-list appAccordion>
     <mat-list-item appAccordionLink *ngFor="let menuitem of menuItems.getMenuitem()" routerLinkActive="selected"

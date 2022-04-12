@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
     this.lists.kycdetailList.paginator = this.paginator2;
     this.lists.kycdetailList.sort = this.sort2;
     
-    this.userdetail();
+  //  this.userdetail();
   }
 
   shortformatDate(date) {

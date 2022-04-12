@@ -71,6 +71,16 @@ const SuperAdmin = [
   //  ]
   // },
   {
+      state: 'remindermanager',
+      name: 'reminder Manager',
+      type: 'sub',
+      icon: 'money',
+      children: [
+        { state: 'createreminder', name: 'Create New Reminder', type: 'link' },
+        { state: 'allreminder', name: 'All Reminder', type: 'link' },
+     ]
+    },
+  {
     state: 'usermanager',
     name: 'User Manager',
     type: 'sub',

@@ -136,9 +136,9 @@ export class CreateuserComponent implements OnInit {
       Planstartdate: Todatdate,
     });
 
-    this.GetUserTypeMaster();
-    this.GetSubscriptionMaster();
-    this.GetStates();
+    // this.GetUserTypeMaster();
+    // this.GetSubscriptionMaster();
+    // this.GetStates();
   }
   get firtsForm() {
     return this.firstFormGroup.controls;

@@ -17,45 +17,28 @@ export const AppRoutes: Routes = [
       {
         path: 'dashboards',
         loadChildren: './dashboards/dashboards.module#DashboardsModule',
-        canActivate: [AuthguardService],
+       // canActivate: [AuthguardService],
         // redirectTo: 'dashboards/dashboard2'
       },
+      {
+        path: 'reminder',      
+        loadChildren: () => import('./Portal/reminder/reminder.module').then(m => m.ReminderModule),           
+      },      
       // {
-      //   path: 'reportmanager',
-      //   loadChildren: './Portal/Report/report.module#ReportModule',
-      //   canActivate: [AuthguardService]
-      // },
-      // {
-      //   path: 'workmanager',
-      //   loadChildren: './Portal/Workmanager/workmanager.module#WorkManagerModule',
-      //   canActivate: [AuthguardService]
-      // },
-      // {
-      //   path: 'mastermanager',
-      //   loadChildren: './Portal/Master/master.module#MasterModule',
-      //   canActivate: [AuthguardService]
-      // },
-      // {
-      //   path: 'billmanager',
-      //   loadChildren: './Portal/Bill/bill.module#BillModule',
+      //   path: 'complaintmanager',
+      //   loadChildren: './Portal/Complaintmanager/complaint.module#ComplaintModule',
       //   canActivate: [AuthguardService]
       // },
       // {
       //   path: 'complaintmanager',
       //   loadChildren: './Portal/Complaintmanager/complaint.module#ComplaintModule',
       //   canActivate: [AuthguardService]
-      // },
-      {
-        path: 'usermanager',
-        loadChildren:
-          './Portal/User/user.module#UserModule',
-        canActivate: [AuthguardService]
-      },     
+      // },        
       {
         path: 'setting',
         loadChildren:
           './Portal/Workmanager/workmanager.module#WorkManagerModule',
-        canActivate: [AuthguardService]
+       // canActivate: [AuthguardService]
       },
       // {
       //   path: 'aucation',

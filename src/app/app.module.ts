@@ -54,7 +54,7 @@ import { PipeModule } from './Portal/Pipes/pipe/pipe.module';
     ChangepasswordComponent,
   //  BillfetchComponent,
     SettingsComponent,
-    UserdetailComponent,
+    UserdetailComponent
   ],
   imports: [
     BrowserModule,

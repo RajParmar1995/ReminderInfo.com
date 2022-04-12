@@ -12,8 +12,8 @@ import * as moment from 'moment';
   providedIn: 'root'
 })
 export class CommonService {
-  //Url: any = "http://localhost:8080/api/";
-   Url: any = "http://api.knknetwork.in:8080/api/";
+  Url: any = "http://localhost:8080/api/";
+  // Url: any = "http://api.knknetwork.in:8080/api/";
   constructor(private ngxService: NgxUiLoaderService, public dialog: MatDialog, public http: HttpClient, public router: Router, public toastr: ToastrManager) { }
 
   GetMethod(MapUrl) {
