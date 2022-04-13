@@ -3,17 +3,13 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { DemoMaterialModule } from '../../demo-material-module';
-import { PipeModule} from '../Pipes/pipe/pipe.module'
-import { CreatereminderComponent } from './createreminder/createreminder.component';
-import { AllreminderComponent } from './allreminder/allreminder.component';
 import { ReminderRoutes } from './reminder.routing';
+import { DemoMaterialModule } from '../../demo-material-module';
+import { AllreminderComponent } from './allreminder/allreminder.component';
+import { CreatereminderComponent } from './createreminder/createreminder.component';
+import { PipeModule} from '../Pipes/pipe/pipe.module'
 
 @NgModule({
-  declarations: [
-    CreatereminderComponent,
-     AllreminderComponent
-    ],
   imports: [
     CommonModule,
     RouterModule.forChild(ReminderRoutes),
@@ -21,9 +17,11 @@ import { ReminderRoutes } from './reminder.routing';
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    PipeModule,
-    CreatereminderComponent,
-    AllreminderComponent
-  ] 
+    PipeModule
+  ],
+  declarations: [
+    AllreminderComponent,
+    CreatereminderComponent
+  ]
 })
-export class ReminderModule { }
+export class ReminderModule {}

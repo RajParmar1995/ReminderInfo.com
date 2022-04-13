@@ -52,9 +52,8 @@ import { PipeModule } from './Portal/Pipes/pipe/pipe.module';
     ConfirmboxComponent,
     OtpComponent,
     ChangepasswordComponent,
-  //  BillfetchComponent,
     SettingsComponent,
-    UserdetailComponent
+    UserdetailComponent,
   ],
   imports: [
     BrowserModule,

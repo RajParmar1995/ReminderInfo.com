@@ -13,7 +13,6 @@ export class AuthguardService implements CanActivate {
       //authenticated: window.localStorage.getItem("UserId")
       authenticated: 1
     };
-    debugger
     if (authinfo.authenticated == null) {
       this.router.navigate(["authentication/login"]);
     }

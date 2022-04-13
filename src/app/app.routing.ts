@@ -12,41 +12,27 @@ export const AppRoutes: Routes = [
         path: '',
         redirectTo: '/dashboards/dashboard1',
         pathMatch: 'full',
-        //canActivate: [AuthguardService]
+        canActivate: [AuthguardService]
       },
       {
         path: 'dashboards',
         loadChildren: './dashboards/dashboards.module#DashboardsModule',
-       // canActivate: [AuthguardService],
+        canActivate: [AuthguardService],
         // redirectTo: 'dashboards/dashboard2'
       },
       {
-        path: 'reminder',      
-        loadChildren: () => import('./Portal/reminder/reminder.module').then(m => m.ReminderModule),           
-      },      
-      // {
-      //   path: 'complaintmanager',
-      //   loadChildren: './Portal/Complaintmanager/complaint.module#ComplaintModule',
-      //   canActivate: [AuthguardService]
-      // },
-      // {
-      //   path: 'complaintmanager',
-      //   loadChildren: './Portal/Complaintmanager/complaint.module#ComplaintModule',
-      //   canActivate: [AuthguardService]
-      // },        
-      {
-        path: 'setting',
+        path: 'usermanager',
         loadChildren:
-          './Portal/Workmanager/workmanager.module#WorkManagerModule',
-       // canActivate: [AuthguardService]
+          './Portal/User/user.module#UserModule',
+        canActivate: [AuthguardService]
       },
-      // {
-      //   path: 'aucation',
-      //   loadChildren:
-      //     './Portal/Aucation/aucation.module#AucationModule',
-      //  // canActivate: [AuthguardService]
-      // },
-     
+
+      {
+        path: 'remindermanager',
+        loadChildren:
+          './Portal/reminder/reminder.module#ReminderModule',
+        canActivate: [AuthguardService]
+      },
     ]
   },
   {
@@ -64,7 +50,7 @@ export const AppRoutes: Routes = [
     path: 'dashboard',
     redirectTo: 'dashboards/dashboard1'
   },
- 
+
   {
     path: '**',
     redirectTo: 'authentication/404'

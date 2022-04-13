@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { CreatereminderComponent } from './createreminder/createreminder.component';
 import { AllreminderComponent } from './allreminder/allreminder.component';
+import { CreatereminderComponent } from './createreminder/createreminder.component';
 export const ReminderRoutes: Routes = [
   {
     path: '',
@@ -20,13 +20,13 @@ export const ReminderRoutes: Routes = [
     path: 'allreminder',
     component: AllreminderComponent,
 data: {
-      title: 'reminder List',
+      title: 'Reminder List',
       urls: [
         { title: 'Dashboard', url: '/dashboard' },
-        { title: 'reminder List' }
+        { title: 'Reminder List' }
       ]
-      
+
     }
-  }, 
+  },
 ]
   }];
