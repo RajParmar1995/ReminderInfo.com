@@ -7,7 +7,7 @@
                 <form [formGroup]="firstFormGroup">
                     <ng-template matStepLabel>Basic Info</ng-template>
                     <div fxLayout="row wrap">
-                        
+
                         <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
                             <mat-form-field>
                                 <input matInput placeholder="FirstName" formControlName="firstname" required>
@@ -39,7 +39,7 @@
                                         {{a.name}}
                                     </mat-option>
                                 </mat-select>
-                              </mat-form-field>                          
+                              </mat-form-field>
                         </div>
                         <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
                             <mat-form-field>
@@ -66,7 +66,7 @@
                             </mat-form-field>
                             <p *ngIf="firtsForm.email.hasError('pattern') && firtsForm.email.touched"
                                 class="text-danger m-t-0 font-16">Please Enter Valid Email.</p>
-                        </div>                        
+                        </div>
                         <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
                             <mat-form-field>
                                 <input matInput placeholder="Enter your password" formControlName="password"
@@ -93,7 +93,7 @@
                             </mat-form-field>
                             <p *ngIf="firtsForm.confirmPassword.errors?.equalTo && firtsForm.confirmPassword.touched"
                                 class="text-danger m-t-0 font-16">Passwords do not math.</p>
-                        </div>                        
+                        </div>
                     </div>
                 </form>
                 <div fxLayout="row wrap">

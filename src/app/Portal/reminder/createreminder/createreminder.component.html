@@ -1,1 +1,169 @@
-<p>createreminder works!</p>
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Basic Info</ng-template>
+      <div fxLayout="row wrap">
+
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <!-- <mat-form-field>
+            <input matInput placeholder="Insurance Type" formControlName="InsuranceType" required>
+          </mat-form-field> -->
+          <mat-form-field>
+            <mat-label>Insurance Type</mat-label>
+            <mat-select formControlName="InsuranceType">
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let a of common.InsuranceType" [value]="a.id" required>
+                {{a.insType}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <p class="text-danger m-t-0 font-16"
+            *ngIf="firtsForm.InsuranceType.touched && firtsForm.InsuranceType.errors?.pattern">
+            Please Select Insurance Type.</p>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Policy Holder Name" formControlName="PolicyHolder" required>
+          </mat-form-field>
+          <p class="text-danger m-t-0 font-16"
+            *ngIf="firtsForm.PolicyHolder.touched && (firtsForm.PolicyHolder.errors?.minlength || firtsForm.PolicyHolder.errors?.maxlength)">
+            Policy Holder Name should be of Min. 3 characters, Max. 20 characters.</p>
+          <p class="text-danger m-t-0 font-16" *ngIf="firtsForm.PolicyHolder.touched && firtsForm.PolicyHolder.errors?.pattern">
+            Policy Holder Name contains only characters.</p>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Policy Number" formControlName="PolicyNumber" required>
+          </mat-form-field>
+          <p class="text-danger m-t-0 font-16"
+            *ngIf="firtsForm.PolicyNumber.touched && (firtsForm.PolicyNumber.errors?.minlength || firtsForm.PolicyNumber.errors?.maxlength)">
+            Policy Number should be of Min. 3 characters, Max. 20 characters.</p>
+          <p class="text-danger m-t-0 font-16" *ngIf="firtsForm.PolicyNumber.touched && firtsForm.PolicyNumber.errors?.pattern">
+            Policy Number contains only characters.</p>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Plan, Vehicle No, NCB, Nominee, etc. " formControlName="PlanDescption" required>
+          </mat-form-field>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Company Name" formControlName="CompanyName" required>
+          </mat-form-field>
+          <p class="text-danger m-t-0 font-16"
+            *ngIf="firtsForm.CompanyName.touched && (firtsForm.CompanyName.errors?.minlength || firtsForm.CompanyName.errors?.maxlength)">
+            Company Name should be of Min. 3 characters, Max. 20 characters.</p>
+          <p class="text-danger m-t-0 font-16" *ngIf="firtsForm.CompanyName.touched && firtsForm.CompanyName.errors?.pattern">
+            Company Name contains only characters.</p>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+            <input type="number" matInput placeholder="Sum Insured/Assured" formControlName="SumInsuredAssured" required>
+          </mat-form-field>
+          <p class="text-danger m-t-0 font-16"
+            *ngIf="firtsForm.SumInsuredAssured.touched && firtsForm.SumInsuredAssured.hasError('required')">
+            Sum Insured/Assured Cannot be blank.
+          </p>
+          <p class="text-danger m-t-0 font-16"
+            *ngIf="firtsForm.SumInsuredAssured.touched &&(firtsForm.SumInsuredAssured.errors?.pattern)">
+            Use Digits Only.
+          </p>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+            <input type="number" matInput placeholder="Premium Amount" formControlName="PremiumAmt" required>
+          </mat-form-field>
+          <p class="text-danger m-t-0 font-16"
+            *ngIf="firtsForm.PremiumAmt.touched && firtsForm.PremiumAmt.hasError('required')">
+            Premium Amount Cannot be blank.
+          </p>
+          <p class="text-danger m-t-0 font-16"
+            *ngIf="firtsForm.PremiumAmt.touched &&(firtsForm.PremiumAmt.errors?.pattern)">
+            Use Digits Only.
+          </p>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+            <mat-label>Insurance Type</mat-label>
+            <mat-select formControlName="PaymentCycle">
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let a of common.InsuranceType" [value]="a.id" required>
+                {{a.insType}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <p class="text-danger m-t-0 font-16"
+            *ngIf="firtsForm.PaymentCycle.touched && firtsForm.PaymentCycle.errors?.pattern">
+            Please Select Insurance Type.</p>
+        </div>
+
+
+
+
+
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+            <span matPrefix>+91 &nbsp;</span>
+            <input type="tel" matInput placeholder="Mobile Number" formControlName="mobnumber" required>
+          </mat-form-field>
+          <p class="text-danger m-t-0 font-16"
+            *ngIf="firtsForm.mobnumber.touched && firtsForm.mobnumber.hasError('required')">
+            Mobile Number Cannot be blank.
+          </p>
+          <p class="text-danger m-t-0 font-16"
+            *ngIf="firtsForm.mobnumber.touched && (firtsForm.mobnumber.errors?.minlength || firtsForm.mobnumber.errors?.maxlength)">
+            Mobile Number Should be of atleast 10 digit.
+          </p>
+          <p class="text-danger m-t-0 font-16"
+            *ngIf="firtsForm.mobnumber.touched &&(firtsForm.mobnumber.errors?.pattern)">
+            Use Digits Only.
+          </p>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Email" formControlName="email" required>
+          </mat-form-field>
+          <p *ngIf="firtsForm.email.hasError('pattern') && firtsForm.email.touched" class="text-danger m-t-0 font-16">
+            Please Enter Valid Email.</p>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Enter your password" formControlName="password"
+              [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+          <p class="text-danger m-t-0 font-16"
+            *ngIf="firtsForm.password.touched && (firtsForm.password.errors?.required||firtsForm.password.errors?.minlength||firtsForm.password.errors?.maxlength||firtsForm.password.errors?.pattern)">
+            Password should be of Min. 8 characters,Max. 30 characters, which must contain at least
+            one Special
+            character, one Capital letter, one Small letter and one Numeric value.</p>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Confirm your password" [type]="hide1 ? 'password' : 'text'"
+              formControlName="confirmPassword">
+            <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide1">
+              <mat-icon>{{hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+          <p *ngIf="firtsForm.confirmPassword.errors?.equalTo && firtsForm.confirmPassword.touched"
+            class="text-danger m-t-0 font-16">Passwords do not math.</p>
+        </div>
+      </div>
+    </form>
+    <div fxLayout="row wrap">
+      <div *ngIf="firstFormGroup.value.usertype > 2" class="p-10" fxFlex.gt-sm="100" fxFlex.gt-xs="50" fxFlex="100">
+        <button mat-raised-button [disabled]="!firstFormGroup.valid" class="pull-right" color="primary"
+          (click)="CreateUser()">Submit</button>
+      </div>
+      <!-- <div *ngIf="firstFormGroup.value.usertype < 3" class="p-10" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+        <button mat-raised-button color="warn" class="pull-right" matStepperNext>Next</button>
+      </div> -->
+    </div>
+  </mat-card-content>
+</mat-card>

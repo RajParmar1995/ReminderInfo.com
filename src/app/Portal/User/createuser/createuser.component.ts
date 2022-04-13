@@ -44,6 +44,7 @@ export class CreateuserComponent implements OnInit {
   isEditable = false;
   hide = true;
   hide1 = true;
+  plantypeval = true;
 
   AcctTypelist = [{ name: "Saving" }, { name: "Current" }];
   submitcreateuserformdata = [];
@@ -214,7 +215,7 @@ export class CreateuserComponent implements OnInit {
     });
   }
 
-  CreateUser() {   
+  CreateUser() {
     let submitdata : any = {}
     submitdata.user_type = this.firstFormGroup.value.usertype,
     submitdata.name = this.firstFormGroup.value.firstname + ' ' + this.firstFormGroup.value.lastname,
@@ -222,7 +223,7 @@ export class CreateuserComponent implements OnInit {
     submitdata.email = this.firstFormGroup.value.email,
     submitdata.password = this.firstFormGroup.value.confirmPassword,
     submitdata.fcm_id = localStorage.getItem("FCMID")
-    if (this.firstFormGroup.value.usertype < 3) {  
+    if (this.firstFormGroup.value.usertype < 3) {
       submitdata.address = [
                 {
                   address: this.secondFormGroup.value.perAddress,
@@ -241,10 +242,10 @@ export class CreateuserComponent implements OnInit {
                   status: 1
                 },
               ],
-              
+
       submitdata.bankdetails = this.bankdetailListarray,
       submitdata.kycdetails = this.lists.Doctype,
-      submitdata.subscription_id = parseInt(this.fifthFormGroup.value.Subscriptionplan)            
+      submitdata.subscription_id = parseInt(this.fifthFormGroup.value.Subscriptionplan)
     }else{
       submitdata.address = [
         {
@@ -264,7 +265,7 @@ export class CreateuserComponent implements OnInit {
           status: 1
         },
       ],
-      
+
 submitdata.bankdetails = '',
 submitdata.kycdetails = '',
       submitdata.subscription_id = 1;
