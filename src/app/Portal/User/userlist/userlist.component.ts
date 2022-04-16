@@ -22,7 +22,7 @@ export class UserlistComponent implements OnInit {
   newUserlist = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  constructor(public common: CommonService,public dialog: MatDialog) {     
+  constructor(public common: CommonService,public dialog: MatDialog) {
     this.lists.Doctype = [];
     if (localStorage.getItem("UserType") == 'Admin') {
       this.lists.usertype = "Agent";
@@ -43,7 +43,7 @@ export class UserlistComponent implements OnInit {
   GetUserList(){
     this.common.PostMethod("user/getuserlist",{ where:{},order:[['id','desc']],limit:1000,
     }).then((res: any) => {
-      this.newUserlist = new MatTableDataSource(res.data);   
+      this.newUserlist = new MatTableDataSource(res.data);
     });
   }
 

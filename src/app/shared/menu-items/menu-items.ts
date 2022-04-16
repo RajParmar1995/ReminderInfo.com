@@ -57,7 +57,7 @@ const SuperAdmin = [
   //     { state: 'taxmaster', name: 'TAX Master', type: 'link' },
   //     { state: 'complainmaster', name: 'Complain Master', type: 'link' },
   //  ]
-  // }, 
+  // },
   // {
   //   state: 'transaction',
   //   name: 'Transaction Manager',
@@ -76,7 +76,8 @@ const SuperAdmin = [
       type: 'sub',
       icon: 'money',
       children: [
-        { state: 'createreminder', name: 'Create New Reminder', type: 'link' },
+        { state: 'createbirthday', name: 'Create birthday Reminder', type: 'link' },
+        { state: 'createreminder', name: 'Create Policy Reminder', type: 'link' },
         { state: 'allreminder', name: 'All Reminder', type: 'link' },
      ]
     },
@@ -90,14 +91,14 @@ const SuperAdmin = [
       { state: 'createuser', name: 'Create New User', type: 'link' },
    ]
   },
- 
- 
+
+
 ];
 
 
 @Injectable()
 export class MenuItems {
-  
+
   getMenuitem(): Menu[] {
     // if (localStorage.getItem("UserType") == "Super Admin" || localStorage.getItem("UserType") == "Manager") {
     //   return SuperAdmin;
@@ -129,9 +130,9 @@ export class MenuItems {
       }else {
         return SuperAdmin;
       }
-      
-      
-      
-      
+
+
+
+
   }
 }

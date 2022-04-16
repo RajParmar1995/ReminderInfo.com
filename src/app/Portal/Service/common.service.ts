@@ -26,17 +26,14 @@ export class CommonService {
     {id:6,insType:"Truck Insurance"},
     {id:7,insType:"Home Insurance"},
     {id:8,insType:"Shop Insurance"},
+    {id:9,insType:"other Insurance/Policy"},
   ]
 
   PaymentCycle: any = [
-    {id:1,payCyc:"Monthly"},
-    {id:2,payCyc:"Personal Accident Insurance"},
-    {id:3,payCyc:"Corporate Health Insurance"},
-    {id:4,payCyc:"Car Insurance"},
-    {id:5,payCyc:"Bike Insurance"},
-    {id:6,payCyc:"Truck Insurance"},
-    {id:7,payCyc:"Home Insurance"},
-    {id:8,payCyc:"Shop Insurance"},
+    {id:1,payCycName:"Monthly",val:1},
+    {id:2,payCycName:"Quarterly",val:3},
+    {id:3,payCycName:"Semi-annually",val:6},
+    {id:4,payCycName:"Annually",val:12},
   ]
 
   constructor(private ngxService: NgxUiLoaderService, public dialog: MatDialog, public http: HttpClient, public router: Router, public toastr: ToastrManager) { }

@@ -1,13 +1,16 @@
 <mat-card>
   <mat-card-content>
+    <div fxLayout="row wrap">
+      <div class="p-10" fxFlex.gt-sm="100" fxFlex.gt-xs="50" fxFlex="100">
+          <button mat-raised-button class="pull-right" color="warn" style="margin-left: 5px;"
+          (click)="ResetReminder()">Reset</button>
+          <button mat-raised-button [disabled]="!firstFormGroup.valid" class="pull-right" color="primary"
+          (click)="CreateReminder()">Save</button>
+      </div>
+    </div>
     <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Basic Info</ng-template>
       <div fxLayout="row wrap">
-
         <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
-          <!-- <mat-form-field>
-            <input matInput placeholder="Insurance Type" formControlName="InsuranceType" required>
-          </mat-form-field> -->
           <mat-form-field>
             <mat-label>Insurance Type</mat-label>
             <mat-select formControlName="InsuranceType">
@@ -33,7 +36,7 @@
         </div>
         <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
           <mat-form-field>
-            <input matInput placeholder="Policy Number" formControlName="PolicyNumber" required>
+            <input type="number" matInput placeholder="Policy Number" formControlName="PolicyNumber" required>
           </mat-form-field>
           <p class="text-danger m-t-0 font-16"
             *ngIf="firtsForm.PolicyNumber.touched && (firtsForm.PolicyNumber.errors?.minlength || firtsForm.PolicyNumber.errors?.maxlength)">
@@ -56,7 +59,7 @@
           <p class="text-danger m-t-0 font-16" *ngIf="firtsForm.CompanyName.touched && firtsForm.CompanyName.errors?.pattern">
             Company Name contains only characters.</p>
         </div>
-        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
           <mat-form-field>
             <input type="number" matInput placeholder="Sum Insured/Assured" formControlName="SumInsuredAssured" required>
           </mat-form-field>
@@ -69,7 +72,7 @@
             Use Digits Only.
           </p>
         </div>
-        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
           <mat-form-field>
             <input type="number" matInput placeholder="Premium Amount" formControlName="PremiumAmt" required>
           </mat-form-field>
@@ -83,44 +86,61 @@
           </p>
         </div>
 
-        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
           <mat-form-field>
-            <mat-label>Insurance Type</mat-label>
+            <mat-label>Payment Cycle Type</mat-label>
             <mat-select formControlName="PaymentCycle">
               <mat-option>--</mat-option>
-              <mat-option *ngFor="let a of common.InsuranceType" [value]="a.id" required>
-                {{a.insType}}
+              <mat-option *ngFor="let a of common.PaymentCycle" [value]="a.val" required>
+                {{a.payCycName}}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <p class="text-danger m-t-0 font-16"
             *ngIf="firtsForm.PaymentCycle.touched && firtsForm.PaymentCycle.errors?.pattern">
-            Please Select Insurance Type.</p>
+            Please Select Payment Cycle Type.</p>
         </div>
-
-
-
-
-
-        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
           <mat-form-field>
-            <span matPrefix>+91 &nbsp;</span>
-            <input type="tel" matInput placeholder="Mobile Number" formControlName="mobnumber" required>
+            <input type="number" matInput placeholder="Policy Term Year" formControlName="PolicyTermYear" required>
           </mat-form-field>
           <p class="text-danger m-t-0 font-16"
-            *ngIf="firtsForm.mobnumber.touched && firtsForm.mobnumber.hasError('required')">
-            Mobile Number Cannot be blank.
+            *ngIf="firtsForm.PolicyTermYear.touched && firtsForm.PolicyTermYear.hasError('required')">
+            Policy Term Year Cannot be blank.
           </p>
           <p class="text-danger m-t-0 font-16"
-            *ngIf="firtsForm.mobnumber.touched && (firtsForm.mobnumber.errors?.minlength || firtsForm.mobnumber.errors?.maxlength)">
-            Mobile Number Should be of atleast 10 digit.
-          </p>
-          <p class="text-danger m-t-0 font-16"
-            *ngIf="firtsForm.mobnumber.touched &&(firtsForm.mobnumber.errors?.pattern)">
+            *ngIf="firtsForm.PolicyTermYear.touched &&(firtsForm.PolicyTermYear.errors?.pattern)">
             Use Digits Only.
           </p>
         </div>
-        <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input type="date" matInput placeholder="Commencement/Start Date" formControlName="CommencementDate" required>
+          </mat-form-field>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input type="date" matInput placeholder="Payment Due Date" formControlName="PaymentDueDate" required>
+          </mat-form-field>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input type="date" matInput placeholder="Maturity Date" formControlName="MaturityDate" required>
+          </mat-form-field>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <input type="date" matInput placeholder="Reminder DateTime" formControlName="ReminderDateTime" required>
+          </mat-form-field>
+        </div>
+        <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <mat-form-field>
+            <textarea rows="1" matInput placeholder="Notes" formControlName="Notes"> </textarea>
+          </mat-form-field>
+        </div>
+
+
+        <!-- <div class="p-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
           <mat-form-field>
             <input matInput placeholder="Email" formControlName="email" required>
           </mat-form-field>
@@ -153,17 +173,17 @@
           </mat-form-field>
           <p *ngIf="firtsForm.confirmPassword.errors?.equalTo && firtsForm.confirmPassword.touched"
             class="text-danger m-t-0 font-16">Passwords do not math.</p>
-        </div>
+        </div> -->
       </div>
     </form>
-    <div fxLayout="row wrap">
+    <!-- <div fxLayout="row wrap">
       <div *ngIf="firstFormGroup.value.usertype > 2" class="p-10" fxFlex.gt-sm="100" fxFlex.gt-xs="50" fxFlex="100">
         <button mat-raised-button [disabled]="!firstFormGroup.valid" class="pull-right" color="primary"
           (click)="CreateUser()">Submit</button>
       </div>
-      <!-- <div *ngIf="firstFormGroup.value.usertype < 3" class="p-10" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+   <div *ngIf="firstFormGroup.value.usertype < 3" class="p-10" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
         <button mat-raised-button color="warn" class="pull-right" matStepperNext>Next</button>
-      </div> -->
-    </div>
+      </div>
+    </div> -->
   </mat-card-content>
 </mat-card>

@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AllreminderComponent } from './allreminder/allreminder.component';
 import { CreatereminderComponent } from './createreminder/createreminder.component';
+import { CreatebirthdayComponent } from'./createbirthday/createbirthday.component';
 export const ReminderRoutes: Routes = [
   {
     path: '',
@@ -28,5 +29,18 @@ data: {
 
     }
   },
+  {
+    path: 'createbirthday',
+    component: CreatebirthdayComponent,
+data: {
+      title: 'Create Birthday',
+      urls: [
+        { title: 'Dashboard', url: '/dashboard' },
+        { title: 'Create Birthday' }
+      ]
+
+    }
+  },
+  //createbirthday
 ]
   }];

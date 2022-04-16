@@ -3,23 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { CommonService } from '../../Service/common.service';
 import { CustomValidators } from 'ng2-validation';
-
-const password = new FormControl('', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(30), Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')]));
-const confirmPassword = new FormControl('', CustomValidators.equalTo(password));
-const Todatdate = new Date();
-
-export interface state {
-  code: string;
-  name: string;
-}
-
-export interface bankdetailList {
-  BankName: string;
-  AccountNo: number;
-  IFSCCode: string;
-  AccountType: string;
-}
-
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-createreminder',
@@ -30,14 +14,7 @@ export class CreatereminderComponent implements OnInit {
 
   lists: any = {};
 
-
-  isLinear = false;
   firstFormGroup: FormGroup;
-
-  isOptional = false;
-  isEditable = false;
-  hide = true;
-  hide1 = true;
 
   newUserlist = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -54,23 +31,34 @@ export class CreatereminderComponent implements OnInit {
       // password: password,
       // confirmPassword: confirmPassword,
 
-      InsuranceType:['',[Validators.required,Validators.minLength(3), Validators.maxLength(20), Validators.pattern('^[a-zA-Z ]+$')]],
+      InsuranceType:['',[Validators.required]],
       PolicyHolder:['',[Validators.required,Validators.minLength(3), Validators.maxLength(20), Validators.pattern('^[a-zA-Z ]+$')]],
+
       PolicyNumber:['',[Validators.required,Validators.minLength(0), Validators.maxLength(20), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
-      PlanDescption:['',[Validators.required,Validators.minLength(3), Validators.maxLength(20), Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+
+      PlanDescption:['',[Validators.required]],
+
       CompanyName:['',[Validators.required,Validators.minLength(3), Validators.maxLength(20), Validators.pattern('^[a-zA-Z ]+$')]],
-      SumInsuredAssured:['',[Validators.required,Validators.minLength(3), Validators.maxLength(20), Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+
+      SumInsuredAssured:['',[Validators.required,Validators.minLength(3), Validators.maxLength(20), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
+
       PremiumAmt:['',[Validators.required,Validators.minLength(0), Validators.maxLength(20), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
+
       PaymentCycle:['',[Validators.required,Validators.minLength(0), Validators.maxLength(20), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
+
       PolicyTermYear:['',[Validators.required,Validators.minLength(0), Validators.maxLength(20), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
-      CommencementDate:['',[Validators.required,Validators.minLength(0), Validators.maxLength(20), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
-      PaymentDueDate:['',[Validators.required,Validators.minLength(0), Validators.maxLength(20), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
-      MaturityDate:['',[Validators.required,Validators.minLength(0), Validators.maxLength(20), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
-      Notes:['',[Validators.required,Validators.minLength(0), Validators.maxLength(20), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
+
+      CommencementDate:['',[Validators.required]],
+
+      PaymentDueDate:['',[Validators.required]],
+
+      MaturityDate:['',[Validators.required]],
+
+      ReminderDateTime:['',[Validators.required]],
+
+      Notes:[''],
 
     });
-
-
   }
 
   get firtsForm() {
@@ -117,25 +105,56 @@ export class CreatereminderComponent implements OnInit {
   //   });
   // }
 
-  CreateUser() {
+  CreateReminder() {
+    debugger
     let submitdata : any = {}
-    submitdata.user_type = this.firstFormGroup.value.usertype,
-    submitdata.name = this.firstFormGroup.value.firstname + ' ' + this.firstFormGroup.value.lastname,
-    submitdata.mobile = this.firstFormGroup.value.mobnumber,
-    submitdata.email = this.firstFormGroup.value.email,
-    submitdata.password = this.firstFormGroup.value.confirmPassword,
-    submitdata.fcm_id = localStorage.getItem("FCMID")
+     submitdata.InsuranceType = this.firstFormGroup.value.InsuranceType,
+     submitdata.PolicyHolder = this.firstFormGroup.value.PolicyHolder,
+     submitdata.PolicyNumber = this.firstFormGroup.value.PolicyNumber,
+     submitdata.PlanDescption = this.firstFormGroup.value.PlanDescption,
+     submitdata.CompanyName = this.firstFormGroup.value.CompanyName,
+     submitdata.SumInsuredAssured = this.firstFormGroup.value.SumInsuredAssured,
+     submitdata.PremiumAmt = this.firstFormGroup.value.PremiumAmt,
+     submitdata.PaymentCycle = this.firstFormGroup.value.PaymentCycle,
+     submitdata.PolicyTermYear = this.firstFormGroup.value.PolicyTermYear,
+     submitdata.CommencementDate = this.firstFormGroup.value.CommencementDate,
+     submitdata.PaymentDueDate = this.firstFormGroup.value.PaymentDueDate,
+     submitdata.MaturityDate = this.firstFormGroup.value.MaturityDate,
+     submitdata.ReminderDateTime = this.firstFormGroup.value.ReminderDateTime,
+     submitdata.Notes = this.firstFormGroup.value.Notes,
+     submitdata.UserId = 1;
+     submitdata.Createdate = moment();
+     submitdata.UpdateDate = moment();
 
-    this.common.PostMethod("user/addnewuser", submitdata).then((res: any) => {
-      if (res.status == 1) {
-        this.common.ToastMessage("Success", res.message);
-      } else {
-        this.common.ToastMessage("Info", res.message);
-      }
-    }).catch(y => {
-      this.common.ToastMessage("Error !",y.error.message);
-    });
+    // submitdata.fcm_id = localStorage.getItem("FCMID")
 
+    // this.common.PostMethod("user/addnewuser", submitdata).then((res: any) => {
+    //   if (res.status == 1) {
+    //     this.common.ToastMessage("Success", res.message);
+    //   } else {
+    //     this.common.ToastMessage("Info", res.message);
+    //   }
+    // }).catch(y => {
+    //   this.common.ToastMessage("Error !",y.error.message);
+    // });
+
+  }
+
+  ResetReminder(){
+    this.firstFormGroup.controls['InsuranceType'].setValue(0);
+    this.firstFormGroup.controls['PolicyHolder'].setValue('');
+    this.firstFormGroup.controls['PolicyNumber'].setValue('');
+    this.firstFormGroup.controls['PlanDescption'].setValue('');
+    this.firstFormGroup.controls['CompanyName'].setValue('');
+    this.firstFormGroup.controls['SumInsuredAssured'].setValue('');
+    this.firstFormGroup.controls['PremiumAmt'].setValue('');
+    this.firstFormGroup.controls['PaymentCycle'].setValue('');
+    this.firstFormGroup.controls['PolicyTermYear'].setValue('');
+    this.firstFormGroup.controls['CommencementDate'].setValue('');
+    this.firstFormGroup.controls['PaymentDueDate'].setValue('');
+    this.firstFormGroup.controls['MaturityDate'].setValue('');
+    this.firstFormGroup.controls['ReminderDateTime'].setValue('');
+    this.firstFormGroup.controls['Notes'].setValue('');
   }
 
 

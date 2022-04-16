@@ -7,7 +7,8 @@ import { ReminderRoutes } from './reminder.routing';
 import { DemoMaterialModule } from '../../demo-material-module';
 import { AllreminderComponent } from './allreminder/allreminder.component';
 import { CreatereminderComponent } from './createreminder/createreminder.component';
-import { PipeModule} from '../Pipes/pipe/pipe.module'
+import { PipeModule} from '../Pipes/pipe/pipe.module';
+import { CreatebirthdayComponent } from './createbirthday/createbirthday.component'
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { PipeModule} from '../Pipes/pipe/pipe.module'
   ],
   declarations: [
     AllreminderComponent,
-    CreatereminderComponent
+    CreatereminderComponent,
+    CreatebirthdayComponent
   ]
 })
 export class ReminderModule {}
