@@ -19,12 +19,13 @@ export class CreatebirthdayComponent implements OnInit {
   lists: any = {};
   firstFormGroup: FormGroup;
   BithdayDataArray: any = [];
+  updaterecord = false;
 
   birthdaypersonlist = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(public common: CommonService, public fb: FormBuilder) {}
+  constructor(public common: CommonService, public fb: FormBuilder) { }
   ngOnInit() {
     this.firstFormGroup = this.fb.group({
       Id: [0],
@@ -59,8 +60,8 @@ export class CreatebirthdayComponent implements OnInit {
     ];
     this.birthdaypersonlist.paginator = this.paginator;
     this.birthdaypersonlist.sort = this.sort;
-
     this.GetBirthdayList();
+    this.updaterecord = false;
   }
 
   GetBirthdayList() {
@@ -90,15 +91,14 @@ export class CreatebirthdayComponent implements OnInit {
     return this.firstFormGroup.controls;
   }
   CreateBirthdayReminder() {
-    debugger;
     let submitdata: any = {};
     submitdata.id = 0;
-     submitdata.userId = 0;
+    submitdata.userId = 0;
     submitdata.name = this.firstFormGroup.value.BirthdayPersonName;
-      submitdata.dobDate = this.firstFormGroup.value.DOBdate;
-      submitdata.reminderDateTime = this.firstFormGroup.value.ReminderDateTime;
-      submitdata.notes = this.firstFormGroup.value.Notes;
-      submitdata.createDate = moment();
+    submitdata.dobDate = this.firstFormGroup.value.DOBdate;
+    submitdata.reminderDateTime = this.firstFormGroup.value.ReminderDateTime;
+    submitdata.notes = this.firstFormGroup.value.Notes;
+    submitdata.createDate = moment();
     submitdata.updateDate = moment();
     submitdata.status = true;
     this.BithdayDataArray.push(submitdata);
@@ -126,10 +126,11 @@ export class CreatebirthdayComponent implements OnInit {
     this.firstFormGroup.controls["Notes"].setValue("");
     this.firstFormGroup.controls["CreateDate"].setValue("");
     this.firstFormGroup.controls["UpdateDate"].setValue("");
+    this.updaterecord = false;
   }
 
   EditBirthdayRecord(val) {
-    debugger;
+    this.updaterecord = true;
     this.firstFormGroup.controls["Id"].setValue(val.id);
     this.firstFormGroup.controls["UserId"].setValue(val.userId);
     this.firstFormGroup.controls["BirthdayPersonName"].setValue(val.name);
@@ -141,17 +142,15 @@ export class CreatebirthdayComponent implements OnInit {
     this.firstFormGroup.controls["UpdateDate"].setValue(val.updateDate);
   }
 
-
-  CreateBirthdayReminder() {
-    debugger;
+  UpdateBirthdayReminder() {
     let submitdata: any = {};
     submitdata.id = 0;
-     submitdata.userId = 0;
+    submitdata.userId = 0;
     submitdata.name = this.firstFormGroup.value.BirthdayPersonName;
-      submitdata.dobDate = this.firstFormGroup.value.DOBdate;
-      submitdata.reminderDateTime = this.firstFormGroup.value.ReminderDateTime;
-      submitdata.notes = this.firstFormGroup.value.Notes;
-      submitdata.createDate = moment();
+    submitdata.dobDate = this.firstFormGroup.value.DOBdate;
+    submitdata.reminderDateTime = this.firstFormGroup.value.ReminderDateTime;
+    submitdata.notes = this.firstFormGroup.value.Notes;
+    submitdata.createDate = moment();
     submitdata.updateDate = moment();
     submitdata.status = true;
     this.BithdayDataArray.push(submitdata);
@@ -167,10 +166,30 @@ export class CreatebirthdayComponent implements OnInit {
     //   this.common.ToastMessage("Error !",y.error.message);
     // });
     this.ResetBirthday();
+    this.updaterecord = false;
+  }
+
+  UpdatereminderrStatus(val) {
+    let submitdata: any = {};
+    val.status = !val.status;
+    submitdata.id = val.id;
+    submitdata.userId = val.userId;
+    submitdata.name = val.name;
+    submitdata.dobDate = val.dobDate;
+    submitdata.reminderDateTime = val.reminderDateTime;
+    submitdata.status = val.status;
+    submitdata.notes = val.notes;
+    submitdata.createDate = val.createDate;
+    submitdata.updateDate = val.updateDate;
+
+    this.BithdayDataArray.push(submitdata);
+    this.birthdaypersonlist = new MatTableDataSource(this.BithdayDataArray);
+    this.firstFormGroup.controls["Status"].setValue(val.status);
+
+
   }
 
   DeleteBirthdayRecord(val) {
-    debugger;
   }
 
   ChnageDateFormate(val) {
