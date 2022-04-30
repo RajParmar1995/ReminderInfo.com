@@ -13,7 +13,7 @@ import * as moment from 'moment';
 export class CreatereminderComponent implements OnInit {
 
   lists: any = {};
-
+  columwidth=33.33;
   firstFormGroup: FormGroup;
 
   newUserlist = new MatTableDataSource();

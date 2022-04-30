@@ -144,8 +144,8 @@ export class CreatebirthdayComponent implements OnInit {
 
   UpdateBirthdayReminder() {
     let submitdata: any = {};
-    submitdata.id = 0;
-    submitdata.userId = 0;
+    submitdata.id = this.firstFormGroup.value.Id;
+    submitdata.userId = this.firstFormGroup.value.UserId;
     submitdata.name = this.firstFormGroup.value.BirthdayPersonName;
     submitdata.dobDate = this.firstFormGroup.value.DOBdate;
     submitdata.reminderDateTime = this.firstFormGroup.value.ReminderDateTime;
