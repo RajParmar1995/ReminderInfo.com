@@ -2,10 +2,12 @@
   <mat-card-content style="padding-top: 0;">
     <div fxLayout="row wrap">
       <div class="p-10" fxFlex.gt-sm="100" fxFlex.gt-xs="50" fxFlex="100">
-          <button mat-raised-button class="pull-right" color="warn" style="margin-left: 5px;"
+        <button mat-raised-button class="pull-right" color="warn" style="margin-left: 5px;"
           (click)="ResetReminder()">Reset</button>
-          <button mat-raised-button [disabled]="!firstFormGroup.valid" class="pull-right" color="primary"
+        <button mat-raised-button [disabled]="!firstFormGroup.valid" class="pull-right" color="primary"
           (click)="CreateReminder()">Save</button>
+        <button mat-raised-button [disabled]="!firstFormGroup.valid" class="pull-right" color="primary"
+          (click)="UpdatepolicyReminderReminder()">Update</button>
       </div>
     </div>
     <form [formGroup]="firstFormGroup">
@@ -31,7 +33,8 @@
           <p class="text-danger m-t-0 font-16"
             *ngIf="firtsForm.PolicyHolder.touched && (firtsForm.PolicyHolder.errors?.minlength || firtsForm.PolicyHolder.errors?.maxlength)">
             Policy Holder Name should be of Min. 3 characters, Max. 20 characters.</p>
-          <p class="text-danger m-t-0 font-16" *ngIf="firtsForm.PolicyHolder.touched && firtsForm.PolicyHolder.errors?.pattern">
+          <p class="text-danger m-t-0 font-16"
+            *ngIf="firtsForm.PolicyHolder.touched && firtsForm.PolicyHolder.errors?.pattern">
             Policy Holder Name contains only characters.</p>
         </div>
         <div class="p-10" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
@@ -41,12 +44,14 @@
           <p class="text-danger m-t-0 font-16"
             *ngIf="firtsForm.PolicyNumber.touched && (firtsForm.PolicyNumber.errors?.minlength || firtsForm.PolicyNumber.errors?.maxlength)">
             Policy Number should be of Min. 3 characters, Max. 20 characters.</p>
-          <p class="text-danger m-t-0 font-16" *ngIf="firtsForm.PolicyNumber.touched && firtsForm.PolicyNumber.errors?.pattern">
+          <p class="text-danger m-t-0 font-16"
+            *ngIf="firtsForm.PolicyNumber.touched && firtsForm.PolicyNumber.errors?.pattern">
             Policy Number contains only characters.</p>
         </div>
         <div class="p-10" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
           <mat-form-field>
-            <input matInput placeholder="Plan, Vehicle No, NCB, Nominee, etc. " formControlName="PlanDescption" required>
+            <input matInput placeholder="Plan, Vehicle No, NCB, Nominee, etc."
+              title="Plan, Vehicle No, NCB, Nominee etc." formControlName="PlanDescption" required>
           </mat-form-field>
         </div>
         <div class="p-10" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
@@ -56,12 +61,14 @@
           <p class="text-danger m-t-0 font-16"
             *ngIf="firtsForm.CompanyName.touched && (firtsForm.CompanyName.errors?.minlength || firtsForm.CompanyName.errors?.maxlength)">
             Company Name should be of Min. 3 characters, Max. 20 characters.</p>
-          <p class="text-danger m-t-0 font-16" *ngIf="firtsForm.CompanyName.touched && firtsForm.CompanyName.errors?.pattern">
+          <p class="text-danger m-t-0 font-16"
+            *ngIf="firtsForm.CompanyName.touched && firtsForm.CompanyName.errors?.pattern">
             Company Name contains only characters.</p>
         </div>
         <div class="p-10" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
           <mat-form-field>
-            <input type="number" matInput placeholder="Sum Insured/Assured" formControlName="SumInsuredAssured" required>
+            <input type="number" matInput placeholder="Sum Insured/Assured" formControlName="SumInsuredAssured"
+              required>
           </mat-form-field>
           <p class="text-danger m-t-0 font-16"
             *ngIf="firtsForm.SumInsuredAssured.touched && firtsForm.SumInsuredAssured.hasError('required')">
@@ -115,7 +122,8 @@
         </div>
         <div class="p-10" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
           <mat-form-field>
-            <input type="date" matInput placeholder="Commencement/Start Date" formControlName="CommencementDate" required>
+            <input type="date" matInput placeholder="Commencement/Start Date" formControlName="CommencementDate"
+              required>
           </mat-form-field>
         </div>
         <div class="p-10" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
@@ -130,7 +138,7 @@
         </div>
         <div class="p-10" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
           <mat-form-field>
-            <input type="date" matInput placeholder="Reminder DateTime" formControlName="ReminderDateTime" required>
+            <input type="datetime-local" matInput placeholder="Reminder DateTime" id="ReminderDateTimeInputID" formControlName="ReminderDateTime" required>
           </mat-form-field>
         </div>
         <div class="p-10" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
@@ -176,6 +184,119 @@
         </div> -->
       </div>
     </form>
+
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+        <div fxLayout="row wrap">
+          <div fxFlex.gt-sm="25" fxFlex.gt-xs="100" fxFlex="100">
+            <mat-form-field>
+              <input matInput (keyup)="common.TableFilter(ReminderTablelist,$event.target.value)" placeholder="Search">
+            </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+            <div style="overflow: hidden;overflow-x: auto;">
+              <table mat-table matSort [dataSource]="ReminderTablelist">
+                <ng-container matColumnDef="Id">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>#Id </th>
+                  <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+                <ng-container matColumnDef="InsuranceType">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Insu. Type </th>
+                  <td mat-cell *matCellDef="let element"> {{element.insuranceType}} </td>
+                </ng-container>
+                <ng-container matColumnDef="PolicyHolder">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Policy Holder</th>
+                  <td mat-cell *matCellDef="let element"> {{element.policyHolder}} </td>
+                </ng-container>
+                <ng-container matColumnDef="PolicyNumber">
+                  <th mat-header-cell *matHeaderCellDef>Policy Number</th>
+                  <td mat-cell *matCellDef="let element"> {{element.policyNumber}} </td>
+                </ng-container>
+                <ng-container matColumnDef="PlanDescption">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Plan Descption </th>
+                  <td mat-cell *matCellDef="let element"> {{element.planDescption}} </td>
+                </ng-container>
+                <ng-container matColumnDef="CompanyName">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Company Name</th>
+                  <td mat-cell *matCellDef="let element"> {{element.companyName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="SumInsuredAssured">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Sum Insured/Assured </th>
+                  <td mat-cell *matCellDef="let element"> {{element.sumInsuredAssured}} </td>
+                </ng-container>
+                <ng-container matColumnDef="PremiumAmt">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Premium Amt</th>
+                  <td mat-cell *matCellDef="let element"> {{element.premiumAmt}} </td>
+                </ng-container>
+                <ng-container matColumnDef="PaymentCycle">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Payment Cycle</th>
+                  <td mat-cell *matCellDef="let element"> {{element.paymentCycle}} </td>
+                </ng-container>
+                <ng-container matColumnDef="PolicyTermYear">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Policy Term Year </th>
+                  <td mat-cell *matCellDef="let element"> {{element.policyTermYear}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="CommencementDate">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</th>
+                  <td mat-cell *matCellDef="let element"> {{element.commencementDate}} </td>
+                </ng-container>
+                <ng-container matColumnDef="PaymentDueDate">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Payment DueDate</th>
+                  <td mat-cell *matCellDef="let element"> {{element.paymentDueDate}} </td>
+                </ng-container>
+                <ng-container matColumnDef="MaturityDate">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Maturity Date</th>
+                  <td mat-cell *matCellDef="let element"> {{element.maturityDate}} </td>
+                </ng-container>
+                <ng-container matColumnDef="ReminderDateTime">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Reminder DateTime </th>
+                  <td mat-cell *matCellDef="let element"> {{element.reminderDateTime | date:"MM/dd/yyyy HH:mma"}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Notes">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Description </th>
+                  <td mat-cell *matCellDef="let element"> {{element.notes}} </td>
+                </ng-container>
+                <ng-container matColumnDef="CreateDate">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Create Date </th>
+                  <td mat-cell *matCellDef="let element"> {{element.createDate | date:"MM/dd/yyyy HH:mma"}} </td>
+                </ng-container>
+                <ng-container matColumnDef="UpdateDate">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Update date </th>
+                  <td mat-cell *matCellDef="let element"> {{element.updateDate | date:"MM/dd/yyyy HH:mma"}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Status">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
+                  <td>
+                    <mat-slide-toggle *matCellDef="let element" [(ngModel)]="element.status"
+                      (click)="UpdateCreatereminderrStatus(element)"></mat-slide-toggle>
+                  </td>
+                  <!-- <td mat-cell *matCellDef="let element"> {{element.status?'Active':'DeActive'}} </td> -->
+                </ng-container>
+                <ng-container matColumnDef="Action">
+                  <th mat-header-cell *matHeaderCellDef> Action </th>
+                  <td mat-cell *matCellDef="let element" class="action-link">
+                    <a>
+                      <mat-icon style="color:#E91E63" (click)="EditpolicyReminderRecord(element)">edit
+                      </mat-icon>
+                    </a>
+                    <a class="m-l-10">
+                      <mat-icon style="color:#E91E63" (click)="DeletepolicyReminderRecord(element)">delete</mat-icon>
+                    </a>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="lists.displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: lists.displayedColumns;"></tr>
+              </table>
+            </div>
+            <mat-paginator [pageSizeOptions]="[10, 20,30,50,100]" showFirstLastButtons>
+            </mat-paginator>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- <div fxLayout="row wrap">
       <div *ngIf="firstFormGroup.value.usertype > 2" class="p-10" fxFlex.gt-sm="100" fxFlex.gt-xs="50" fxFlex="100">
         <button mat-raised-button [disabled]="!firstFormGroup.valid" class="pull-right" color="primary"

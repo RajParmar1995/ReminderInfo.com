@@ -194,13 +194,13 @@ export class CreatebirthdayComponent implements OnInit {
 
   ChnageDateFormate(val) {
     if (val != null && val != "") {
-      return new Date(val).toISOString().split("T")[0];
+      return new Date(val).toLocaleString().split("T")[0];
     }
     return null;
   }
   ChnageDateTimeFormate(val) {
     if (val != null && val != "") {
-      return new Date(val).toISOString().split(".")[0];
+      return new Date(val).toLocaleString().split(".")[0];
     }
     return null;
   }
