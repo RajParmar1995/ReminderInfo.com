@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ConfirmboxComponent } from '../Dailogbox/confirmbox/confirmbox.component';
 import { MatDialog } from '@angular/material';
 import { ToastrManager } from 'ng6-toastr-notifications';
-import { saveAs } from 'file-saver'; 
+import { saveAs } from 'file-saver';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import * as moment from 'moment';
 
@@ -42,7 +42,7 @@ export class CommonService {
     this.ngxService.start();
     return new Promise((resolve, reject) => {
       this.http
-        .post(this.Url+ Data, { headers: { 'x-access-token': `${localStorage.getItem("Token")}`}})
+        .post(this.Url+"Auth/login",Data, { headers: {'Content-Type': 'application/json'}})
         .subscribe(
           res => {
             this.ngxService.stop();

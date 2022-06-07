@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     debugger
     let data = [];
+    let data1:any = [];
     // this.form.value.fcid = localStorage.getItem("FCMID");
 
     // this.router.navigate(["/"]);
@@ -44,24 +45,27 @@ export class LoginComponent implements OnInit {
       this.form.addControl('email', new FormControl(this.form.value.mobile, Validators.required));
       this.form.removeControl('mobile');
       data = this.form.value;
+      data1 = {"Email":this.form.value.email,"Upassword":this.form.value.password};
+    }else{
       this.form.addControl('mobile', new FormControl(this.form.value.email, Validators.required));
       this.form.removeControl('email');
-    }else{
       data = this.form.value;
+      data1 = {"Mobile":this.form.value.mobile,"Upassword":this.form.value.password};
     }
-
-    this.common.PostMethod("auth/signin", data).then((res: any) => {
+    debugger
+    this.common.LoginMethod(data1).then((res: any) => {
+      debugger
       if (res.status == 1) {
-            window.localStorage.setItem('UserId', res.data.id);
-            window.localStorage.setItem('UserProfile', JSON.stringify(res.data));
-            window.localStorage.setItem("UserType", res.data.user_type);
+            window.localStorage.setItem('EmailID', res.email);
+            window.localStorage.setItem('UserID', res.id);
+            window.localStorage.setItem("URoleId", res.uroleId);
             window.localStorage.setItem("Token", res.token);
             this.common.ToastMessage("Success", res.message);
             setTimeout(()=>{
               this.router.navigate(["/"]);
             },1000)
       } else {
-        this.common.ToastMessage("Info", res.Message);
+        this.common.ToastMessage("Info", res.message);
       }
     }).catch(y => {
       this.common.ToastMessage("Error !",y.error.message);
