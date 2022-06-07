@@ -20,10 +20,10 @@ export class LoginComponent implements OnInit {
   hide = true;
   lists: any = {};
   constructor(private fb: FormBuilder, private router: Router, public common: CommonService) {
-    if (!localStorage.getItem("FCMID")) {
-      let ID: any = Math.floor(100000 + Math.random() * 900000);
-      localStorage.setItem("FCMID", ID);
-    }
+    // if (!localStorage.getItem("FCMID")) {
+    //   let ID: any = Math.floor(100000 + Math.random() * 900000);
+    //   localStorage.setItem("FCMID", ID);
+    // }
   }
 
   ngOnInit() {
@@ -34,36 +34,37 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    debugger
     let data = [];
-    this.form.value.fcid = localStorage.getItem("FCMID");
+    // this.form.value.fcid = localStorage.getItem("FCMID");
 
-    this.router.navigate(["/"]);
+    // this.router.navigate(["/"]);
 
-    // if(!this.form.value.mobile.match(/^\d{10}$/)){
-    //   this.form.addControl('email', new FormControl(this.form.value.mobile, Validators.required));
-    //   this.form.removeControl('mobile');
-    //   data = this.form.value;
-    //   this.form.addControl('mobile', new FormControl(this.form.value.email, Validators.required));
-    //   this.form.removeControl('email');
-    // }else{
-    //   data = this.form.value;
-    // }
+    if(!this.form.value.mobile.match(/^\d{10}$/)){
+      this.form.addControl('email', new FormControl(this.form.value.mobile, Validators.required));
+      this.form.removeControl('mobile');
+      data = this.form.value;
+      this.form.addControl('mobile', new FormControl(this.form.value.email, Validators.required));
+      this.form.removeControl('email');
+    }else{
+      data = this.form.value;
+    }
 
-    // this.common.PostMethod("auth/signin", data).then((res: any) => {
-    //   if (res.status == 1) {
-    //         window.localStorage.setItem('UserId', res.data.id);
-    //         window.localStorage.setItem('UserProfile', JSON.stringify(res.data));
-    //         window.localStorage.setItem("UserType", res.data.user_type);
-    //         window.localStorage.setItem("Token", res.token);
-    //         this.common.ToastMessage("Success", res.message);
-    //         setTimeout(()=>{
-    //           this.router.navigate(["/"]);
-    //         },1000)
-    //   } else {
-    //     this.common.ToastMessage("Info", res.Message);
-    //   }
-    // }).catch(y => {
-    //   this.common.ToastMessage("Error !",y.error.message);
-    // });
+    this.common.PostMethod("auth/signin", data).then((res: any) => {
+      if (res.status == 1) {
+            window.localStorage.setItem('UserId', res.data.id);
+            window.localStorage.setItem('UserProfile', JSON.stringify(res.data));
+            window.localStorage.setItem("UserType", res.data.user_type);
+            window.localStorage.setItem("Token", res.token);
+            this.common.ToastMessage("Success", res.message);
+            setTimeout(()=>{
+              this.router.navigate(["/"]);
+            },1000)
+      } else {
+        this.common.ToastMessage("Info", res.Message);
+      }
+    }).catch(y => {
+      this.common.ToastMessage("Error !",y.error.message);
+    });
   }
 }
