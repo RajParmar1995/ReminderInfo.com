@@ -48,7 +48,7 @@ export class CreatebirthdayComponent implements OnInit {
     });
 
     this.lists.displayedColumns = [
-      "id",
+      // "id",
       "birthdaypersonname",
       "dobdate",
       "reminderdatetime",
@@ -65,55 +65,88 @@ export class CreatebirthdayComponent implements OnInit {
   }
 
   GetBirthdayList() {
-    // this.common.PostMethod("user/getuserlist",{ where:{},order:[['id','desc']],limit:1000,
-    // }).then((res: any) => {
-    //   this.birthdaypersonlist = new MatTableDataSource(res.data);
-    // });
-
-    this.BithdayDataArray = [
-      {
-        id: 1,
-        userId: 1,
-        name: "test",
-        dobDate: new Date(),
-        reminderDateTime: "12/12/2020",
-        notes: "test ansbdjsad",
-        createDate: new Date(),
-        updateDate: "12/12/2020",
-        status: true,
-      },
-    ];
-
-    this.birthdaypersonlist = new MatTableDataSource(this.BithdayDataArray);
+    this.common.GetMethod(`Birth_PolicyReminder/Usreid?Usreid=${localStorage.getItem("UserID")}`).then((res: any) => {
+      let birthdayList = res.filter(x=> x.fkReminderDetail == null);      
+      this.birthdaypersonlist = new MatTableDataSource(birthdayList);
+    });
   }
 
   get firtsForm() {
     return this.firstFormGroup.controls;
   }
-  CreateBirthdayReminder() {
+  CreateBirthdayReminder() {   
     let submitdata: any = {};
-    submitdata.id = 0;
-    submitdata.userId = 0;
-    submitdata.name = this.firstFormGroup.value.BirthdayPersonName;
+    submitdata.reminderId = null;
+    submitdata.userId = localStorage.getItem("UserID")
+    submitdata.bdayHolderName = this.firstFormGroup.value.BirthdayPersonName;
     submitdata.dobDate = this.firstFormGroup.value.DOBdate;
     submitdata.reminderDateTime = this.firstFormGroup.value.ReminderDateTime;
     submitdata.notes = this.firstFormGroup.value.Notes;
-    submitdata.createDate = moment();
-    submitdata.updateDate = moment();
-    submitdata.status = true;
-    this.BithdayDataArray.push(submitdata);
-    this.birthdaypersonlist = new MatTableDataSource(this.BithdayDataArray);
-    // submitdata.fcm_id = localStorage.getItem("FCMID")
-    // this.common.PostMethod("user/addnewuser", submitdata).then((res: any) => {
-    //   if (res.status == 1) {
-    //     this.common.ToastMessage("Success", res.message);
-    //   } else {
-    //     this.common.ToastMessage("Info", res.message);
-    //   }
-    // }).catch(y => {
-    //   this.common.ToastMessage("Error !",y.error.message);
-    // });
-    this.ResetBirthday();
+
+    this.common.PostMethod(`Birth_PolicyReminder`, submitdata).then((res: any) => {
+      if (res.status == 1) {
+        this.common.ToastMessage("Success", res.message);
+        this.ResetBirthday();
+        this.GetBirthdayList();
+    this.updaterecord = false;
+      } else {
+        this.common.ToastMessage("Info", res.message);
+      }
+    }).catch(y => {
+      this.common.ToastMessage("Error !",y.error.message);
+    });
+  }
+
+  EditBirthdayRecord(val) {
+    debugger
+    this.updaterecord = true;
+    this.firtsForm.Id.setValue(val.reminderId);
+    this.firtsForm.UserId.setValue(val.userId);
+    this.firtsForm.BirthdayPersonName.setValue(val.bdayHolderName);
+    if(val.dobDate != null){
+      this.firtsForm.DOBdate.setValue(val.dobDate.split("T")[0]);
+    }else{
+      this.firtsForm.DOBdate.setValue(null);
+    }
+    if(val.reminderDateTime != null){
+      this.firtsForm.ReminderDateTime.setValue(val.reminderDateTime.split(".")[0]);
+    }else{
+      this.firtsForm.ReminderDateTime.setValue(null);
+    }
+    this.firtsForm.Status.setValue(val.reminderStatus);
+    this.firtsForm.Notes.setValue(val.notes);
+    this.firtsForm.CreateDate.setValue(val.createDate);
+    this.firtsForm.UpdateDate.setValue(val.updateDate);
+  }
+
+  UpdateBirthdayReminder() {
+    debugger
+    let submitdata: any = {};
+    submitdata.reminderId = this.firstFormGroup.value.Id;
+    submitdata.userId = this.firstFormGroup.value.UserId;
+    submitdata.bdayHolderName = this.firstFormGroup.value.BirthdayPersonName;
+    submitdata.dobDate = this.firstFormGroup.value.DOBdate;
+    submitdata.reminderDateTime = this.firstFormGroup.value.ReminderDateTime;
+    submitdata.notes = this.firstFormGroup.value.Notes;
+    //submitdata.createDate = this.firstFormGroup.value.CreateDate;
+    //submitdata.updateDate = this.firstFormGroup.value.UpdateDate;
+    //submitdata.ReminderStatus = true;
+    // this.BithdayDataArray.push(submitdata);
+    // this.birthdaypersonlist = new MatTableDataSource(this.BithdayDataArray);
+    
+    this.common.PutMethod(`Birth_PolicyReminder/${submitdata.userId}`, submitdata).then((res: any) => {
+      if (res.status == 1) {
+        this.common.ToastMessage("Success", res.message);
+        this.ResetBirthday();
+        this.GetBirthdayList();
+    this.updaterecord = false;
+      } else {
+        this.common.ToastMessage("Info", res.message);
+      }
+    }).catch(y => {
+      this.common.ToastMessage("Error !",y.error.message);
+    });
+    
   }
 
   ResetBirthday() {
@@ -129,62 +162,28 @@ export class CreatebirthdayComponent implements OnInit {
     this.updaterecord = false;
   }
 
-  EditBirthdayRecord(val) {
-    this.updaterecord = true;
-    this.firstFormGroup.controls["Id"].setValue(val.id);
-    this.firstFormGroup.controls["UserId"].setValue(val.userId);
-    this.firstFormGroup.controls["BirthdayPersonName"].setValue(val.name);
-    this.firstFormGroup.controls["DOBdate"].setValue(this.ChnageDateFormate(val.dobDate));
-    this.firstFormGroup.controls["ReminderDateTime"].setValue(this.ChnageDateTimeFormate(val.reminderDateTime));
-    this.firstFormGroup.controls["Status"].setValue(val.status);
-    this.firstFormGroup.controls["Notes"].setValue(val.notes);
-    this.firstFormGroup.controls["CreateDate"].setValue(val.createdate);
-    this.firstFormGroup.controls["UpdateDate"].setValue(val.updateDate);
-  }
-
-  UpdateBirthdayReminder() {
-    let submitdata: any = {};
-    submitdata.id = this.firstFormGroup.value.Id;
-    submitdata.userId = this.firstFormGroup.value.UserId;
-    submitdata.name = this.firstFormGroup.value.BirthdayPersonName;
-    submitdata.dobDate = this.firstFormGroup.value.DOBdate;
-    submitdata.reminderDateTime = this.firstFormGroup.value.ReminderDateTime;
-    submitdata.notes = this.firstFormGroup.value.Notes;
-    submitdata.createDate = moment();
-    submitdata.updateDate = moment();
-    submitdata.status = true;
-    this.BithdayDataArray.push(submitdata);
-    this.birthdaypersonlist = new MatTableDataSource(this.BithdayDataArray);
-    // submitdata.fcm_id = localStorage.getItem("FCMID")
-    // this.common.PostMethod("user/addnewuser", submitdata).then((res: any) => {
-    //   if (res.status == 1) {
-    //     this.common.ToastMessage("Success", res.message);
-    //   } else {
-    //     this.common.ToastMessage("Info", res.message);
-    //   }
-    // }).catch(y => {
-    //   this.common.ToastMessage("Error !",y.error.message);
-    // });
-    this.ResetBirthday();
-    this.updaterecord = false;
-  }
-
   UpdatereminderrStatus(val) {
+    debugger
     let submitdata: any = {};
-    val.status = !val.status;
-    submitdata.id = val.id;
-    submitdata.userId = val.userId;
-    submitdata.name = val.name;
-    submitdata.dobDate = val.dobDate;
-    submitdata.reminderDateTime = val.reminderDateTime;
-    submitdata.status = val.status;
-    submitdata.notes = val.notes;
-    submitdata.createDate = val.createDate;
-    submitdata.updateDate = val.updateDate;
-
-    this.BithdayDataArray.push(submitdata);
-    this.birthdaypersonlist = new MatTableDataSource(this.BithdayDataArray);
-    this.firstFormGroup.controls["Status"].setValue(val.status);
+    val.reminderStatus = !val.reminderStatus;
+    submitdata.ReminderIdVal = val.reminderId;
+    submitdata.status = val.reminderStatus;
+    debugger
+    this.common.PatchMethod(`Birth_PolicyReminder/${submitdata.ReminderIdVal}`,submitdata).then((res: any) => {
+      debugger
+      if (res.status == 1) {
+        debugger
+        this.common.ToastMessage("Success", res.message);
+        this.ResetBirthday();
+        this.GetBirthdayList();
+    this.updaterecord = false;
+      } else {
+        this.common.ToastMessage("Info", res.message);
+      }
+    }).catch(y => {
+      this.common.ToastMessage("Error !",y.error.message);
+    });
+   
 
 
   }
@@ -192,16 +191,16 @@ export class CreatebirthdayComponent implements OnInit {
   DeleteBirthdayRecord(val) {
   }
 
-  ChnageDateFormate(val) {
-    if (val != null && val != "") {
-      return new Date(val).toLocaleString().split("T")[0];
-    }
-    return null;
-  }
-  ChnageDateTimeFormate(val) {
-    if (val != null && val != "") {
-      return new Date(val).toLocaleString().split(".")[0];
-    }
-    return null;
-  }
+  // ChnageDateFormate(val) {
+  //   if (val != null && val != "") {
+  //     return new Date(val).toLocaleString().split("T")[0];
+  //   }
+  //   return null;
+  // }
+  // ChnageDateTimeFormate(val) {
+  //   if (val != null && val != "") {
+  //     return new Date(val).toLocaleString().split(".")[0];
+  //   }
+  //   return null;
+  // }
 }

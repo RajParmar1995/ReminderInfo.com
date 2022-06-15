@@ -1,6 +1,7 @@
 import { Router, NavigationExtras } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+//import { Headers} from '@angular/http';
 import { ConfirmboxComponent } from '../Dailogbox/confirmbox/confirmbox.component';
 import { MatDialog } from '@angular/material';
 import { ToastrManager } from 'ng6-toastr-notifications';
@@ -15,6 +16,11 @@ import * as moment from 'moment';
 })
 export class CommonService {
   Url: any = "https://localhost:44340/api/";
+
+  // headers:any = new Headers({
+  //   'Content-Type': 'application/json',
+  //   'Authorization': `Bearer ${localStorage.getItem("Token")}`
+  // })
 
   InsuranceType: any = [
     {id:2,insType:"Health Insurance"},
@@ -62,14 +68,14 @@ export class CommonService {
   GetMethod(MapUrl) {
     // this.CheckTimeAuth();
     return new Promise((resolve, reject) => {
-      this.http.get(this.Url + MapUrl, { headers: { 'x-access-token': `${localStorage.getItem("Token")}` } }).subscribe(
+      this.http.get(this.Url + MapUrl, {headers :{Authorization: `Bearer ${localStorage.getItem("Token")}`}}).subscribe(
         res => {
           resolve(res);
         },
         err => {
-          // if (err.status == 401) {
-          //   this.logout();
-          // }
+          if (err.status == 401) {
+            this.logout();
+          }
           reject(err);
         }
       );
@@ -81,16 +87,58 @@ export class CommonService {
     this.ngxService.start();
     return new Promise((resolve, reject) => {
       this.http
-        .post(this.Url + MapUrl, Data, { headers: { 'x-access-token': `${localStorage.getItem("Token")}`}})
+        .post(this.Url + MapUrl, Data, {headers :{Authorization: `Bearer ${localStorage.getItem("Token")}`}})
         .subscribe(
           res => {
             this.ngxService.stop();
             resolve(res);
           },
           err => {
-            // if (err.status == 401) {
-            //   this.logout();
-            // }
+            if (err.status == 401) {
+              this.logout();
+            }
+            this.ngxService.stop();
+            reject(err);
+          }
+        );
+    });
+  }
+  PutMethod(MapUrl, Data) {
+    // this.CheckTimeAuth();
+    this.ngxService.start();
+    return new Promise((resolve, reject) => {
+      this.http
+        .put(this.Url + MapUrl, Data, {headers :{Authorization: `Bearer ${localStorage.getItem("Token")}`}})
+        .subscribe(
+          res => {
+            this.ngxService.stop();
+            resolve(res);
+          },
+          err => {
+            if (err.status == 401) {
+              this.logout();
+            }
+            this.ngxService.stop();
+            reject(err);
+          }
+        );
+    });
+  }
+  PatchMethod(MapUrl,Data) {
+    // this.CheckTimeAuth();
+    this.ngxService.start();
+    return new Promise((resolve, reject) => {
+      this.http
+        .patch(this.Url + MapUrl, Data,{headers :{Authorization: `Bearer ${localStorage.getItem("Token")}`}})
+        .subscribe(
+          res => {
+            this.ngxService.stop();
+            resolve(res);
+          },
+          err => {
+            if (err.status == 401) {
+              this.logout();
+            }
             this.ngxService.stop();
             reject(err);
           }

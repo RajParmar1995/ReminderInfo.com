@@ -5,6 +5,7 @@ import { AuthguardService } from './Portal/Service/authguard.service';
 
 export const AppRoutes: Routes = [
   {
+    
     path: '',
     component: FullComponent,
     children: [

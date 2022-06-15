@@ -10,10 +10,10 @@
                         <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                             <mat-form-field>
                                 <input matInput placeholder="Mobile Number / Email" type="text"
-                                    [formControl]="form.controls['mobile']">
+                                    [formControl]="form.controls['mobile_email']">
                             </mat-form-field>
                             <small
-                                *ngIf="form.controls['mobile'].hasError('required') && form.controls['mobile'].touched"
+                                *ngIf="form.controls['mobile_email'].hasError('required') && form.controls['mobile_email'].touched"
                                 class="text-danger support-text">Mobile No. / Email is required.</small>
                         </div>
                         <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
