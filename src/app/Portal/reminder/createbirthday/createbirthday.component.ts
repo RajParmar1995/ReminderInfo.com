@@ -65,9 +65,8 @@ export class CreatebirthdayComponent implements OnInit {
   }
 
   GetBirthdayList() {
-    this.common.GetMethod(`Birth_PolicyReminder/Usreid?Usreid=${localStorage.getItem("UserID")}`).then((res: any) => {
-      let birthdayList = res.filter(x=> x.fkReminderDetail == null);      
-      this.birthdaypersonlist = new MatTableDataSource(birthdayList);
+    this.common.GetMethod(`Birth_PolicyReminder/Usreid,ReminderType?Usreid=${localStorage.getItem("UserID")}&ReminderType=1`).then((res: any) => {
+      this.birthdaypersonlist = new MatTableDataSource(res);
     });
   }
 
@@ -98,7 +97,6 @@ export class CreatebirthdayComponent implements OnInit {
   }
 
   EditBirthdayRecord(val) {
-    debugger
     this.updaterecord = true;
     this.firtsForm.Id.setValue(val.reminderId);
     this.firtsForm.UserId.setValue(val.userId);
@@ -120,7 +118,6 @@ export class CreatebirthdayComponent implements OnInit {
   }
 
   UpdateBirthdayReminder() {
-    debugger
     let submitdata: any = {};
     submitdata.reminderId = this.firstFormGroup.value.Id;
     submitdata.userId = this.firstFormGroup.value.UserId;
@@ -128,12 +125,7 @@ export class CreatebirthdayComponent implements OnInit {
     submitdata.dobDate = this.firstFormGroup.value.DOBdate;
     submitdata.reminderDateTime = this.firstFormGroup.value.ReminderDateTime;
     submitdata.notes = this.firstFormGroup.value.Notes;
-    //submitdata.createDate = this.firstFormGroup.value.CreateDate;
-    //submitdata.updateDate = this.firstFormGroup.value.UpdateDate;
-    //submitdata.ReminderStatus = true;
-    // this.BithdayDataArray.push(submitdata);
-    // this.birthdaypersonlist = new MatTableDataSource(this.BithdayDataArray);
-    
+        
     this.common.PutMethod(`Birth_PolicyReminder/${submitdata.userId}`, submitdata).then((res: any) => {
       if (res.status == 1) {
         this.common.ToastMessage("Success", res.message);
@@ -163,16 +155,12 @@ export class CreatebirthdayComponent implements OnInit {
   }
 
   UpdatereminderrStatus(val) {
-    debugger
     let submitdata: any = {};
     val.reminderStatus = !val.reminderStatus;
     submitdata.ReminderIdVal = val.reminderId;
     submitdata.status = val.reminderStatus;
-    debugger
     this.common.PatchMethod(`Birth_PolicyReminder/${submitdata.ReminderIdVal}`,submitdata).then((res: any) => {
-      debugger
       if (res.status == 1) {
-        debugger
         this.common.ToastMessage("Success", res.message);
         this.ResetBirthday();
         this.GetBirthdayList();

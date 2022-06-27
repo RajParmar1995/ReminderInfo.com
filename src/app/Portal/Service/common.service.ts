@@ -66,6 +66,7 @@ export class CommonService {
   }
 
   GetMethod(MapUrl) {
+    debugger
     // this.CheckTimeAuth();
     return new Promise((resolve, reject) => {
       this.http.get(this.Url + MapUrl, {headers :{Authorization: `Bearer ${localStorage.getItem("Token")}`}}).subscribe(
