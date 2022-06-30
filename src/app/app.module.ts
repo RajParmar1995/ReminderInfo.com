@@ -39,6 +39,7 @@ import { MatCommonModule } from '@angular/material';
 import { SettingsComponent } from './Workmanager/settings/settings.component';
 import { UserdetailComponent } from './Portal/Dailogbox/userdetail/userdetail.component';
 import { PipeModule } from './Portal/Pipes/pipe/pipe.module';
+import { ReminderinfodailogComponent } from './Portal/Dailogbox/reminderinfodailog/reminderinfodailog.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { PipeModule } from './Portal/Pipes/pipe/pipe.module';
     ChangepasswordComponent,
     SettingsComponent,
     UserdetailComponent,
+    ReminderinfodailogComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,7 +83,7 @@ import { PipeModule } from './Portal/Pipes/pipe/pipe.module';
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     }
   ],
-  entryComponents: [ConfirmboxComponent, OtpComponent, ChangepasswordComponent,UserdetailComponent],
+  entryComponents: [ConfirmboxComponent, OtpComponent, ChangepasswordComponent,UserdetailComponent,ReminderinfodailogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

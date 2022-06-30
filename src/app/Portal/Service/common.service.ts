@@ -84,6 +84,7 @@ export class CommonService {
   }
 
   PostMethod(MapUrl, Data) {
+    debugger
     // this.CheckTimeAuth();
     this.ngxService.start();
     return new Promise((resolve, reject) => {

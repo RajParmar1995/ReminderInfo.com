@@ -73,12 +73,13 @@ export class CreatebirthdayComponent implements OnInit {
   get firtsForm() {
     return this.firstFormGroup.controls;
   }
-  CreateBirthdayReminder() {   
+  CreateBirthdayReminder() {
     let submitdata: any = {};
     submitdata.reminderId = null;
     submitdata.userId = localStorage.getItem("UserID")
     submitdata.bdayHolderName = this.firstFormGroup.value.BirthdayPersonName;
     submitdata.dobDate = this.firstFormGroup.value.DOBdate;
+    submitdata.reminderType = 1;
     submitdata.reminderDateTime = this.firstFormGroup.value.ReminderDateTime;
     submitdata.notes = this.firstFormGroup.value.Notes;
 
@@ -123,9 +124,10 @@ export class CreatebirthdayComponent implements OnInit {
     submitdata.userId = this.firstFormGroup.value.UserId;
     submitdata.bdayHolderName = this.firstFormGroup.value.BirthdayPersonName;
     submitdata.dobDate = this.firstFormGroup.value.DOBdate;
+    submitdata.reminderType = 1;
     submitdata.reminderDateTime = this.firstFormGroup.value.ReminderDateTime;
     submitdata.notes = this.firstFormGroup.value.Notes;
-        
+
     this.common.PutMethod(`Birth_PolicyReminder/${submitdata.userId}`, submitdata).then((res: any) => {
       if (res.status == 1) {
         this.common.ToastMessage("Success", res.message);
@@ -138,7 +140,7 @@ export class CreatebirthdayComponent implements OnInit {
     }).catch(y => {
       this.common.ToastMessage("Error !",y.error.message);
     });
-    
+
   }
 
   ResetBirthday() {
@@ -155,6 +157,7 @@ export class CreatebirthdayComponent implements OnInit {
   }
 
   UpdatereminderrStatus(val) {
+    debugger
     let submitdata: any = {};
     val.reminderStatus = !val.reminderStatus;
     submitdata.ReminderIdVal = val.reminderId;
@@ -171,9 +174,6 @@ export class CreatebirthdayComponent implements OnInit {
     }).catch(y => {
       this.common.ToastMessage("Error !",y.error.message);
     });
-   
-
-
   }
 
   DeleteBirthdayRecord(val) {

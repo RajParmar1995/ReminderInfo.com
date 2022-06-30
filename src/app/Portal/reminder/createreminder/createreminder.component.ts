@@ -1,17 +1,23 @@
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
-import { CommonService } from '../../Service/common.service';
-import { CustomValidators } from 'ng2-validation';
-import * as moment from 'moment';
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  Validators,
+} from "@angular/forms";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
+import { CommonService } from "../../Service/common.service";
+import { CustomValidators } from "ng2-validation";
+import * as moment from "moment";
+import { MatDialog,MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
+import {ReminderinfodailogComponent} from '../../Dailogbox/reminderinfodailog/reminderinfodailog.component';
 
 @Component({
-  selector: 'app-createreminder',
-  templateUrl: './createreminder.component.html',
-  styleUrls: ['./createreminder.component.css']
+  selector: "app-createreminder",
+  templateUrl: "./createreminder.component.html",
+  styleUrls: ["./createreminder.component.css"],
 })
 export class CreatereminderComponent implements OnInit {
-
   lists: any = {};
   columwidth = 25;
   firstFormGroup: FormGroup;
@@ -23,35 +29,90 @@ export class CreatereminderComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(public common: CommonService, public fb: FormBuilder) {
-
-  }
+  constructor(public common: CommonService, public fb: FormBuilder) {}
   ngOnInit() {
     this.firstFormGroup = this.fb.group({
-      Id: [0],
-      UserId: [0],
-      InsuranceType: ['', [Validators.required]],
-      PolicyHolder: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern('^[a-zA-Z ]+$')]],
-      PolicyNumber: ['', [Validators.required, Validators.minLength(0), Validators.maxLength(20), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
-      PlanDescption: ['', [Validators.required]],
-      CompanyName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern('^[a-zA-Z ]+$')]],
-      SumInsuredAssured: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
-      PremiumAmt: ['', [Validators.required, Validators.minLength(0), Validators.maxLength(20), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
-      PaymentCycle: ['', [Validators.required, Validators.minLength(0), Validators.maxLength(20), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
-      PolicyTermYear: ['', [Validators.required, Validators.minLength(0), Validators.maxLength(20), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
-      CommencementDate: ['', [Validators.required]],
-      PaymentDueDate: ['', [Validators.required]],
-      MaturityDate: ['', [Validators.required]],
-      ReminderDateTime: ['', [Validators.required]],
-      Notes: [''],
+      Id: [null],
+      UserId: [null],
+      InsuranceType: ["", [Validators.required]],
       Status: [""],
+      ReminderDateTime: ["", [Validators.required]],
+      Notes: [""],
       CreateDate: [""],
       UpdateDate: [""],
 
+      ReminderDetailId: [null],
+      PolicyHolder: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(20),
+          Validators.pattern("^[a-zA-Z ]+$"),
+        ],
+      ],
+      PolicyNumber: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(0),
+          Validators.maxLength(20),
+          Validators.pattern(/^-?(0|[1-9]\d*)?$/),
+        ],
+      ],
+      PlanDescption: ["", [Validators.required]],
+      CompanyName: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(20),
+          Validators.pattern("^[a-zA-Z ]+$"),
+        ],
+      ],
+      SumInsuredAssured: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(20),
+          Validators.pattern(/^-?(0|[1-9]\d*)?$/),
+        ],
+      ],
+      PremiumAmt: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(0),
+          Validators.maxLength(20),
+          Validators.pattern(/^-?(0|[1-9]\d*)?$/),
+        ],
+      ],
+      PaymentCycle: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(0),
+          Validators.maxLength(20),
+          Validators.pattern(/^-?(0|[1-9]\d*)?$/),
+        ],
+      ],
+      PolicyTermYear: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(0),
+          Validators.maxLength(20),
+          Validators.pattern(/^-?(0|[1-9]\d*)?$/),
+        ],
+      ],
+      CommencementDate: ["", [Validators.required]],
+      PaymentDueDate: ["", [Validators.required]],
+      MaturityDate: ["", [Validators.required]],
     });
 
     this.lists.displayedColumns = [
-     // "Id",
+      // "Id",
       "InsuranceType",
       "PolicyHolder",
       "PolicyNumber",
@@ -69,7 +130,7 @@ export class CreatereminderComponent implements OnInit {
       "Status",
       "CreateDate",
       "UpdateDate",
-      "Action"
+      "Action",
     ];
     this.ReminderTablelist.paginator = this.paginator;
     this.ReminderTablelist.sort = this.sort;
@@ -78,168 +139,216 @@ export class CreatereminderComponent implements OnInit {
   }
 
   GetpolicyReminderList() {
-    this.common.GetMethod(`Birth_PolicyReminder/Usreid,ReminderType?Usreid=${localStorage.getItem("UserID")}&ReminderType=2`).then((res: any) => {
-      console.table(res);
-      this.ReminderTablelist = new MatTableDataSource(res);
-    });
+    this.common
+      .GetMethod(
+        `Birth_PolicyReminder/Usreid,ReminderType?Usreid=${localStorage.getItem(
+          "UserID"
+        )}&ReminderType=2`
+      )
+      .then((res: any) => {
+        console.table(res);
+        this.ReminderTablelist = new MatTableDataSource(res);
+      });
   }
 
   get firtsForm() {
     return this.firstFormGroup.controls;
   }
 
-  //Done
   CreateReminder() {
-    let submitdata: any = {};
-    submitdata.reminderId = null;
-    submitdata.userId = localStorage.getItem("UserID");
-    submitdata.bdayHolderName = this.firstFormGroup.value.BirthdayPersonName;
-    submitdata.dobDate = null;
-    submitdata.reminderDateTime = this.firstFormGroup.value.ReminderDateTime;
-    submitdata.notes = this.firstFormGroup.value.Notes;
-    submitdata.ReminderType = this.firstFormGroup.value.InsuranceType;
-    submitdata.PolicyNumber = this.firstFormGroup.value.PolicyNumber;
-    submitdata.PlanDescption = this.firstFormGroup.value.PlanDescption;
-    submitdata.CompanyName = this.firstFormGroup.value.CompanyName;
-    submitdata.SumInsuredAssured = this.firstFormGroup.value.SumInsuredAssured;
-    submitdata.PremiumAmt = this.firstFormGroup.value.PremiumAmt;
-    submitdata.PaymentCycle = this.firstFormGroup.value.PaymentCycle;
-    submitdata.PolicyTermYear = this.firstFormGroup.value.PolicyTermYear;
-    submitdata.StartDate = this.firstFormGroup.value.CommencementDate;
-    submitdata.PaymentDueDate = this.firstFormGroup.value.PaymentDueDate;
-    submitdata.MaturityDate = this.firstFormGroup.value.MaturityDate;
-
-    this.common.PostMethod(`Birth_PolicyReminder`, submitdata).then((res: any) => {
-      if (res.status == 1) {
-        this.common.ToastMessage("Success", res.message);
-        this.ResetReminder();
-        this.GetpolicyReminderList();
-        this.updaterecord = false;
-      } else {
-        this.common.ToastMessage("Info", res.message);
-      }
-    }).catch(y => {
-      this.common.ToastMessage("Error !", y.error.message);
-    });
-
+    let submitdata: any = {
+      reminderId: null,
+      userId: localStorage.getItem("UserID"),
+      bdayHolderName: this.firstFormGroup.value.PolicyHolder,
+      reminderDateTime: this.firstFormGroup.value.ReminderDateTime,
+      notes: this.firstFormGroup.value.Notes,
+      reminderType: this.firstFormGroup.value.InsuranceType,
+      fkReminderDetailId: null,
+      fkReminderDetail: {
+        reminderDetailId: null,
+        policyNumber: this.firstFormGroup.value.PolicyNumber,
+        planDescption: this.firstFormGroup.value.PlanDescption,
+        companyName: this.firstFormGroup.value.CompanyName,
+        sumInsuredAssured: this.firstFormGroup.value.SumInsuredAssured,
+        premiumAmt: this.firstFormGroup.value.PremiumAmt,
+        paymentCycle: this.firstFormGroup.value.PaymentCycle,
+        policyTermYear: this.firstFormGroup.value.PolicyTermYear,
+        startDate: this.firstFormGroup.value.CommencementDate,
+        paymentDueDate: this.firstFormGroup.value.PaymentDueDate,
+        maturityDate: this.firstFormGroup.value.MaturityDate,
+      },
+    };
+    this.common
+      .PostMethod(`Birth_PolicyReminder`, submitdata)
+      .then((res: any) => {
+        if (res.status == 1) {
+          this.common.ToastMessage("Success", res.message);
+          this.ResetReminder();
+          this.GetpolicyReminderList();
+          this.updaterecord = false;
+        } else {
+          this.common.ToastMessage("Info", res.message);
+        }
+      })
+      .catch((y) => {
+        this.common.ToastMessage("Error !", y.error.message);
+      });
   }
 
   //Done
   ResetReminder() {
-    this.firstFormGroup.controls['Id'].setValue(0);
-    this.firstFormGroup.controls['UserId'].setValue(0);
-    this.firstFormGroup.controls['InsuranceType'].setValue(0);
-    this.firstFormGroup.controls['PolicyHolder'].setValue('');
-    this.firstFormGroup.controls['PolicyNumber'].setValue('');
-    this.firstFormGroup.controls['PlanDescption'].setValue('');
-    this.firstFormGroup.controls['CompanyName'].setValue('');
-    this.firstFormGroup.controls['SumInsuredAssured'].setValue('');
-    this.firstFormGroup.controls['PremiumAmt'].setValue('');
-    this.firstFormGroup.controls['PaymentCycle'].setValue('');
-    this.firstFormGroup.controls['PolicyTermYear'].setValue('');
-    this.firstFormGroup.controls['CommencementDate'].setValue('');
-    this.firstFormGroup.controls['PaymentDueDate'].setValue('');
-    this.firstFormGroup.controls['MaturityDate'].setValue('');
-    this.firstFormGroup.controls['ReminderDateTime'].setValue('');
-    this.firstFormGroup.controls['Notes'].setValue('');
-    this.firstFormGroup.controls['Status'].setValue('');
-    this.firstFormGroup.controls['CreateDate'].setValue('');
-    this.firstFormGroup.controls['UpdateDate'].setValue('');
+    this.firstFormGroup.controls["Id"].setValue(0);
+    this.firstFormGroup.controls["UserId"].setValue(0);
+    this.firstFormGroup.controls["InsuranceType"].setValue(0);
+    this.firstFormGroup.controls["Status"].setValue("");
+    this.firstFormGroup.controls["ReminderDateTime"].setValue("");
+    this.firstFormGroup.controls["Notes"].setValue("");
+    this.firstFormGroup.controls["CreateDate"].setValue("");
+    this.firstFormGroup.controls["UpdateDate"].setValue("");
+
+    this.firstFormGroup.controls["ReminderDetailId"].setValue("");
+    this.firstFormGroup.controls["PolicyHolder"].setValue("");
+    this.firstFormGroup.controls["PolicyNumber"].setValue("");
+    this.firstFormGroup.controls["PlanDescption"].setValue("");
+    this.firstFormGroup.controls["CompanyName"].setValue("");
+    this.firstFormGroup.controls["SumInsuredAssured"].setValue("");
+    this.firstFormGroup.controls["PremiumAmt"].setValue("");
+    this.firstFormGroup.controls["PaymentCycle"].setValue("");
+    this.firstFormGroup.controls["PolicyTermYear"].setValue("");
+    this.firstFormGroup.controls["CommencementDate"].setValue("");
+    this.firstFormGroup.controls["PaymentDueDate"].setValue("");
+    this.firstFormGroup.controls["MaturityDate"].setValue("");
   }
 
   //done
   EditpolicyReminderRecord(val) {
     this.updaterecord = true;
-    this.firstFormGroup.controls['Id'].setValue(val.id);
-    this.firstFormGroup.controls['UserId'].setValue(val.userId);
-    this.firstFormGroup.controls['InsuranceType'].setValue(parseInt(val.insuranceType));
-    this.firstFormGroup.controls['PolicyHolder'].setValue(val.policyHolder);
-    this.firstFormGroup.controls['PolicyNumber'].setValue(val.policyNumber);
-    this.firstFormGroup.controls['PlanDescption'].setValue(val.planDescption);
-    this.firstFormGroup.controls['CompanyName'].setValue(val.companyName);
-    this.firstFormGroup.controls['SumInsuredAssured'].setValue(val.sumInsuredAssured);
-    this.firstFormGroup.controls['PremiumAmt'].setValue(val.premiumAmt);
-    this.firstFormGroup.controls['PaymentCycle'].setValue(val.paymentCycle);
-    this.firstFormGroup.controls['PolicyTermYear'].setValue(val.policyTermYear);
-    this.firstFormGroup.controls['CommencementDate'].setValue(val.commencementDate.split("T")[0]);
-    this.firstFormGroup.controls['PaymentDueDate'].setValue(val.paymentDueDate.split("T")[0]);
-    this.firstFormGroup.controls['MaturityDate'].setValue(val.maturityDate.split("T")[0]);
-    this.firstFormGroup.controls['ReminderDateTime'].setValue(val.reminderDateTime.split(".")[0]);
-    this.firstFormGroup.controls['Notes'].setValue(val.notes);
-    this.firstFormGroup.controls['Status'].setValue(val.status);
-    this.firstFormGroup.controls['CreateDate'].setValue(val.createDate);
-    this.firstFormGroup.controls['UpdateDate'].setValue(val.updateDate);
+    this.firstFormGroup.controls["Id"].setValue(val.reminderId);
+    this.firstFormGroup.controls["UserId"].setValue(val.userId);
+    this.firstFormGroup.controls["InsuranceType"].setValue(parseInt(val.reminderType));
+    this.firstFormGroup.controls["PolicyHolder"].setValue(val.bdayHolderName);
+    this.firstFormGroup.controls["Status"].setValue(val.reminderStatus);
+    this.firstFormGroup.controls["ReminderDateTime"].setValue(val.reminderDateTime);
+    this.firstFormGroup.controls["Notes"].setValue(val.notes);
+    this.firstFormGroup.controls["CreateDate"].setValue(val.createDate);
+    this.firstFormGroup.controls["UpdateDate"].setValue(val.updateDate);
+
+    this.firstFormGroup.controls["ReminderDetailId"].setValue(
+      val.fkReminderDetailId
+    );
+    this.firstFormGroup.controls["PolicyNumber"].setValue(
+      parseInt(val.fkReminderDetail.policyNumber)
+    );
+    this.firstFormGroup.controls["PlanDescption"].setValue(
+      val.fkReminderDetail.planDescption
+    );
+    this.firstFormGroup.controls["CompanyName"].setValue(
+      val.fkReminderDetail.companyName
+    );
+    this.firstFormGroup.controls["SumInsuredAssured"].setValue(
+      parseInt(val.fkReminderDetail.sumInsuredAssured)
+    );
+    this.firstFormGroup.controls["PremiumAmt"].setValue(
+      parseInt(val.fkReminderDetail.premiumAmt)
+    );
+    this.firstFormGroup.controls["PaymentCycle"].setValue(
+      parseInt(val.fkReminderDetail.paymentCycle)
+    );
+    this.firstFormGroup.controls["PolicyTermYear"].setValue(
+      parseFloat(val.fkReminderDetail.policyTermYear)
+    );
+    this.firstFormGroup.controls["CommencementDate"].setValue(
+      val.fkReminderDetail.startDate.split("T")[0]
+    );
+    this.firstFormGroup.controls["PaymentDueDate"].setValue(
+      val.fkReminderDetail.paymentDueDate.split("T")[0]
+    );
+    this.firstFormGroup.controls["MaturityDate"].setValue(
+      val.fkReminderDetail.maturityDate.split("T")[0]
+    );
   }
 
   //done
   UpdatepolicyReminderReminder() {
-    let submitdata: any = {};
-    submitdata.reminderId = this.firstFormGroup.value.Id;
-    submitdata.userId = localStorage.getItem("UserID");
-    submitdata.bdayHolderName = this.firstFormGroup.value.PolicyHolder;
-    submitdata.dobDate = null;
-    submitdata.reminderDateTime = this.firstFormGroup.value.ReminderDateTime;
-    submitdata.notes = this.firstFormGroup.value.Notes;
-    submitdata.ReminderType = this.firstFormGroup.value.InsuranceType;
-    submitdata.PolicyNumber = this.firstFormGroup.value.PolicyNumber;
-    submitdata.PlanDescption = this.firstFormGroup.value.PlanDescption;
-    submitdata.CompanyName = this.firstFormGroup.value.CompanyName;
-    submitdata.SumInsuredAssured = this.firstFormGroup.value.SumInsuredAssured;
-    submitdata.PremiumAmt = this.firstFormGroup.value.PremiumAmt;
-    submitdata.PaymentCycle = this.firstFormGroup.value.PaymentCycle;
-    submitdata.PolicyTermYear = this.firstFormGroup.value.PolicyTermYear;
-    submitdata.StartDate = this.firstFormGroup.value.CommencementDate;
-    submitdata.PaymentDueDate = this.firstFormGroup.value.PaymentDueDate;
-    submitdata.MaturityDate = this.firstFormGroup.value.MaturityDate;
+    let submitdata: any = {
+      reminderId: this.firstFormGroup.value.Id,
+      userId: localStorage.getItem("UserID"),
+      bdayHolderName: this.firstFormGroup.value.PolicyHolder,
+      dobDate: null,
+      reminderDateTime: this.firstFormGroup.value.ReminderDateTime,
+      notes: this.firstFormGroup.value.Notes,
+      reminderType: this.firstFormGroup.value.InsuranceType,
+      fkReminderDetailId: this.firstFormGroup.value.ReminderDetailId,
+      fkReminderDetail: {
+        reminderDetailId: this.firstFormGroup.value.ReminderDetailId,
+        policyNumber: this.firstFormGroup.value.PolicyNumber,
+        planDescption: this.firstFormGroup.value.PlanDescption,
+        companyName: this.firstFormGroup.value.CompanyName,
+        sumInsuredAssured: this.firstFormGroup.value.SumInsuredAssured,
+        premiumAmt: this.firstFormGroup.value.PremiumAmt,
+        paymentCycle: this.firstFormGroup.value.PaymentCycle,
+        policyTermYear: this.firstFormGroup.value.PolicyTermYear,
+        startDate: this.firstFormGroup.value.CommencementDate,
+        paymentDueDate: this.firstFormGroup.value.PaymentDueDate,
+        maturityDate: this.firstFormGroup.value.MaturityDate,
+      },
+    };
 
-    this.common.PostMethod(`Birth_PolicyReminder`, submitdata).then((res: any) => {
+    this.common
+      .PostMethod(`Birth_PolicyReminder`, submitdata)
+      .then((res: any) => {
+        if (res.status == 1) {
+          this.common.ToastMessage("Success", res.message);
+          this.ResetReminder();
+          this.GetpolicyReminderList();
+          this.updaterecord = false;
+        } else {
+          this.common.ToastMessage("Info", res.message);
+        }
+      })
+      .catch((y) => {
+        this.common.ToastMessage("Error !", y.error.message);
+      });
+  }
+
+  UpdateCreatereminderrStatus(val) {
+    let submitdata: any = {};
+    val.reminderStatus = !val.reminderStatus;
+    submitdata.ReminderIdVal = val.reminderId;
+    submitdata.status = val.reminderStatus;
+    this.common.PatchMethod(`Birth_PolicyReminder/${submitdata.ReminderIdVal}`,submitdata).then((res: any) => {
       if (res.status == 1) {
         this.common.ToastMessage("Success", res.message);
         this.ResetReminder();
         this.GetpolicyReminderList();
-        this.updaterecord = false;
+    this.updaterecord = false;
       } else {
         this.common.ToastMessage("Info", res.message);
       }
     }).catch(y => {
-      this.common.ToastMessage("Error !", y.error.message);
+      this.common.ToastMessage("Error !",y.error.message);
     });
-
   }
 
-  //Done
-  UpdateCreatereminderrStatus(val) {
-    let submitdata: any = {};
-    val.status = !val.status;
-    submitdata.id = val.id;
-    submitdata.userId = val.userId;
-    submitdata.insuranceType = val.insuranceType;
-    submitdata.policyHolder = val.policyHolder;
-    submitdata.policyNumber = val.policyNumber;
-    submitdata.planDescption = val.planDescption;
-    submitdata.companyName = val.companyName;
-    submitdata.sumInsuredAssured = val.sumInsuredAssured;
-    submitdata.premiumAmt = val.premiumAmt;
-    submitdata.paymentCycle = val.paymentCycle;
-    submitdata.policyTermYear = val.policyTermYear;
-    submitdata.commencementDate = val.commencementDate;
-    submitdata.paymentDueDate = val.paymentDueDate;
-    submitdata.maturityDate = val.maturityDate;
-    submitdata.reminderDateTime = val.reminderDateTime;
-    submitdata.notes = val.notes;
-    submitdata.status = val.status;
-    submitdata.createDate = val.createDate;;
-    submitdata.updateDate = moment();
+  ShowReminderAllDetail(val){
+    debugger
 
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.id = "modal-component";
+    //dialogConfig.panelClass='fullscreen-dialog',
+    dialogConfig.height = "500px";
+    dialogConfig.width = "1080px";
+    //dialogConfig.height = "100vh";
+    //dialogConfig.width = "100%";
+    dialogConfig.data = {status:true,val};
+    let dailog = this.common.dialog.open(ReminderinfodailogComponent,dialogConfig);
+    dailog.afterClosed().subscribe(data => {
+      debugger
 
-
-    this.ReminderDataArray.push(submitdata);
-    this.ReminderTablelist = new MatTableDataSource(this.ReminderDataArray);
-
-  }
+  })
+}
 
   //due
-  DeletepolicyReminderRecord(val) {
-  }
-
+  DeletepolicyReminderRecord(val) {}
 }
