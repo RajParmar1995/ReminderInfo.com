@@ -16,8 +16,8 @@ File: scss
  *	7. Widgets
  *	8. Custom Templates
  */
-/******************* 
-Global Styles 
+/*******************
+Global Styles
 *******************/
 
 * {
@@ -73,7 +73,7 @@ code {
 }
 
 .shadow-none{
-    box-shadow: none!important; 
+    box-shadow: none!important;
 }
 .ml-auto{
     margin-left: auto;
@@ -97,7 +97,7 @@ h3,
 h4,
 h5,
 h6 {
-    
+
     font-family: $headingfont;
     font-weight: 400;
 }
@@ -140,7 +140,7 @@ html, body{
 .display-6{
     font-size:36px;
 }
-}    
+}
 .box{
     border-radius: $radius;
     padding: 10px;
@@ -158,7 +158,7 @@ html body {
     .op-3{
         opacity: 0.3;
     }
-}    
+}
 .no-wrap{
     td, th{
         white-space: nowrap;
@@ -184,7 +184,7 @@ Blockquote
 *******************/
 
 html body blockquote {
-    
+
     border: 1px solid $border;
     border-left: 5px solid $themecolor;
     padding: 15px;
@@ -221,6 +221,9 @@ html body {
 .p-l-0 {
     padding-left: 0px;
 }
+.p-l-5 {
+  padding-left: 5px;
+}
 
 .p-l-10 {
     padding-left: 10px;
@@ -231,7 +234,11 @@ html body {
 }
 
 .p-r-0 {
-    padding-right: 0px;
+  padding-right: 0px;
+}
+
+.p-r-5 {
+    padding-right: 5px;
 }
 
 .p-r-10 {
@@ -425,9 +432,9 @@ html body {
 }
 
 .vb {
-    vertical-align: bottom; 
+    vertical-align: bottom;
 }
-}    
+}
 /*******************
 Opacity
 *******************/
@@ -463,7 +470,7 @@ html body {
 }
 .font-12 {
     font-size: 12px;
-}    
+}
 .font-18 {
     font-size: 18px;
 }
@@ -579,7 +586,7 @@ html body {
     }
     .text-right{
         text-align: right;
-        
+
     }
     .text-left{
         text-align: left;
@@ -823,7 +830,7 @@ Notify
         right: -4px;
         height: 25px;
         width: 25px;
-        
+
         border: 5px solid $danger;
         border-radius: 70px;
         -moz-animation: heartbit 1s ease-out;
@@ -919,16 +926,16 @@ froms
 Mat card
 *******************/
 .mat-card{
-    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05)!important;  
-    -webkit-box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05)!important; 
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05)!important;
+    -webkit-box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05)!important;
     margin: 15px;
     padding: 0px!important;
     border-radius: $radius;
-    
+
     .mat-card-content{
         font-size:1rem;
         line-height: 23px;
-        padding: 24px;    
+        padding: 24px;
     }
     .mat-card-image {
         width: calc(100% + 0px);
@@ -1002,9 +1009,9 @@ Sparkline chart tooltip
   height: auto !important;
   background: $inverse;
   color: $white;
-  padding: 5px 15px; 
+  padding: 5px 15px;
   border: 0px;
-  border-radius: 60px;     
+  border-radius: 60px;
 }
 /*******************
 list inline
@@ -1019,7 +1026,7 @@ list inline
         &:last-child{
             margin-right: 0px;
         }
-        
+
     }
 }
 .button-row button{
