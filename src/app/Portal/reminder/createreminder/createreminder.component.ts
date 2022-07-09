@@ -111,25 +111,46 @@ export class CreatereminderComponent implements OnInit {
       MaturityDate: ["", [Validators.required]],
     });
 
+    // this.lists.displayedColumns = [
+    //   // "Id",
+    //   "InsuranceType",
+    //   "PolicyHolder",
+    //   "PolicyNumber",
+    //   "PlanDescption",
+    //   "CompanyName",
+    //   "SumInsuredAssured",
+    //   "PremiumAmt",
+    //   "PaymentCycle",
+    //   "PolicyTermYear",
+    //   "CommencementDate",
+    //   "PaymentDueDate",
+    //   "MaturityDate",
+    //   "ReminderDateTime",
+    //   "Notes",
+    //   "Status",
+    //   "CreateDate",
+    //   "UpdateDate",
+    //   "Action",
+    // ];
     this.lists.displayedColumns = [
       // "Id",
       "InsuranceType",
       "PolicyHolder",
       "PolicyNumber",
-      "PlanDescption",
-      "CompanyName",
+      // "PlanDescption",
+      // "CompanyName",
       "SumInsuredAssured",
       "PremiumAmt",
       "PaymentCycle",
-      "PolicyTermYear",
-      "CommencementDate",
-      "PaymentDueDate",
+      // "PolicyTermYear",
+      // "CommencementDate",
+      // "PaymentDueDate",
       "MaturityDate",
       "ReminderDateTime",
       "Notes",
       "Status",
-      "CreateDate",
-      "UpdateDate",
+      // "CreateDate",
+      // "UpdateDate",
       "Action",
     ];
     this.ReminderTablelist.paginator = this.paginator;
@@ -331,20 +352,17 @@ export class CreatereminderComponent implements OnInit {
   }
 
   ShowReminderAllDetail(val){
-    debugger
-
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.id = "modal-component";
     //dialogConfig.panelClass='fullscreen-dialog',
-    dialogConfig.height = "500px";
+    dialogConfig.height = "400px";
     dialogConfig.width = "1080px";
     //dialogConfig.height = "100vh";
     //dialogConfig.width = "100%";
     dialogConfig.data = {status:true,val};
     let dailog = this.common.dialog.open(ReminderinfodailogComponent,dialogConfig);
     dailog.afterClosed().subscribe(data => {
-      debugger
 
   })
 }

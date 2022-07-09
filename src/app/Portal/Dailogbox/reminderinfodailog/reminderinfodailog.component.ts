@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import * as moment from "moment";
 import { CommonService } from "../../Service/common.service";
 
 @Component({
@@ -20,34 +21,37 @@ export class ReminderinfodailogComponent implements OnInit {
     this.getreminderdata();
   }
 
+   datetimeformat = "DD/MM/YYYY HH:MMA"
+   dateformat = "DD/MM/YYYY"
+
   getreminderdata() {
     if (this.data.status == true) {
-      debugger
       var dataarray = this.data.val;
+      debugger
       this.list.bdayHolderName = dataarray.bdayHolderName;
-      this.list.createDate = dataarray.createDate;
+      this.list.createDate =  moment(dataarray.createDate).format(this.datetimeformat);
       this.list.notes = dataarray.notes;
-      this.list.reminderDateTime = dataarray.reminderDateTime;
+      this.list.reminderDateTime = moment(dataarray.reminderDateTime).format(this.datetimeformat);
       this.list.reminderStatus = dataarray.reminderStatus;
 
       let reminderTypeName = this.common.InsuranceType.filter(x=> x.id == dataarray.reminderType)
       this.list.reminderType = reminderTypeName[0].insType;
 
-      this.list.updateDate = dataarray.updateDate;
+      this.list.updateDate = moment(dataarray.updateDate).format(this.datetimeformat);
       this.list.userId = dataarray.userId;
 
       this.list.companyName = dataarray.fkReminderDetail.companyName;
-      this.list.maturityDate = dataarray.fkReminderDetail.maturityDate;
+      this.list.maturityDate = moment(dataarray.fkReminderDetail.maturityDate).format(this.dateformat);
 
       let paymentCycle = this.common.PaymentCycle.filter(x=> x.val == dataarray.fkReminderDetail.paymentCycle);
       this.list.paymentCycle = paymentCycle[0].payCycName;
 
-      this.list.paymentDueDate = dataarray.fkReminderDetail.paymentDueDate;
+      this.list.paymentDueDate = moment(dataarray.fkReminderDetail.paymentDueDate).format(this.dateformat);
       this.list.planDescption = dataarray.fkReminderDetail.planDescption;
       this.list.policyNumber = dataarray.fkReminderDetail.policyNumber;
       this.list.policyTermYear = dataarray.fkReminderDetail.policyTermYear;
       this.list.premiumAmt = dataarray.fkReminderDetail.premiumAmt;
-      this.list.startDate = dataarray.fkReminderDetail.startDate;
+      this.list.startDate = moment(dataarray.fkReminderDetail.startDate).format(this.dateformat);
       this.list.sumInsuredAssured =
         dataarray.fkReminderDetail.sumInsuredAssured;
     }
