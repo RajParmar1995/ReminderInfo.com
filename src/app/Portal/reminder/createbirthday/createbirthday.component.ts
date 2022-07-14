@@ -157,7 +157,6 @@ export class CreatebirthdayComponent implements OnInit {
   }
 
   UpdatereminderrStatus(val) {
-    debugger
     let submitdata: any = {};
     val.reminderStatus = !val.reminderStatus;
     submitdata.ReminderIdVal = val.reminderId;

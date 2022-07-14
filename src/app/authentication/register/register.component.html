@@ -1,34 +1,18 @@
-<div class="login-register" style="background-image:url(assets/images/background/login-register.jpg);">
-  <div fxLayout="row wrap">
-    <mat-card fxFlex.gt-sm="50%" fxFlex="50" style="margin-left: 25%;">
-      <mat-card-content style="margin: 0%;">
+<div fxLayout="row wrap" class="login-register" style="background-image:url(assets/images/background/login-register.jpg);">
+  <div fxLayout="row wrap" fxLayoutAlign="center center">
+    <mat-card fxFlex.gt-sm="50" fxFlex="100" >
+      <mat-card-content style="margin: 0%;padding: 15px 0px 15px 0px;">
         <div class="text-center">
-          <h4 class="m-t-0 m-b-0">Register to App</h4>
+          <h4 class="m-t-0 m-b-0">Registration-Info</h4>
         </div>
         <div fxLayout="row wrap m-l-0 m-r-0">
-          <!-- col full-->
           <div fxFlex.gt-sm="100%" fxFlex="100" class="m-0 p-0">
             <mat-card-content>
-              <mat-horizontal-stepper linear #stepper>
-                <mat-step [stepControl]="firstFormGroup">
-                <!-- <mat-step> -->
                   <form [formGroup]="firstFormGroup">
-                    <ng-template matStepLabel>Basic Info</ng-template>
                     <div fxLayout="row wrap">
-                      <div class="p-10" fxFlex.gt-sm="100" fxFlex.gt-xs="1-0" fxFlex="100">
-                          <mat-form-field>
-                            <mat-label>User Type</mat-label>
-                            <mat-select formControlName="usertype">
-                                <mat-option>--</mat-option>
-                                <mat-option *ngFor="let a of userTtypelist" [value]="a.id" required>
-                                    {{a.name}}
-                                </mat-option>
-                            </mat-select>
-                          </mat-form-field>
-                      </div>
-                      <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                      <div class="p-10" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
                         <mat-form-field>
-                          <input matInput placeholder="FirstName" formControlName="firstname" required>
+                          <input matInput placeholder="FirstName" formControlName="firstname" required autocomplete="off">
                         </mat-form-field>
                         <p class="text-danger m-t-0 font-16"
                           *ngIf="firtsForm.firstname.touched && (firtsForm.firstname.errors?.minlength || firtsForm.firstname.errors?.maxlength)">
@@ -37,9 +21,9 @@
                           *ngIf="firtsForm.firstname.touched && firtsForm.firstname.errors?.pattern">
                           First Name contains only characters.</p>
                       </div>
-                      <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                      <div class="p-10" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
                         <mat-form-field>
-                          <input matInput placeholder="Last Name" formControlName="lastname" required>
+                          <input matInput placeholder="Last Name" formControlName="lastname" required autocomplete="off">
                         </mat-form-field>
                         <p class="text-danger m-t-0 font-16"
                           *ngIf="firtsForm.lastname.touched && (firtsForm.lastname.errors?.minlength || firtsForm.lastname.errors?.maxlength)">
@@ -48,10 +32,29 @@
                           *ngIf="firtsForm.lastname.touched && firtsForm.lastname.errors?.pattern">
                           Last Name contains only characters.</p>
                       </div>
-                      <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                      <div class="p-10" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
+                        <mat-form-field>
+                          <input type="date" matInput placeholder="Date of Birth" formControlName="dob" required autocomplete="off">
+                        </mat-form-field>
+                        <!-- <p class="text-danger m-t-0 font-16"
+                          *ngIf="firtsForm.lastname.touched && firtsForm.lastname.errors?.pattern">
+                          User Name already exist..</p> -->
+                      </div>
+                      <div class="p-10" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
+                        <mat-form-field>
+                          <input matInput placeholder="User Name" formControlName="username" required autocomplete="off">
+                        </mat-form-field>
+                        <p class="text-danger m-t-0 font-16"
+                          *ngIf="firtsForm.username.touched && (firtsForm.username.errors?.minlength || firtsForm.username.errors?.maxlength)">
+                          User Name should be of Min. 3 characters, Max. 20 characters.</p>
+                        <p class="text-danger m-t-0 font-16"
+                          *ngIf="firtsForm.username.touched && firtsForm.username.errors?.pattern">
+                          User Name already exist..</p>
+                      </div>
+                      <div class="p-10" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
                         <mat-form-field>
                           <span matPrefix>+91 &nbsp;</span>
-                          <input type="tel" matInput placeholder="Mobile Number" formControlName="mnumber" required>
+                          <input type="tel" matInput placeholder="Mobile Number" formControlName="mnumber" required autocomplete="off">
                         </mat-form-field>
                         <p class="text-danger m-t-0 font-16"
                           *ngIf="firtsForm.mnumber.touched && firtsForm.mnumber.hasError('required')">
@@ -66,31 +69,31 @@
                           Use Digits Only.
                         </p>
                       </div>
-                      <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                      <div class="p-10" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
                         <mat-form-field>
-                          <input matInput placeholder="Email" formControlName="email" required>
+                          <input matInput placeholder="Email" formControlName="email" required autocomplete="off">
                         </mat-form-field>
                         <p *ngIf="firtsForm.email.hasError('pattern') && firtsForm.email.touched"
                           class="text-danger m-t-0 font-16">Please Enter Valid Email.</p>
                       </div>
-                      <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                      <div class="p-10" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
                         <mat-form-field>
                           <input matInput placeholder="Enter your password" formControlName="password"
-                            [type]="hide ? 'password' : 'text'">
+                            [type]="hide ? 'password' : 'text'" autocomplete="off">
                           <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                             [attr.aria-pressed]="hide">
                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                           </button>
                         </mat-form-field>
-                        <p class="text-danger m-t-0 font-16"
+                        <p class="text-danger m-t-0 font-12"
                           *ngIf="firtsForm.password.touched && (firtsForm.password.errors?.required||firtsForm.password.errors?.minlength||firtsForm.password.errors?.maxlength||firtsForm.password.errors?.pattern)">
                           Password should be of Min. 8 characters,Max. 30 characters, which must contain at least
                           one Special character, one Capital letter, one Small letter and one Numeric value.</p>
                       </div>
-                      <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                      <div class="p-10" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
                         <mat-form-field>
                           <input matInput placeholder="Confirm your password" [type]="hide1 ? 'password' : 'text'"
-                            formControlName="confirmPassword">
+                            formControlName="confirmPassword" autocomplete="off">
                           <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'"
                             [attr.aria-pressed]="hide1">
                             <mat-icon>{{hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -98,127 +101,18 @@
                         </mat-form-field>
                         <p *ngIf="firtsForm.confirmPassword.errors?.equalTo && firtsForm.confirmPassword.touched"
                           class="text-danger m-t-0 font-16">Passwords do not math.</p>
-                      </div>                     
+                      </div>
                     </div>
-                    <div fxLayout="row wrap">
+                    <div>
+                      <button mat-raised-button color="primary" (click)="onSubmit()" class="pull-right"
+                        [disabled]="!firstFormGroup.valid">submit</button>
+                    </div>
+                    <!-- <div fxLayout="row wrap">
                       <div fxFlex.gt-sm="100" class="text-right" fxFlex.gt-xs="1-0" fxFlex="100">
                         <button mat-raised-button class="pull-right" color="warn" matStepperNext>Next</button>
                       </div>
-                    </div>
+                    </div> -->
                   </form>
-                </mat-step>
-                <mat-step [stepControl]="secondFormGroup" [optional]="isOptional">
-                  <form [formGroup]="secondFormGroup">
-                    <ng-template matStepLabel>Fill out your address</ng-template>
-                    <div fxLayout="row wrap">
-                      <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-                        <label><b>Permanent Address</b></label>
-                      </div>
-                      <div class="p-l-10 p-r-10" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-                        <mat-form-field>
-                          <textarea matInput placeholder="Address" formControlName="perAddress" required></textarea>
-                        </mat-form-field>
-                      </div>
-                      <div class="p-l-10 p-r-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
-                        <mat-form-field>
-                          <mat-select placeholder="Select State" (selectionChange)="GetCity()" formControlName="perState" required>
-                            <mat-option>--</mat-option>
-                            <mat-option *ngFor="let state of statearray" [value]="state.id">{{state.name}}</mat-option>
-                          </mat-select>
-                        </mat-form-field>
-                      </div>
-                      <div class="p-l-10 p-r-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
-                        <mat-form-field>
-                          <mat-select placeholder="Select City" formControlName="perCity" required>
-                            <mat-option>--</mat-option>
-                            <mat-option *ngFor="let city of cityarray" [value]="city.id">{{city.name}}</mat-option>
-                          </mat-select>
-                        </mat-form-field>
-                      </div>
-                      <div class="p-l-10 p-r-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
-                        <mat-form-field>
-                          <input matInput type="number" placeholder="Pincode" formControlName="perPincode" required>
-                        </mat-form-field>
-                        <p class="text-danger m-t-0 font-16"
-                          *ngIf="secondForm.perPincode.touched && (secondForm.perPincode.errors?.maxLength || secondForm.perPincode.errors?.min || secondForm.perPincode.errors?.max)">
-                          Pincode code Contains only 6 digits.</p>
-                      </div>
-                      <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
-                        <label><b>Correspondance Address</b></label>
-                      </div>
-                      <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
-                        <section>
-                          <mat-checkbox (change)="AddressCopy($event)">Same as Permanent</mat-checkbox>
-                        </section>
-                      </div>
-                      <div class="p-l-10 p-r-10" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-                        <mat-form-field>
-                          <textarea matInput placeholder="Address" formControlName="corresAddress" required></textarea>
-                        </mat-form-field>
-                      </div>
-                      <div class="p-l-10 p-r-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
-                        <mat-form-field>
-                          <mat-select placeholder="Select State" (selectionChange)="GetCityCors()" formControlName="corresState" required>
-                            <mat-option>--</mat-option>
-                            <mat-option *ngFor="let state of statearray" [value]="state.id">{{state.name}}</mat-option>
-                          </mat-select>
-                        </mat-form-field>
-                      </div>
-                      <div class="p-l-10 p-r-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
-                        <mat-form-field>
-                            <mat-select placeholder="Select City" formControlName="corresCity" required>
-                              <mat-option>--</mat-option>
-                              <mat-option *ngFor="let city of cityarraycors" [value]="city.id">{{city.name}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                      </div>
-                      <div class="p-l-10 p-r-10" fxFlex.gt-sm="33.33" fxFlex.gt-xs="33.33" fxFlex="100">
-                        <mat-form-field>
-                          <input matInput type="number" placeholder="Pincode" formControlName="corresPincode" required>
-                        </mat-form-field>
-                        <p class="text-danger m-t-0 font-16"
-                          *ngIf="secondForm.corresPincode.touched && (secondForm.corresPincode.errors?.maxLength || secondForm.corresPincode.errors?.min || secondForm.corresPincode.errors?.max)">
-                          Pincode code Contains only 6 digits.</p>
-                      </div>
-                    </div>
-                    <div>
-                      <button mat-raised-button color="accent" matStepperPrevious>Back</button>
-                      <button mat-raised-button class="pull-right" color="warn" matStepperNext>Next</button>
-                    </div>
-                  </form>
-                </mat-step>
-                  <mat-step  [stepControl]="thirdFormGroup" [optional]="isOptional">
-                  <form [formGroup]="thirdFormGroup">
-                    <ng-template matStepLabel>Subscription</ng-template>
-                    <div fxLayout="row wrap">
-                      <div fxFlex.gt-sm="100" class="m-t-20 m-b-20" fxFlex.gt-xs="100" fxFlex="100">
-                        <label [ngStyle]="{'color':plantypeval == true ? 'black' : 'Red' }">Subscription Plan</label>
-                      </div>
-
-                      <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-                        <mat-radio-group formControlName="Subscriptionplan">
-                          <div *ngFor="let Plan of SubPlans">
-                            <mat-radio-button class="m-l-20 m-t-5" value="{{Plan.id}}">{{Plan.subscription_name}}<span>
-                                (Validity: {{ Plan.validity | monthtoyear}})</span> </mat-radio-button><br>
-                            <p class="font-16 m-l-20  m-t-5">{{!Plan.detailview?(Plan.description |
-                              limitto:100):Plan.description }}<a *ngIf="Plan.description.length > 100"
-                                style="margin-left: -15px;" mat-button color="primary"
-                                (click)='Plan.detailview=!Plan.detailview'>{{!Plan.detailview?'Read More':'Hide
-                                More'}}</a></p>
-                          </div>
-                          <hr>
-                        </mat-radio-group>
-                      </div>
-                    </div>
-                    <div>
-                      <button mat-raised-button color="accent" matStepperPrevious>Back</button>
-                      <button mat-raised-button color="primary" (click)="onSubmit()" class="pull-right"
-                        [disabled]="!thirdFormGroup.valid">submit</button>
-                    </div>
-                  </form>
-
-                </mat-step>
-              </mat-horizontal-stepper>
             </mat-card-content>
           </div>
           <div class="text-center" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">

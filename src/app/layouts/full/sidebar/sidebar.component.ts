@@ -52,7 +52,7 @@ export class AppSidebarComponent implements OnDestroy {
     }else{
       this.lists.User = '';
     }
-    
+
   }
 
   ngOnDestroy(): void {
