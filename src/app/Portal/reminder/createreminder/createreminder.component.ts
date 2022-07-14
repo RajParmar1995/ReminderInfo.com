@@ -24,6 +24,7 @@ export class CreatereminderComponent implements OnInit {
 
   ReminderDataArray: any = [];
   updaterecord = false;
+  Instype = this.common.InsuranceType
 
   ReminderTablelist = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -141,7 +142,7 @@ export class CreatereminderComponent implements OnInit {
       // "CompanyName",
       "SumInsuredAssured",
       "PremiumAmt",
-      "PaymentCycle",
+      //"PaymentCycle",
       // "PolicyTermYear",
       // "CommencementDate",
       // "PaymentDueDate",
@@ -171,6 +172,10 @@ export class CreatereminderComponent implements OnInit {
         this.ReminderTablelist = new MatTableDataSource(res);
       });
   }
+
+  getinsurancetype(val){    
+     return this.Instype.filter(x=> x.id == val)[0].insType
+  } 
 
   get firtsForm() {
     return this.firstFormGroup.controls;

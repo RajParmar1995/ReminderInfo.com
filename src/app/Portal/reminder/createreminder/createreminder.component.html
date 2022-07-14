@@ -201,8 +201,9 @@
                   <td mat-cell *matCellDef="let element"> {{element.reminderId}} </td>
                 </ng-container> -->
                 <ng-container matColumnDef="InsuranceType">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Insu. Type </th>
-                  <td mat-cell *matCellDef="let element"> {{element.reminderType}} </td>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Insu.Type </th>
+                  <!-- <td mat-cell *matCellDef="let element"> {{element.reminderType}} </td> --> 
+                  <td mat-cell *matCellDef="let element"> {{element.reminderType | instype}} </td>
                 </ng-container>
                 <ng-container matColumnDef="PolicyHolder">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>Policy Holder</th>
@@ -221,17 +222,17 @@
                   <td mat-cell *matCellDef="let element"> {{element.fkReminderDetail.companyName}} </td>
                 </ng-container> -->
                 <ng-container matColumnDef="SumInsuredAssured">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Sum Insured/Assured </th>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Sum Assured</th>
                   <td mat-cell *matCellDef="let element"> {{element.fkReminderDetail.sumInsuredAssured}} </td>
                 </ng-container>
                 <ng-container matColumnDef="PremiumAmt">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>Premium Amt</th>
                   <td mat-cell *matCellDef="let element"> {{element.fkReminderDetail.premiumAmt}} </td>
                 </ng-container>
-                <ng-container matColumnDef="PaymentCycle">
+                <!-- <ng-container matColumnDef="PaymentCycle">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>Payment Cycle</th>
                   <td mat-cell *matCellDef="let element"> {{element.fkReminderDetail.paymentCycle}} </td>
-                </ng-container>
+                </ng-container> -->
                 <!-- <ng-container matColumnDef="PolicyTermYear">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>Policy Term Year </th>
                   <td mat-cell *matCellDef="let element"> {{element.fkReminderDetail.policyTermYear}} </td>
