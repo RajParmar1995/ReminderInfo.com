@@ -23,13 +23,14 @@ export class UserlistComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   constructor(public common: CommonService,public dialog: MatDialog) {
+    debugger
     this.lists.Doctype = [];
     if (localStorage.getItem("UserType") == 'Admin') {
       this.lists.usertype = "Agent";
     }
     // this.GetUsertype();
     // this.GetSubscriptionpan();
-   // this.GetUserList();
+    this.GetUserList();
   }
 
   ngOnInit() {
@@ -41,8 +42,9 @@ export class UserlistComponent implements OnInit {
   }
 
   GetUserList(){
-    this.common.PostMethod("user/getuserlist",{ where:{},order:[['id','desc']],limit:1000,
-    }).then((res: any) => {
+    debugger
+    this.common.GetMethod(`User/AdminuserId?AdminUserId=${localStorage.getItem("UserID")}`).then((res: any) => {
+      debugger
       this.newUserlist = new MatTableDataSource(res.data);
     });
   }
