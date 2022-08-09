@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
     //   data1 = {"Mobile":this.form.value.mobile,"Upassword":this.form.value.password};
     // }
 
-    data1 = {"mobile_email":this.form.value.mobile_email,"Upassword":this.form.value.password};
+    data1 = {"mob_email_Uname":this.form.value.mobile_email,"upassword":this.form.value.password};
 
     this.common.LoginMethod(data1).then((res: any) => {
       if (res.status == 1) {
