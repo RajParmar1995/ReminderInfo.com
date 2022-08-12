@@ -23,20 +23,12 @@ export class UserlistComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   constructor(public common: CommonService,public dialog: MatDialog) {
-    debugger
-    this.lists.Doctype = [];
-    if (localStorage.getItem("UserType") == 'Admin') {
-      this.lists.usertype = "Agent";
-    }
-    // this.GetUsertype();
-    // this.GetSubscriptionpan();
     this.GetUserList();
   }
 
   ngOnInit() {
     this.lists.SelectedIndex = 0;
-    //this.lists.displayedColumns = ['action', 'name', 'Branchname', 'mobile', 'usertype', 'PresentAmount', 'lastlogin', 'status', 'login'];
-    this.lists.displayedColumns = ['id','user_type', 'name', 'email', 'mobile',  'profile_image','fcm_id','subscription_id','expire_date', 'crated_at', 'last_login_at', 'updatedAt', 'status','action'];
+    this.lists.displayedColumns = ['fname', 'lname', 'email','username', 'mobile', 'lastLogin','updatedate', 'status'];
     this.newUserlist.paginator = this.paginator;
     this.newUserlist.sort = this.sort;
   }
@@ -50,16 +42,16 @@ export class UserlistComponent implements OnInit {
   }
 
 
-  UserProfileEdit(ev){
+  // UserProfileEdit(ev){
 
-  }
+  // }
 
-  UserAllDetail(ev){
-    let dailog = this.common.dialog.open(UserdetailComponent,{data:{status:true,ev}});
-    dailog.afterClosed().subscribe(data => {
+  // UserAllDetail(ev){
+  //   let dailog = this.common.dialog.open(UserdetailComponent,{data:{status:true,ev}});
+  //   dailog.afterClosed().subscribe(data => {
 
-    });
-  }
+  //   });
+  // }
 
   // GetUserList() {
   //   let UserId: any = 0;

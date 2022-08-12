@@ -52,18 +52,18 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     let data={
-      firstname:this.firstFormGroup.value.firstname,
-      lastname:this.firstFormGroup.value.lastname,
+      fname:this.firstFormGroup.value.firstname,
+      lname:this.firstFormGroup.value.lastname,
       username:this.firstFormGroup.value.username,
       dob:this.firstFormGroup.value.dob,
-      mobile:this.firstFormGroup.value.mnumber,
-      email:this.firstFormGroup.value.email,
-      password:this.firstFormGroup.value.confirmPassword,
-
+      mobile:this.firstFormGroup.value.mnumber,      
+      email:this.firstFormGroup.value.email,      
+      pass:this.firstFormGroup.value.confirmPassword,    
     }
-    this.common.PostMethod("auth/signup", data).then((res: any) => {
+    this.common.PostMethod("Auth/Register", data).then((res: any) => {
       if (res.status == 1) {
         this.common.ToastMessage("Success", res.message);
+        this.firstFormGroup.reset();
        }
     }).catch(y => {
       this.common.ToastMessage("Error !",y.error.message);
