@@ -13,31 +13,42 @@ import { UserdetailComponent } from '../../Dailogbox/userdetail/userdetail.compo
 })
 export class UserlistComponent implements OnInit {
   lists: any = {};
-  Userlist = [];
-  usertypelistarray = []
-  subscriptionplanarray = []
-  userviewdata : any = {}
-
   isLinear = false;
-  newUserlist = new MatTableDataSource();
+  userlistarray = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   constructor(public common: CommonService,public dialog: MatDialog) {
-    this.GetUserList();
+    
   }
 
   ngOnInit() {
-    this.lists.SelectedIndex = 0;
-    this.lists.displayedColumns = ['fname', 'lname', 'email','username', 'mobile', 'lastLogin','updatedate', 'status'];
-    this.newUserlist.paginator = this.paginator;
-    this.newUserlist.sort = this.sort;
+    //this.lists.SelectedIndex = 0;
+    this.lists.displayedColumns = ['fstname', 'lstname', 'Uemail','Usrusername', 'Umobile', 'UlastLogin','Usrupdatedate', 'Ustatus',];
+    this.userlistarray.paginator = this.paginator;
+    this.userlistarray.sort = this.sort;
+    this.GetUserList();
   }
 
   GetUserList(){
-    debugger
     this.common.GetMethod(`User/AdminuserId?AdminUserId=${localStorage.getItem("UserID")}`).then((res: any) => {
-      debugger
-      this.newUserlist = new MatTableDataSource(res.data);
+      this.userlistarray = new MatTableDataSource(res);
+    });
+  }
+
+  UpdateUserStatus(val) {
+    let submitdata: any = {};
+    val.accountStatus = !val.accountStatus;
+    submitdata.UserIdVal = val.userId;
+    submitdata.status = val.accountStatus;
+    this.common.PatchMethod(`User/${submitdata.userId}`,submitdata).then((res: any) => {
+      if (res.status == 1) {
+        this.common.ToastMessage("Success", res.message);
+        this.GetUserList();
+      } else {
+        this.common.ToastMessage("Info", res.message);
+      }
+    }).catch(y => {
+      this.common.ToastMessage("Error !",y.error.message);
     });
   }
 

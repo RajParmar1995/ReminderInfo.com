@@ -1,0 +1,72 @@
+/* .mat-column-fstname {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 28% !important;
+    width: 28% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  } */
+.mat-column-fstname {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+
+.mat-column-lstname {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+
+.mat-column-Uemail {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+
+.mat-column-Usrusername {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+
+.mat-column-Umobile {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+
+.mat-column-UlastLogin {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+
+.mat-column-Usrupdatedate {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+
+.mat-column-Ustatus {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+
+.tablewidth {
+    width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+    .tablewidth {
+        width: max-content;
+    }
+  }
