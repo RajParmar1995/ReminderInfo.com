@@ -1,0 +1,69 @@
+
+/* policy reminder */
+.mat-column-InsuranceType {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+
+.mat-column-PolicyHolder {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+
+.mat-column-PolicyNumber {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+
+.mat-column-SumInsuredAssured {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+
+.mat-column-PremiumAmt {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+
+.mat-column-MaturityDate {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+
+.mat-column-ReminderDateTime {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+
+.mat-column-Notes {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+.mat-column-Status {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+.mat-column-Action {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+
+.tablewidth {
+    width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+    .tablewidth {
+        width: max-content;
+    }
+  }

@@ -195,14 +195,9 @@
           </div>
           <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
             <div style="overflow: hidden;overflow-x: auto;">
-              <table mat-table matSort [dataSource]="ReminderTablelist">
-                <!-- <ng-container matColumnDef="Id" >
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header>#Id </th>
-                  <td mat-cell *matCellDef="let element"> {{element.reminderId}} </td>
-                </ng-container> -->
+              <table mat-table matSort [dataSource]="ReminderTablelist" class="tablewidth">
                 <ng-container matColumnDef="InsuranceType">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Insu.Type </th>
-                  <!-- <td mat-cell *matCellDef="let element"> {{element.reminderType}} </td> --> 
                   <td mat-cell *matCellDef="let element"> {{element.reminderType | instype}} </td>
                 </ng-container>
                 <ng-container matColumnDef="PolicyHolder">
@@ -213,14 +208,6 @@
                   <th mat-header-cell *matHeaderCellDef>Policy Number</th>
                   <td mat-cell *matCellDef="let element"> {{element.fkReminderDetail.policyNumber}} </td>
                 </ng-container>
-                <!-- <ng-container matColumnDef="PlanDescption">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Plan Descption </th>
-                  <td mat-cell *matCellDef="let element"> {{element.fkReminderDetail.planDescption}} </td>
-                </ng-container> -->
-                <!-- <ng-container matColumnDef="CompanyName">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Company Name</th>
-                  <td mat-cell *matCellDef="let element"> {{element.fkReminderDetail.companyName}} </td>
-                </ng-container> -->
                 <ng-container matColumnDef="SumInsuredAssured">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>Sum Assured</th>
                   <td mat-cell *matCellDef="let element"> {{element.fkReminderDetail.sumInsuredAssured}} </td>
@@ -229,23 +216,6 @@
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>Premium Amt</th>
                   <td mat-cell *matCellDef="let element"> {{element.fkReminderDetail.premiumAmt}} </td>
                 </ng-container>
-                <!-- <ng-container matColumnDef="PaymentCycle">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Payment Cycle</th>
-                  <td mat-cell *matCellDef="let element"> {{element.fkReminderDetail.paymentCycle}} </td>
-                </ng-container> -->
-                <!-- <ng-container matColumnDef="PolicyTermYear">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Policy Term Year </th>
-                  <td mat-cell *matCellDef="let element"> {{element.fkReminderDetail.policyTermYear}} </td>
-                </ng-container> -->
-
-                <!-- <ng-container matColumnDef="CommencementDate">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</th>
-                  <td mat-cell *matCellDef="let element"> {{element.fkReminderDetail.startDate | date:"MM/dd/yyyy"}} </td>
-                </ng-container> -->
-                <!-- <ng-container matColumnDef="PaymentDueDate">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Payment DueDate</th>
-                  <td mat-cell *matCellDef="let element"> {{element.fkReminderDetail.paymentDueDate | date:"MM/dd/yyyy"}} </td>
-                </ng-container> -->
                 <ng-container matColumnDef="MaturityDate">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>Maturity Date</th>
                   <td mat-cell *matCellDef="let element"> {{element.fkReminderDetail.maturityDate | date:"MM/dd/yyyy"}} </td>
@@ -258,21 +228,12 @@
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>Description </th>
                   <td mat-cell *matCellDef="let element"> {{element.notes | limitto:10 }} </td>
                 </ng-container>
-                <!-- <ng-container matColumnDef="CreateDate">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Create Date </th>
-                  <td mat-cell *matCellDef="let element"> {{element.createDate | date:"MM/dd/yyyy HH:mma"}} </td>
-                </ng-container>
-                <ng-container matColumnDef="UpdateDate">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Update date </th>
-                  <td mat-cell *matCellDef="let element"> {{element.updateDate | date:"MM/dd/yyyy HH:mma"}} </td>
-                </ng-container> -->
                 <ng-container matColumnDef="Status">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
                   <td>
                     <mat-slide-toggle *matCellDef="let element" [(ngModel)]="element.reminderStatus"
                       (click)="UpdateCreatereminderrStatus(element)"></mat-slide-toggle>
                   </td>
-                  <!-- <td mat-cell *matCellDef="let element"> {{element.status?'Active':'DeActive'}} </td> -->
                 </ng-container>
                 <ng-container matColumnDef="Action">
                   <th mat-header-cell *matHeaderCellDef> Action </th>

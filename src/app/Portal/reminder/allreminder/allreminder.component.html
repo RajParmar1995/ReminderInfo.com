@@ -1,1 +1,148 @@
-<p>allreminder works!</p>
+<mat-card>
+    <mat-card-content>
+        <mat-tab-group animationDuration="0ms">
+            <mat-tab label="Birthday Reminder">
+                <div fxLayout="row wrap">
+                    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                        <div fxLayout="row wrap">
+                            <div fxFlex.gt-sm="25" fxFlex.gt-xs="100" fxFlex="100">
+                                <mat-form-field>
+                                    <input matInput (keyup)="common.TableFilter(birthdaypersonlist,$event.target.value)"
+                                        placeholder="Search">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                                <div style="overflow: hidden;overflow-x: auto;">
+                                    <table mat-table matSort [dataSource]="birthdaypersonlist" class="tablewidth">
+                                        <ng-container matColumnDef="birthdaypersonname">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.bdayHolderName}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="dobdate">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>DOB Date </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.dobDate |
+                                                date:"MM/dd/yyyy"}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="reminderdatetime">
+                                            <th mat-header-cell *matHeaderCellDef>Reminder DateTime</th>
+                                            <td mat-cell *matCellDef="let element"> {{element.reminderDateTime |
+                                                date:"MM/dd/yyyy HH:mma"}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="notes">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Description </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.notes | limitto:10}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="createdate">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Create Date </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.createDate |
+                                                date:"MM/dd/yyyy HH:mma"}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="updateDate">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Update date </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.updateDate |
+                                                date:"MM/dd/yyyy HH:mma"}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="Status">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
+                                            <td>
+                                                <mat-slide-toggle *matCellDef="let element"
+                                                    [(ngModel)]="element.reminderStatus"
+                                                    (click)="UpdatereminderrStatus(element,1)"></mat-slide-toggle>
+                                            </td>
+                                        </ng-container>
+                                        <tr mat-header-row *matHeaderRowDef="lists.displayedColumns; sticky: true"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: lists.displayedColumns;"></tr>
+                                    </table>
+                                </div>
+                                <mat-paginator [pageSizeOptions]="[10, 20,30,50,100]" showFirstLastButtons>
+                                </mat-paginator>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Policy Reminder">
+                <div fxLayout="row wrap">
+                    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                        <div fxLayout="row wrap">
+                            <div fxFlex.gt-sm="25" fxFlex.gt-xs="100" fxFlex="100">
+                                <mat-form-field>
+                                    <input matInput (keyup)="common.TableFilter(ReminderTablelist,$event.target.value)"
+                                        placeholder="Search">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                                <div style="overflow: hidden;overflow-x: auto;">
+                                    <table mat-table matSort [dataSource]="ReminderTablelist" class="tablewidth">
+                                        <ng-container matColumnDef="InsuranceType">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Insu.Type </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.reminderType | instype}}
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="PolicyHolder">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Policy Holder</th>
+                                            <td mat-cell *matCellDef="let element"> {{element.bdayHolderName}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="PolicyNumber">
+                                            <th mat-header-cell *matHeaderCellDef>Policy Number</th>
+                                            <td mat-cell *matCellDef="let element">
+                                                {{element.fkReminderDetail.policyNumber}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="SumInsuredAssured">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Sum Assured</th>
+                                            <td mat-cell *matCellDef="let element">
+                                                {{element.fkReminderDetail.sumInsuredAssured}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="PremiumAmt">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Premium Amt</th>
+                                            <td mat-cell *matCellDef="let element">
+                                                {{element.fkReminderDetail.premiumAmt}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="MaturityDate">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Maturity Date</th>
+                                            <td mat-cell *matCellDef="let element">
+                                                {{element.fkReminderDetail.maturityDate | date:"MM/dd/yyyy"}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="ReminderDateTime">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Reminder DateTime
+                                            </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.reminderDateTime |
+                                                date:"MM/dd/yyyy HH:mma"}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="Notes">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Description </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.notes | limitto:10 }}
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="Status">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
+                                            <td>
+                                                <mat-slide-toggle *matCellDef="let element"
+                                                    [(ngModel)]="element.reminderStatus"
+                                                    (click)="UpdatereminderrStatus(element,2)"></mat-slide-toggle>
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="Action">
+                                            <th mat-header-cell *matHeaderCellDef> Action </th>
+                                            <td mat-cell *matCellDef="let element" class="action-link">
+                                                <a class="m-l-10">
+                                                    <mat-icon style="color:#E91E63"
+                                                        (click)="ShowReminderAllDetail(element)">info</mat-icon>
+                                                </a>
+                                            </td>
+                                        </ng-container>
+                                        <tr mat-header-row *matHeaderRowDef="lists.displayedColumns1; sticky: true">
+                                        </tr>
+                                        <tr mat-row *matRowDef="let row; columns: lists.displayedColumns1;"></tr>
+                                    </table>
+                                </div>
+                                <mat-paginator [pageSizeOptions]="[10, 20,30,50,100]" showFirstLastButtons>
+                                </mat-paginator>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-card-content>
+</mat-card>
