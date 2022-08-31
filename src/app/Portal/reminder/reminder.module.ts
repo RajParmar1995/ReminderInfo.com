@@ -8,7 +8,8 @@ import { DemoMaterialModule } from '../../demo-material-module';
 import { AllreminderComponent } from './allreminder/allreminder.component';
 import { CreatereminderComponent } from './createreminder/createreminder.component';
 import { PipeModule} from '../Pipes/pipe/pipe.module';
-import { CreatebirthdayComponent } from './createbirthday/createbirthday.component'
+import { CreatebirthdayComponent } from './createbirthday/createbirthday.component';
+import { MeetingreminderComponent } from './meetingreminder/meetingreminder.component'
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { CreatebirthdayComponent } from './createbirthday/createbirthday.compone
   declarations: [
     AllreminderComponent,
     CreatereminderComponent,
-    CreatebirthdayComponent
+    CreatebirthdayComponent,
+    MeetingreminderComponent
   ]
 })
 export class ReminderModule {}

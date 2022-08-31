@@ -76,8 +76,9 @@ const SuperAdmin = [
       type: 'sub',
       icon: 'money',
       children: [
-        { state: 'createbirthday', name: 'Create birthday Reminder', type: 'link' },
-        { state: 'createreminder', name: 'Create Policy Reminder', type: 'link' },
+        { state: 'createbirthday', name: 'Birthday Reminder', type: 'link' },
+        { state: 'createreminder', name: 'Policy Reminder', type: 'link' },
+        { state: 'meetingreminder', name: 'Meeting Reminder', type: 'link' },
         { state: 'allreminder', name: 'All Reminder', type: 'link' },
      ]
     },

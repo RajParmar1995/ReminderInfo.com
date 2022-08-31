@@ -1,0 +1,57 @@
+/* birthday */
+.mat-column-meetingtitle {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+
+.mat-column-meetingdatetime {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+
+.mat-column-reminderdatetime {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+
+.mat-column-notes {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+
+.mat-column-createdate {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+
+.mat-column-updateDate {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+
+.mat-column-Status {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+.mat-column-Action {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: auto;
+}
+
+.tablewidth {
+    width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+    .tablewidth {
+        width: max-content;
+    }
+  }

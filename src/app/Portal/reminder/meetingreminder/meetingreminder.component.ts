@@ -11,17 +11,18 @@ import { CustomValidators } from "ng2-validation";
 import * as moment from "moment";
 
 @Component({
-  selector: "app-createbirthday",
-  templateUrl: "./createbirthday.component.html",
-  styleUrls: ["./createbirthday.component.css"],
+  selector: 'app-meetingreminder',
+  templateUrl: './meetingreminder.component.html',
+  styleUrls: ['./meetingreminder.component.css']
 })
-export class CreatebirthdayComponent implements OnInit {
+export class MeetingreminderComponent implements OnInit {
+
   lists: any = {};
   firstFormGroup: FormGroup;
   BithdayDataArray: any = [];
   updaterecord = false;
 
-  birthdaypersonlist = new MatTableDataSource();
+  meetinglist = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -30,7 +31,7 @@ export class CreatebirthdayComponent implements OnInit {
     this.firstFormGroup = this.fb.group({
       Id: [0],
       UserId: [0],
-      BirthdayPersonName: [
+      MeetingTitle: [
         "",
         [
           Validators.required,
@@ -39,7 +40,7 @@ export class CreatebirthdayComponent implements OnInit {
           Validators.pattern("^[a-zA-Z ]+$"),
         ],
       ],
-      DOBdate: ["", [Validators.required]],
+      MeetingDateTime: ["", [Validators.required]],
       ReminderDateTime: ["", [Validators.required]],
       Notes: [""],
       Status: [""],
@@ -49,8 +50,8 @@ export class CreatebirthdayComponent implements OnInit {
 
     this.lists.displayedColumns = [
       // "id",
-      "birthdaypersonname",
-      "dobdate",
+      "meetingtitle",
+      "meetingdatetime",
       "reminderdatetime",
       "notes",
       "createdate",
@@ -58,27 +59,27 @@ export class CreatebirthdayComponent implements OnInit {
       "Status",
       "Action",
     ];
-    this.birthdaypersonlist.paginator = this.paginator;
-    this.birthdaypersonlist.sort = this.sort;
-    this.GetBirthdayList();
+    this.meetinglist.paginator = this.paginator;
+    this.meetinglist.sort = this.sort;
+    this.GetMeetingList();
     this.updaterecord = false;
   }
 
-  GetBirthdayList() {
+  GetMeetingList() {
     this.common.GetMethod(`Birth_PolicyReminder/Usreid,ReminderType?Usreid=${localStorage.getItem("UserID")}&ReminderType=1`).then((res: any) => {
-      this.birthdaypersonlist = new MatTableDataSource(res);
+      this.meetinglist = new MatTableDataSource(res);
     });
   }
 
   get firtsForm() {
     return this.firstFormGroup.controls;
   }
-  CreateBirthdayReminder() {
+  CreateMeetingReminder() {
     let submitdata: any = {};
     submitdata.reminderId = null;
     submitdata.userId = localStorage.getItem("UserID")
-    submitdata.bdayHolderName = this.firstFormGroup.value.BirthdayPersonName;
-    submitdata.dobDate = this.firstFormGroup.value.DOBdate;
+    submitdata.bdayHolderName = this.firstFormGroup.value.MeetingTitle;
+    submitdata.dobDate = this.firstFormGroup.value.MeetingDateTime;
     submitdata.reminderType = 1;
     submitdata.reminderDateTime = this.firstFormGroup.value.ReminderDateTime;
     submitdata.notes = this.firstFormGroup.value.Notes;
@@ -86,8 +87,8 @@ export class CreatebirthdayComponent implements OnInit {
     this.common.PostMethod(`Birth_PolicyReminder`, submitdata).then((res: any) => {
       if (res.status == 1) {
         this.common.ToastMessage("Success", res.message);
-        this.ResetBirthday();
-        this.GetBirthdayList();
+        this.ResetMeeting();
+        this.GetMeetingList();
     this.updaterecord = false;
       } else {
         this.common.ToastMessage("Info", res.message);
@@ -97,15 +98,15 @@ export class CreatebirthdayComponent implements OnInit {
     });
   }
 
-  EditBirthdayRecord(val) {
+  EditMeetingRecord(val) {
     this.updaterecord = true;
     this.firtsForm.Id.setValue(val.reminderId);
     this.firtsForm.UserId.setValue(val.userId);
-    this.firtsForm.BirthdayPersonName.setValue(val.bdayHolderName);
+    this.firtsForm.MeetingTitle.setValue(val.bdayHolderName);
     if(val.dobDate != null){
-      this.firtsForm.DOBdate.setValue(val.dobDate.split("T")[0]);
+      this.firtsForm.MeetingDateTime.setValue(val.dobDate.split(".")[0]);
     }else{
-      this.firtsForm.DOBdate.setValue(null);
+      this.firtsForm.MeetingDateTime.setValue(null);
     }
     if(val.reminderDateTime != null){
       this.firtsForm.ReminderDateTime.setValue(val.reminderDateTime.split(".")[0]);
@@ -118,12 +119,12 @@ export class CreatebirthdayComponent implements OnInit {
     this.firtsForm.UpdateDate.setValue(val.updateDate);
   }
 
-  UpdateBirthdayReminder() {
+  UpdateMeetingReminder() {
     let submitdata: any = {};
     submitdata.reminderId = this.firstFormGroup.value.Id;
     submitdata.userId = this.firstFormGroup.value.UserId;
-    submitdata.bdayHolderName = this.firstFormGroup.value.BirthdayPersonName;
-    submitdata.dobDate = this.firstFormGroup.value.DOBdate;
+    submitdata.bdayHolderName = this.firstFormGroup.value.MeetingTitle;
+    submitdata.dobDate = this.firstFormGroup.value.MeetingDateTime;
     submitdata.reminderType = 1;
     submitdata.reminderDateTime = this.firstFormGroup.value.ReminderDateTime;
     submitdata.notes = this.firstFormGroup.value.Notes;
@@ -131,8 +132,8 @@ export class CreatebirthdayComponent implements OnInit {
     this.common.PutMethod(`Birth_PolicyReminder/${submitdata.userId}`, submitdata).then((res: any) => {
       if (res.status == 1) {
         this.common.ToastMessage("Success", res.message);
-        this.ResetBirthday();
-        this.GetBirthdayList();
+        this.ResetMeeting();
+        this.GetMeetingList();
     this.updaterecord = false;
       } else {
         this.common.ToastMessage("Info", res.message);
@@ -143,11 +144,11 @@ export class CreatebirthdayComponent implements OnInit {
 
   }
 
-  ResetBirthday() {
+  ResetMeeting() {
     this.firstFormGroup.controls["Id"].setValue(0);
     this.firstFormGroup.controls["UserId"].setValue(0);
-    this.firstFormGroup.controls["BirthdayPersonName"].setValue("");
-    this.firstFormGroup.controls["DOBdate"].setValue("");
+    this.firstFormGroup.controls["MeetingTitle"].setValue("");
+    this.firstFormGroup.controls["MeetingDateTime"].setValue("");
     this.firstFormGroup.controls["ReminderDateTime"].setValue("");
     this.firstFormGroup.controls["Status"].setValue("");
     this.firstFormGroup.controls["Notes"].setValue("");
@@ -164,8 +165,8 @@ export class CreatebirthdayComponent implements OnInit {
     this.common.PatchMethod(`Birth_PolicyReminder/${submitdata.ReminderIdVal}`,submitdata).then((res: any) => {
       if (res.status == 1) {
         this.common.ToastMessage("Success", res.message);
-        this.ResetBirthday();
-        this.GetBirthdayList();
+        this.ResetMeeting();
+        this.GetMeetingList();
     this.updaterecord = false;
       } else {
         this.common.ToastMessage("Info", res.message);
@@ -175,7 +176,8 @@ export class CreatebirthdayComponent implements OnInit {
     });
   }
 
-  DeleteBirthdayRecord(val) {
+  DeleteMeetingRecord(val) {
   }
+
 
 }

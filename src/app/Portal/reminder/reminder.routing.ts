@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { AllreminderComponent } from './allreminder/allreminder.component';
 import { CreatereminderComponent } from './createreminder/createreminder.component';
 import { CreatebirthdayComponent } from'./createbirthday/createbirthday.component';
+import { MeetingreminderComponent } from'./meetingreminder/meetingreminder.component';
 export const ReminderRoutes: Routes = [
   {
     path: '',
@@ -37,6 +38,18 @@ data: {
       urls: [
         { title: 'Dashboard', url: '/dashboard' },
         { title: 'Create Birthday' }
+      ]
+
+    }
+  },
+  {
+    path: 'meetingreminder',
+    component: MeetingreminderComponent,
+data: {
+      title: 'Meeting Reminder',
+      urls: [
+        { title: 'Dashboard', url: '/dashboard' },
+        { title: 'Meeting Reminder' }
       ]
 
     }

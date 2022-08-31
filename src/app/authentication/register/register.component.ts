@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService } from '../../Portal/Service/common.service';
 import {
@@ -30,44 +30,75 @@ export class RegisterComponent implements OnInit {
   passworderrors = '';
   submitformdata = [];
   columwidth = 50;
-  constructor(private _formBuilder: FormBuilder,public common: CommonService) {
+  useralredyexist = false;
+  constructor(private _formBuilder: FormBuilder, public common: CommonService,private route: Router) {
   }
   ngOnInit() {
 
     this.firstFormGroup = this._formBuilder.group({
       firstname: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern('^[a-zA-Z ]+$')]],
       lastname: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern('^[a-zA-Z ]+$')]],
-      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30), Validators.pattern('^[a-zA-Z0-9 ]+$')]],
+      username1: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30), Validators.pattern('^[a-zA-Z0-9 ]+$')]],
       dob: ['', [Validators.required]],
       mnumber: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
       email: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$')]],
-      password: password,
+      password1: password,
       confirmPassword: confirmPassword,
     });
 
   }
+
+
+  ngAfterViewInit() {
+    this.firstFormGroup.reset();
+    this.firstFormGroup.controls["username1"].setValue(null);
+   this.firstFormGroup.controls["password1"].setValue(null);
+  }
+
   get firtsForm() {
     return this.firstFormGroup.controls;
   }
 
   onSubmit() {
-    let data={
-      fname:this.firstFormGroup.value.firstname,
-      lname:this.firstFormGroup.value.lastname,
-      username:this.firstFormGroup.value.username,
-      dob:this.firstFormGroup.value.dob,
-      mobile:this.firstFormGroup.value.mnumber,      
-      email:this.firstFormGroup.value.email,      
-      pass:this.firstFormGroup.value.confirmPassword,    
+
+    if (this.useralredyexist == true)
+      return;
+
+    let data = {
+      fname: this.firstFormGroup.value.firstname,
+      lname: this.firstFormGroup.value.lastname,
+      username: this.firstFormGroup.value.username1,
+      dob: this.firstFormGroup.value.dob,
+      mobile: this.firstFormGroup.value.mnumber,
+      email: this.firstFormGroup.value.email,
+      pass: this.firstFormGroup.value.confirmPassword,
     }
     this.common.PostMethod("Auth/Register", data).then((res: any) => {
       if (res.status == 1) {
         this.common.ToastMessage("Success", res.message);
         this.firstFormGroup.reset();
-       }
+        this.route.navigate(["authentication/login"]);
+      }
     }).catch(y => {
-      this.common.ToastMessage("Error !",y.error.message);
+      this.common.ToastMessage("Error !", y.error.message);
     });
 
   }
+  checkUserName() {
+      if (this.firstFormGroup.controls.username1.invalid){
+        this.useralredyexist = false;
+        return;
+      }
+
+    this.firstFormGroup.controls.username1.value
+    this.common.GetMethod(`Auth/CheckUsername?val=${this.firstFormGroup.controls.username1.value}`).then((res: any) => {
+      if (res.status) {
+        this.useralredyexist = false;
+      } else {
+        this.useralredyexist = true;
+        this.common.ToastMessage("Error", res.message);
+      }
+    });
+  }
+
 }

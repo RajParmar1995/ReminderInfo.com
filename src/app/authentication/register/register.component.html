@@ -42,14 +42,12 @@
                       </div>
                       <div class="p-10" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
                         <mat-form-field>
-                          <input matInput placeholder="User Name" formControlName="username" required autocomplete="off">
+                          <input matInput placeholder="User Name" formControlName="username1"  (change)="checkUserName()" required autocomplete="off">
                         </mat-form-field>
                         <p class="text-danger m-t-0 font-16"
-                          *ngIf="firtsForm.username.touched && (firtsForm.username.errors?.minlength || firtsForm.username.errors?.maxlength)">
+                          *ngIf="firtsForm.username1.touched && (firtsForm.username1.errors?.minlength || firtsForm.username1.errors?.maxlength)">
                           User Name should be of Min. 3 characters, Max. 20 characters.</p>
-                        <p class="text-danger m-t-0 font-16"
-                          *ngIf="firtsForm.username.touched && firtsForm.username.errors?.pattern">
-                          User Name already exist..</p>
+                        <p class="text-danger m-t-0 font-16" *ngIf="useralredyexist"> User Name already exist..</p>
                       </div>
                       <div class="p-10" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
                         <mat-form-field>
@@ -78,15 +76,15 @@
                       </div>
                       <div class="p-10" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
                         <mat-form-field>
-                          <input matInput placeholder="Enter your password" formControlName="password"
-                            [type]="hide ? 'password' : 'text'" autocomplete="off">
+                          <input matInput placeholder="Enter your password" formControlName="password1"
+                            [type]="hide ? 'password' : 'text'" autocomplete='new-password'>
                           <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                             [attr.aria-pressed]="hide">
                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                           </button>
                         </mat-form-field>
                         <p class="text-danger m-t-0 font-12"
-                          *ngIf="firtsForm.password.touched && (firtsForm.password.errors?.required||firtsForm.password.errors?.minlength||firtsForm.password.errors?.maxlength||firtsForm.password.errors?.pattern)">
+                          *ngIf="firtsForm.password1.touched && (firtsForm.password1.errors?.required||firtsForm.password1.errors?.minlength||firtsForm.password1.errors?.maxlength||firtsForm.password1.errors?.pattern)">
                           Password should be of Min. 8 characters,Max. 30 characters, which must contain at least
                           one Special character, one Capital letter, one Small letter and one Numeric value.</p>
                       </div>
