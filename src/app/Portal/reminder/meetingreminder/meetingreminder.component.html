@@ -13,7 +13,7 @@
       <form [formGroup]="firstFormGroup">
         <div fxLayout="row wrap">
   
-          <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+          <div class="p-10" fxFlex.gt-sm={{columnwidth50}} fxFlex.gt-xs={{columnwidth50}} fxFlex="100">
             <mat-form-field>
               <input matInput placeholder="Meeting Title" formControlName="MeetingTitle" required>
             </mat-form-field>
@@ -23,21 +23,54 @@
             <p class="text-danger m-t-0 font-16" *ngIf="firtsForm.MeetingTitle.touched && firtsForm.MeetingTitle.errors?.pattern">
               Meeting Title Name contains only characters.</p>
           </div>
-          <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+
+          <div class="p-10" fxFlex.gt-sm={{columnwidth50}} fxFlex.gt-xs={{columnwidth50}} fxFlex="100">
+            <mat-form-field>
+              <input matInput placeholder="URL" formControlName="MeetingUrl" required>
+            </mat-form-field>
+          </div>
+
+          <div class="p-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+            <mat-form-field>
+              <input matInput placeholder="Meeting Id" formControlName="MeetingId">
+            </mat-form-field>
+          </div>
+
+          <div class="p-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+            <mat-form-field>
+              <input matInput placeholder="Meeting UserId" formControlName="MeetingUserId">
+            </mat-form-field>
+          </div>
+
+          <div class="p-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+            <mat-form-field>
+              <input matInput placeholder="Enter your PassCode" formControlName="MeetingPassCode"
+                [type]="hide ? 'password' : 'text'" autocomplete="off">
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+
+          <div class="p-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
             <mat-form-field>
               <input type="datetime-local" matInput placeholder="Meeting Date" id="MeetingdateInputID" formControlName="MeetingDateTime" required >
             </mat-form-field>
           </div>
-          <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+
+          <div class="p-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
             <mat-form-field>
               <input type="datetime-local" matInput placeholder="Reminder DateTime" id="ReminderDateTimeInputID" formControlName="ReminderDateTime" required>
             </mat-form-field>
           </div>
-          <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+
+          <div class="p-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
             <mat-form-field>
               <textarea matInput rows="1" placeholder="Notes" formControlName="Notes"> </textarea>
             </mat-form-field>
           </div>
+
         </div>
       </form>
   

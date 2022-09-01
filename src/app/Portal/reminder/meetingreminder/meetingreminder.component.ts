@@ -21,6 +21,9 @@ export class MeetingreminderComponent implements OnInit {
   firstFormGroup: FormGroup;
   BithdayDataArray: any = [];
   updaterecord = false;
+  columnwidth30=33.33;
+  columnwidth50=50;
+  hide = true;
 
   meetinglist = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -31,6 +34,8 @@ export class MeetingreminderComponent implements OnInit {
     this.firstFormGroup = this.fb.group({
       Id: [0],
       UserId: [0],
+
+
       MeetingTitle: [
         "",
         [
@@ -40,6 +45,14 @@ export class MeetingreminderComponent implements OnInit {
           Validators.pattern("^[a-zA-Z ]+$"),
         ],
       ],
+      MeetingUrl:["",[Validators.required]],
+      MeetingId:[""],
+
+      MeetingUserId:[""],
+      MeetingPassCode:[""],
+
+
+
       MeetingDateTime: ["", [Validators.required]],
       ReminderDateTime: ["", [Validators.required]],
       Notes: [""],
