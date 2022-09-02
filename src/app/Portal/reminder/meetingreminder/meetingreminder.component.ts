@@ -95,7 +95,36 @@ export class MeetingreminderComponent implements OnInit {
     submitdata.dobDate = this.firstFormGroup.value.MeetingDateTime;
     submitdata.reminderType = 1;
     submitdata.reminderDateTime = this.firstFormGroup.value.ReminderDateTime;
-    submitdata.notes = this.firstFormGroup.value.Notes;
+
+    submitdata.notes
+
+    let meetingdetail = '';
+
+    if(this.firstFormGroup.value.MeetingUrl){
+      meetingdetail += `MeetingUrl*equal*${this.firstFormGroup.value.MeetingUrl}`;
+    }
+
+    if(this.firstFormGroup.value.MeetingId){
+      meetingdetail += `*divaid*MeetingId*equal*${this.firstFormGroup.value.MeetingId}`;
+    }
+
+    if(this.firstFormGroup.value.MeetingUserId){
+      meetingdetail += `*divaid*MeetingUserId*equal*${this.firstFormGroup.value.MeetingUserId}`;
+    }
+
+    if(this.firstFormGroup.value.MeetingPassCode){
+      meetingdetail += `*divaid*MeetingPassCode*equal*${this.firstFormGroup.value.MeetingPassCode}`;
+    }
+
+    if(this.firstFormGroup.value.Notes){
+      meetingdetail += `*divaid*Extradetail*equal*${this.firstFormGroup.value.Notes}`;
+    }
+
+    submitdata.notes = meetingdetail;
+
+//test.split('*divaid*')[0].split('*equal*');
+
+    //submitdata.notes = this.firstFormGroup.value.Notes;
 
     this.common.PostMethod(`Birth_PolicyReminder`, submitdata).then((res: any) => {
       if (res.status == 1) {
