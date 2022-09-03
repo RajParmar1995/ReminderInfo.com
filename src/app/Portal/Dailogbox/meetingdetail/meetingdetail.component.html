@@ -1,0 +1,49 @@
+
+ <div fxLayout="row wrap" style="margin: -20px 0px 0px;">
+    <div class="p-l-5 p-r-5" style="margin-top: -10px;" fxFlex.gt-sm="70" fxFlex.gt-xs="70" fxFlex="70">
+      <h4><b>Meeting Detail</b></h4>
+    </div>
+    <div class="p-l-5 p-r-5" fxFlex.gt-sm="30" fxFlex.gt-xs="30" fxFlex="30" style="text-align: right;margin-top: 10px">
+      <button mat-raised-button color="warn" style="margin: auto;align-self: center;" (click)="closeModal()">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">close</mat-icon>
+      </button>
+    </div>
+ </div>
+<mat-dialog-content class="mat-typography">
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+      <div fxLayout="row wrap">
+        <div class="p-l-5 p-r-5" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
+          <mat-form-field appearance="outline">
+            <mat-label>Meeting URL</mat-label>
+            <input matInput title={{list.MeetingURL}} value={{list.MeetingURL}}>
+          </mat-form-field>
+        </div>
+        <div class="p-l-5 p-r-5" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
+            <mat-form-field appearance="outline">
+              <mat-label>Meeting Id</mat-label>
+              <input matInput title={{list.MeetingId}} value={{list.MeetingId}}>
+            </mat-form-field>
+          </div>
+          <div class="p-l-5 p-r-5" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
+            <mat-form-field appearance="outline">
+              <mat-label>User Id</mat-label>
+              <input matInput title={{list.UserId}} value={{list.UserId}}>
+            </mat-form-field>
+          </div>
+          <div class="p-l-5 p-r-5" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
+            <mat-form-field appearance="outline">
+              <mat-label>PassCode</mat-label>
+              <input matInput title={{list.PassCode}} value={{list.PassCode}}>
+            </mat-form-field>
+          </div>
+          <div class="p-l-5 p-r-5" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
+            <mat-form-field appearance="outline">
+              <mat-label>Details</mat-label>
+              <input matInput title={{list.Details}} value={{list.Details}}>
+            </mat-form-field>
+          </div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>

@@ -8,7 +8,10 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
 import { CommonService } from "../../Service/common.service";
 import { CustomValidators } from "ng2-validation";
+import { EncriptionService } from '../../Service/encription.service';
 import * as moment from "moment";
+import { MatDialog,MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
+import {MeetingdetailComponent} from '../../Dailogbox/meetingdetail/meetingdetail.component';
 
 @Component({
   selector: 'app-meetingreminder',
@@ -21,15 +24,15 @@ export class MeetingreminderComponent implements OnInit {
   firstFormGroup: FormGroup;
   BithdayDataArray: any = [];
   updaterecord = false;
-  columnwidth30=33.33;
-  columnwidth50=50;
+  columnwidth30 = 33.33;
+  columnwidth50 = 50;
   hide = true;
 
   meetinglist = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(public common: CommonService, public fb: FormBuilder) { }
+  constructor(public common: CommonService, public fb: FormBuilder, private ency: EncriptionService) { }
   ngOnInit() {
     this.firstFormGroup = this.fb.group({
       Id: [0],
@@ -45,13 +48,11 @@ export class MeetingreminderComponent implements OnInit {
           Validators.pattern("^[a-zA-Z ]+$"),
         ],
       ],
-      MeetingUrl:["",[Validators.required]],
-      MeetingId:[""],
+      MeetingUrl: ["", [Validators.required]],
+      MeetingId: [""],
 
-      MeetingUserId:[""],
-      MeetingPassCode:[""],
-
-
+      MeetingUserId: [""],
+      MeetingPassCode: [""],
 
       MeetingDateTime: ["", [Validators.required]],
       ReminderDateTime: ["", [Validators.required]],
@@ -100,29 +101,28 @@ export class MeetingreminderComponent implements OnInit {
 
     let meetingdetail = '';
 
-    if(this.firstFormGroup.value.MeetingUrl){
-      meetingdetail += `MeetingUrl*equal*${this.firstFormGroup.value.MeetingUrl}`;
+    if (this.firstFormGroup.value.MeetingUrl) {
+      meetingdetail += `MUrl*eql*${this.firstFormGroup.value.MeetingUrl}`;
     }
 
-    if(this.firstFormGroup.value.MeetingId){
-      meetingdetail += `*divaid*MeetingId*equal*${this.firstFormGroup.value.MeetingId}`;
+    if (this.firstFormGroup.value.MeetingId) {
+      meetingdetail += `*dvd*MId*eql*${this.firstFormGroup.value.MeetingId}`;
     }
 
-    if(this.firstFormGroup.value.MeetingUserId){
-      meetingdetail += `*divaid*MeetingUserId*equal*${this.firstFormGroup.value.MeetingUserId}`;
+    if (this.firstFormGroup.value.MeetingUserId) {
+      meetingdetail += `*dvd*MUId*eql*${this.firstFormGroup.value.MeetingUserId}`;
     }
 
-    if(this.firstFormGroup.value.MeetingPassCode){
-      meetingdetail += `*divaid*MeetingPassCode*equal*${this.firstFormGroup.value.MeetingPassCode}`;
+    if (this.firstFormGroup.value.MeetingPassCode) {
+      meetingdetail += `*dvd*MPC*eql*${this.firstFormGroup.value.MeetingPassCode}`;
     }
 
-    if(this.firstFormGroup.value.Notes){
-      meetingdetail += `*divaid*Extradetail*equal*${this.firstFormGroup.value.Notes}`;
+    if (this.firstFormGroup.value.Notes) {
+      meetingdetail += `*dvd*ED*eql*${this.firstFormGroup.value.Notes}`;
     }
+    submitdata.notes = this.ency.encryptUsingAES256(meetingdetail);
 
-    submitdata.notes = meetingdetail;
-
-//test.split('*divaid*')[0].split('*equal*');
+    //test.split('*dvd*')[0].split('*eql*');
 
     //submitdata.notes = this.firstFormGroup.value.Notes;
 
@@ -131,12 +131,12 @@ export class MeetingreminderComponent implements OnInit {
         this.common.ToastMessage("Success", res.message);
         this.ResetMeeting();
         this.GetMeetingList();
-    this.updaterecord = false;
+        this.updaterecord = false;
       } else {
         this.common.ToastMessage("Info", res.message);
       }
     }).catch(y => {
-      this.common.ToastMessage("Error !",y.error.message);
+      this.common.ToastMessage("Error !", y.error.message);
     });
   }
 
@@ -145,20 +145,58 @@ export class MeetingreminderComponent implements OnInit {
     this.firtsForm.Id.setValue(val.reminderId);
     this.firtsForm.UserId.setValue(val.userId);
     this.firtsForm.MeetingTitle.setValue(val.bdayHolderName);
-    if(val.dobDate != null){
+    if (val.dobDate != null) {
       this.firtsForm.MeetingDateTime.setValue(val.dobDate.split(".")[0]);
-    }else{
+    } else {
       this.firtsForm.MeetingDateTime.setValue(null);
     }
-    if(val.reminderDateTime != null){
+    if (val.reminderDateTime != null) {
       this.firtsForm.ReminderDateTime.setValue(val.reminderDateTime.split(".")[0]);
-    }else{
+    } else {
       this.firtsForm.ReminderDateTime.setValue(null);
     }
     this.firtsForm.Status.setValue(val.reminderStatus);
-    this.firtsForm.Notes.setValue(val.notes);
+    // this.firtsForm.Notes.setValue(val.notes);
     this.firtsForm.CreateDate.setValue(val.createDate);
     this.firtsForm.UpdateDate.setValue(val.updateDate);
+
+    let meetingdetail = '';
+    let detailarray = [];
+    if (val.notes) {
+      meetingdetail = this.ency.decryptUsingAES256(val.notes).split('*dvd*');
+      // meetingdetail.split('*dvd*');
+      for (let i = 0; i < meetingdetail.length; i++) {
+        let keyval: any = meetingdetail[i].split('*eql*');
+        detailarray.push(JSON.parse(`{"${keyval[0]}" : "${keyval[1]}"}`));
+      }
+    }
+
+    if (detailarray.length > 0) {
+      //this.firstFormGroup.value.MeetingUrl = detailarray.filter(e=> Object.keys(e).toString() == Object.keys(f).toString())
+
+      this.firtsForm.MeetingUrl.setValue(detailarray.filter(e => Object.keys(e).toString() == 'MUrl')[0].MUrl);
+      this.firtsForm.MeetingId.setValue(detailarray.filter(e => Object.keys(e).toString() == 'MId')[0].MId);
+      this.firtsForm.MeetingUserId.setValue(detailarray.filter(e => Object.keys(e).toString() == 'MUId')[0].MUId);
+      this.firtsForm.MeetingPassCode.setValue(detailarray.filter(e => Object.keys(e).toString() == 'MPC')[0].MPC);
+      this.firtsForm.Notes.setValue(detailarray.filter(e => Object.keys(e).toString() == 'ED')[0].ED);
+    }
+  }
+
+  showdetail(val){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.id = "modal-component";
+    dialogConfig.height = "400px";
+    dialogConfig.width = "1080px";
+    dialogConfig.data = {status:true,val};
+    let dailog = this.common.dialog.open(MeetingdetailComponent,dialogConfig);
+    dailog.afterClosed().subscribe(data => {
+
+  })
+  }
+
+  hidedetails(val){
+
   }
 
   UpdateMeetingReminder() {
@@ -169,19 +207,45 @@ export class MeetingreminderComponent implements OnInit {
     submitdata.dobDate = this.firstFormGroup.value.MeetingDateTime;
     submitdata.reminderType = 1;
     submitdata.reminderDateTime = this.firstFormGroup.value.ReminderDateTime;
-    submitdata.notes = this.firstFormGroup.value.Notes;
+
+    let meetingdetail = '';
+
+    if (this.firstFormGroup.value.MeetingUrl) {
+      meetingdetail += `MUrl*eql*${this.firstFormGroup.value.MeetingUrl}`;
+    }
+
+    if (this.firstFormGroup.value.MeetingId) {
+      meetingdetail += `*dvd*MId*eql*${this.firstFormGroup.value.MeetingId}`;
+    }
+
+    if (this.firstFormGroup.value.MeetingUserId) {
+      meetingdetail += `*dvd*MUId*eql*${this.firstFormGroup.value.MeetingUserId}`;
+    }
+
+    if (this.firstFormGroup.value.MeetingPassCode) {
+      meetingdetail += `*dvd*MPC*eql*${this.firstFormGroup.value.MeetingPassCode}`;
+    }
+
+    if (this.firstFormGroup.value.Notes) {
+      meetingdetail += `*dvd*ED*eql*${this.firstFormGroup.value.Notes}`;
+    }
+    submitdata.notes = this.ency.encryptUsingAES256(meetingdetail);
+
+    //test.split('*dvd*')[0].split('*eql*');
+
+    // submitdata.notes = this.firstFormGroup.value.Notes;
 
     this.common.PutMethod(`Birth_PolicyReminder/${submitdata.userId}`, submitdata).then((res: any) => {
       if (res.status == 1) {
         this.common.ToastMessage("Success", res.message);
         this.ResetMeeting();
         this.GetMeetingList();
-    this.updaterecord = false;
+        this.updaterecord = false;
       } else {
         this.common.ToastMessage("Info", res.message);
       }
     }).catch(y => {
-      this.common.ToastMessage("Error !",y.error.message);
+      this.common.ToastMessage("Error !", y.error.message);
     });
 
   }
@@ -204,17 +268,17 @@ export class MeetingreminderComponent implements OnInit {
     val.reminderStatus = !val.reminderStatus;
     submitdata.ReminderIdVal = val.reminderId;
     submitdata.status = val.reminderStatus;
-    this.common.PatchMethod(`Birth_PolicyReminder/${submitdata.ReminderIdVal}`,submitdata).then((res: any) => {
+    this.common.PatchMethod(`Birth_PolicyReminder/${submitdata.ReminderIdVal}`, submitdata).then((res: any) => {
       if (res.status == 1) {
         this.common.ToastMessage("Success", res.message);
         this.ResetMeeting();
         this.GetMeetingList();
-    this.updaterecord = false;
+        this.updaterecord = false;
       } else {
         this.common.ToastMessage("Info", res.message);
       }
     }).catch(y => {
-      this.common.ToastMessage("Error !",y.error.message);
+      this.common.ToastMessage("Error !", y.error.message);
     });
   }
 

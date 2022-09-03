@@ -40,6 +40,7 @@ import { SettingsComponent } from './Workmanager/settings/settings.component';
 import { UserdetailComponent } from './Portal/Dailogbox/userdetail/userdetail.component';
 import { PipeModule } from './Portal/Pipes/pipe/pipe.module';
 import { ReminderinfodailogComponent } from './Portal/Dailogbox/reminderinfodailog/reminderinfodailog.component';
+import { MeetingdetailComponent } from './Portal/Dailogbox/meetingdetail/meetingdetail.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { ReminderinfodailogComponent } from './Portal/Dailogbox/reminderinfodail
     SettingsComponent,
     UserdetailComponent,
     ReminderinfodailogComponent,
+    MeetingdetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,7 +85,7 @@ import { ReminderinfodailogComponent } from './Portal/Dailogbox/reminderinfodail
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     }
   ],
-  entryComponents: [ConfirmboxComponent, OtpComponent, ChangepasswordComponent,UserdetailComponent,ReminderinfodailogComponent],
+  entryComponents: [ConfirmboxComponent, OtpComponent, ChangepasswordComponent,UserdetailComponent,ReminderinfodailogComponent,MeetingdetailComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
