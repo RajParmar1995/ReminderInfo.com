@@ -1,6 +1,8 @@
-import { Component, Inject, OnInit } from "@angular/core";
+import { Component, ElementRef, Inject, OnInit, ViewChild } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { EncriptionService } from '../../Service/encription.service';
+
+ import * as jquery from 'jquery';
 
 @Component({
   selector: 'app-meetingdetail',
@@ -8,7 +10,12 @@ import { EncriptionService } from '../../Service/encription.service';
   styleUrls: ['./meetingdetail.component.css']
 })
 export class MeetingdetailComponent implements OnInit {
-  columwidth = "25";
+
+  //@ViewChild('inputval1') inputval1: ElementRef;
+hide = true;
+  columwidth = "100";
+  rowwidth90 = "100";
+  rowwidth10 = "10";
   list: any = {};
 
   constructor(
@@ -27,7 +34,8 @@ export class MeetingdetailComponent implements OnInit {
       let meetingdetail = '';
       let detailarray = [];
       if (dataarray.notes) {
-        meetingdetail = this.ency.decryptUsingAES256(dataarray.notes).split('*dvd*');
+        //meetingdetail = this.ency.decryptUsingAES256(dataarray.notes).split('*dvd*');
+        meetingdetail = dataarray.notes.split('*dvd*');
         for (let i = 0; i < meetingdetail.length; i++) {
           let keyval: any = meetingdetail[i].split('*eql*');
           detailarray.push(JSON.parse(`{"${keyval[0]}" : "${keyval[1]}"}`));
@@ -35,13 +43,23 @@ export class MeetingdetailComponent implements OnInit {
       }
 
       if (detailarray.length > 0) {
-        this.list.MeetingUrl.setValue(detailarray.filter(e => Object.keys(e).toString() == 'MUrl')[0].MUrl);
-        this.list.MeetingId.setValue(detailarray.filter(e => Object.keys(e).toString() == 'MId')[0].MId);
-        this.list.UserId.setValue(detailarray.filter(e => Object.keys(e).toString() == 'MUId')[0].MUId);
-        this.list.PassCode.setValue(detailarray.filter(e => Object.keys(e).toString() == 'MPC')[0].MPC);
-        this.list.Details.setValue(detailarray.filter(e => Object.keys(e).toString() == 'ED')[0].ED);
+        this.list.MeetingUrl = (detailarray.filter(e => Object.keys(e).toString() == 'MUrl').length > 0 ?detailarray.filter(e => Object.keys(e).toString() == 'MUrl')[0].MUrl : '');
+
+        this.list.MeetingId = (detailarray.filter(e => Object.keys(e).toString() == 'MId').length > 0 ?detailarray.filter(e => Object.keys(e).toString() == 'MId')[0].MId : '');
+
+        this.list.UserId = (detailarray.filter(e => Object.keys(e).toString() == 'MUId').length > 0 ? detailarray.filter(e => Object.keys(e).toString() == 'MUId')[0].MUId : '');
+        
+        this.list.PassCode = (detailarray.filter(e => Object.keys(e).toString() == 'MPC').length > 0 ? detailarray.filter(e => Object.keys(e).toString() == 'MPC')[0].MPC : '');
+        
+        this.list.Details = (detailarray.filter(e => Object.keys(e).toString() == 'ED').length > 0 ? detailarray.filter(e => Object.keys(e).toString() == 'ED')[0].ED : '');
       }
     }
+  }
+
+  textcopy(val:any) {
+    val.select();
+    document.execCommand('copy')
+    val.setSelectionRange(0, 0);
   }
 
   closeModal() {

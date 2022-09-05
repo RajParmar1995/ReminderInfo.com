@@ -41,6 +41,13 @@ import { UserdetailComponent } from './Portal/Dailogbox/userdetail/userdetail.co
 import { PipeModule } from './Portal/Pipes/pipe/pipe.module';
 import { ReminderinfodailogComponent } from './Portal/Dailogbox/reminderinfodailog/reminderinfodailog.component';
 import { MeetingdetailComponent } from './Portal/Dailogbox/meetingdetail/meetingdetail.component';
+//import { Clipboard } from '@angular/cdk/c';
+//import { ClipboardModule } from "@angular/cdk/clipboard";
+//import { ClipboardModule } from 'ngx-clipboard';
+
+
+
+import {   }  from '@angular/cdk'
 
 @NgModule({
   declarations: [

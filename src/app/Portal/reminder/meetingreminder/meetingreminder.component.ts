@@ -38,16 +38,7 @@ export class MeetingreminderComponent implements OnInit {
       Id: [0],
       UserId: [0],
 
-
-      MeetingTitle: [
-        "",
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(20),
-          Validators.pattern("^[a-zA-Z ]+$"),
-        ],
-      ],
+      MeetingTitle: ["",[Validators.required,Validators.minLength(3),Validators.maxLength(20),Validators.pattern("^[a-zA-Z ]+$"),],],
       MeetingUrl: ["", [Validators.required]],
       MeetingId: [""],
 
@@ -120,7 +111,9 @@ export class MeetingreminderComponent implements OnInit {
     if (this.firstFormGroup.value.Notes) {
       meetingdetail += `*dvd*ED*eql*${this.firstFormGroup.value.Notes}`;
     }
-    submitdata.notes = this.ency.encryptUsingAES256(meetingdetail);
+   // submitdata.notes = this.ency.encryptUsingAES256(meetingdetail);
+
+   submitdata.notes = meetingdetail;
 
     //test.split('*dvd*')[0].split('*eql*');
 
@@ -163,7 +156,9 @@ export class MeetingreminderComponent implements OnInit {
     let meetingdetail = '';
     let detailarray = [];
     if (val.notes) {
-      meetingdetail = this.ency.decryptUsingAES256(val.notes).split('*dvd*');
+      //meetingdetail = this.ency.decryptUsingAES256(val.notes).split('*dvd*');
+
+      meetingdetail = val.notes.split('*dvd*');
       // meetingdetail.split('*dvd*');
       for (let i = 0; i < meetingdetail.length; i++) {
         let keyval: any = meetingdetail[i].split('*eql*');
@@ -187,7 +182,7 @@ export class MeetingreminderComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.id = "modal-component";
     dialogConfig.height = "400px";
-    dialogConfig.width = "1080px";
+    dialogConfig.width = "500px";
     dialogConfig.data = {status:true,val};
     let dailog = this.common.dialog.open(MeetingdetailComponent,dialogConfig);
     dailog.afterClosed().subscribe(data => {
@@ -229,7 +224,9 @@ export class MeetingreminderComponent implements OnInit {
     if (this.firstFormGroup.value.Notes) {
       meetingdetail += `*dvd*ED*eql*${this.firstFormGroup.value.Notes}`;
     }
-    submitdata.notes = this.ency.encryptUsingAES256(meetingdetail);
+    //submitdata.notes = this.ency.encryptUsingAES256(meetingdetail);
+
+    submitdata.notes = meetingdetail;
 
     //test.split('*dvd*')[0].split('*eql*');
 
@@ -247,19 +244,24 @@ export class MeetingreminderComponent implements OnInit {
     }).catch(y => {
       this.common.ToastMessage("Error !", y.error.message);
     });
-
   }
 
   ResetMeeting() {
-    this.firstFormGroup.controls["Id"].setValue(0);
-    this.firstFormGroup.controls["UserId"].setValue(0);
-    this.firstFormGroup.controls["MeetingTitle"].setValue("");
-    this.firstFormGroup.controls["MeetingDateTime"].setValue("");
-    this.firstFormGroup.controls["ReminderDateTime"].setValue("");
-    this.firstFormGroup.controls["Status"].setValue("");
-    this.firstFormGroup.controls["Notes"].setValue("");
-    this.firstFormGroup.controls["CreateDate"].setValue("");
-    this.firstFormGroup.controls["UpdateDate"].setValue("");
+    
+    this.firtsForm.Id.setValue(0);
+    this.firtsForm.UserId.setValue(0);
+    this.firtsForm.MeetingTitle.setValue("");
+    this.firtsForm.MeetingUrl.setValue('');
+    this.firtsForm.MeetingId.setValue("");
+    this.firtsForm.MeetingUserId.setValue("");
+    this.firtsForm.MeetingPassCode.setValue("");
+
+    this.firtsForm.MeetingDateTime.setValue("");
+    this.firtsForm.ReminderDateTime.setValue("");
+    this.firtsForm.Status.setValue("");
+    this.firtsForm.Notes.setValue("");
+    this.firtsForm.CreateDate.setValue("");
+    this.firtsForm.UpdateDate.setValue("");
     this.updaterecord = false;
   }
 

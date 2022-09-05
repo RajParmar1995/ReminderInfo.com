@@ -9,7 +9,7 @@ import { CommonService } from "../../Service/common.service";
   styleUrls: ["./reminderinfodailog.component.css"],
 })
 export class ReminderinfodailogComponent implements OnInit {
-  columwidth = "25";
+  columwidth = "23.7";
   list: any = {};
 
   constructor(
@@ -27,7 +27,6 @@ export class ReminderinfodailogComponent implements OnInit {
   getreminderdata() {
     if (this.data.status == true) {
       var dataarray = this.data.val;
-      debugger
       this.list.bdayHolderName = dataarray.bdayHolderName;
       this.list.createDate =  moment(dataarray.createDate).format(this.datetimeformat);
       this.list.notes = dataarray.notes;

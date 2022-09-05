@@ -12,6 +12,7 @@ import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
 import * as moment from "moment";
 import { MatDialog,MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
 import {ReminderinfodailogComponent} from '../../Dailogbox/reminderinfodailog/reminderinfodailog.component';
+import { MeetingdetailComponent } from '../../Dailogbox/meetingdetail/meetingdetail.component';
 
 @Component({
   selector: 'app-allreminder',
@@ -37,6 +38,10 @@ export class AllreminderComponent implements OnInit {
   ReminderTablelist = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true }) paginator1: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort1: MatSort;
+
+  meetinglist = new MatTableDataSource();
+  @ViewChild(MatPaginator, { static: true }) paginator2: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort2: MatSort;
 
   constructor(public common: CommonService) { }
 
@@ -68,8 +73,25 @@ export class AllreminderComponent implements OnInit {
     ];
     this.ReminderTablelist.paginator = this.paginator1;
     this.ReminderTablelist.sort = this.sort1;
+
+    this.lists.displayedColumns2 = [
+      // "id",
+      "meetingtitle",
+      "meetingdatetime",
+      "reminderdatetime",
+      "notes",
+      "createdate",
+      "updateDate",
+      "Status",
+      "Action",
+    ];
+    this.meetinglist.paginator = this.paginator2;
+    this.meetinglist.sort = this.sort2;
+    
+    
     this.GetbirthdayReminderList();
     this.GetpolicyReminderList();
+    this.GetMeetingList();
   }
 
   GetbirthdayReminderList() {
@@ -89,6 +111,13 @@ export class AllreminderComponent implements OnInit {
         console.table(res);
         this.ReminderTablelist = new MatTableDataSource(res);
       });
+  }
+
+
+  GetMeetingList() {
+    this.common.GetMethod(`Birth_PolicyReminder/Usreid,ReminderType?Usreid=${localStorage.getItem("UserID")}&ReminderType=1`).then((res: any) => {
+      this.meetinglist = new MatTableDataSource(res);
+    });
   }
 
   UpdatereminderrStatus(val,type) {
@@ -123,6 +152,19 @@ export class AllreminderComponent implements OnInit {
     //dialogConfig.width = "100%";
     dialogConfig.data = {status:true,val};
     let dailog = this.common.dialog.open(ReminderinfodailogComponent,dialogConfig);
+    dailog.afterClosed().subscribe(data => {
+
+  })
+  }
+
+  showdetail(val){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.id = "modal-component1";
+    dialogConfig.height = "400px";
+    dialogConfig.width = "500px";
+    dialogConfig.data = {status:true,val};
+    let dailog = this.common.dialog.open(MeetingdetailComponent,dialogConfig);
     dailog.afterClosed().subscribe(data => {
 
   })

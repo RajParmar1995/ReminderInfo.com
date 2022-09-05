@@ -236,18 +236,27 @@
                   </td>
                 </ng-container>
                 <ng-container matColumnDef="Action">
-                  <th mat-header-cell *matHeaderCellDef> Action </th>
+                  <th mat-header-cell *matHeaderCellDef  style="text-align:center"> Action </th>
                   <td mat-cell *matCellDef="let element" class="action-link">
-                    <a>
-                      <mat-icon style="color:#E91E63" (click)="EditpolicyReminderRecord(element)">edit
-                      </mat-icon>
-                    </a>
-                    <a class="m-l-10">
-                      <mat-icon style="color:#E91E63" (click)="DeletepolicyReminderRecord(element)">delete</mat-icon>
-                    </a>
-                    <a class="m-l-10">
-                      <mat-icon style="color:#E91E63" (click)="ShowReminderAllDetail(element)">info</mat-icon>
-                    </a>
+
+                    <div class="row" style="display: inline-flex;">
+                      <div class="col-4">
+                        <a class="m-l-10">
+                          <mat-icon style="color:#E91E63" (click)="EditpolicyReminderRecord(element)">edit
+                          </mat-icon>
+                        </a>
+                      </div>
+                      <div class="col-4">
+                        <a class="m-l-10">
+                          <mat-icon style="color:#E91E63" (click)="DeletepolicyReminderRecord(element)">delete</mat-icon>
+                        </a>
+                      </div>
+                      <div class="col-4">
+                        <a class="m-l-10">
+                          <mat-icon style="color:#E91E63" (click)="ShowReminderAllDetail(element)">info</mat-icon>
+                        </a>
+                      </div>
+                    </div>
                   </td>
                 </ng-container>
                 <tr mat-header-row *matHeaderRowDef="lists.displayedColumns; sticky: true"></tr>

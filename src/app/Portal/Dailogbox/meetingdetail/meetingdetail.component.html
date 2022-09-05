@@ -1,5 +1,6 @@
-
- <div fxLayout="row wrap" style="margin: -20px 0px 0px;">
+<div>
+  <!-- (mouseout)="closeModal()" -->
+  <div fxLayout="row wrap" style="margin: -20px 0px 0px;">
     <div class="p-l-5 p-r-5" style="margin-top: -10px;" fxFlex.gt-sm="70" fxFlex.gt-xs="70" fxFlex="70">
       <h4><b>Meeting Detail</b></h4>
     </div>
@@ -8,42 +9,76 @@
         <mat-icon aria-hidden="false" aria-label="Example home icon">close</mat-icon>
       </button>
     </div>
- </div>
-<mat-dialog-content class="mat-typography">
-  <div fxLayout="row wrap">
-    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-      <div fxLayout="row wrap">
-        <div class="p-l-5 p-r-5" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
-          <mat-form-field appearance="outline">
-            <mat-label>Meeting URL</mat-label>
-            <input matInput title={{list.MeetingURL}} value={{list.MeetingURL}}>
-          </mat-form-field>
-        </div>
-        <div class="p-l-5 p-r-5" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
-            <mat-form-field appearance="outline">
+  </div>
+  <mat-dialog-content class="mat-typography" style="overflow: hidden;min-height: 300px;">
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+        <div fxLayout="row wrap">
+
+          <div class="p-l-5 p-r-5 " fxFlex.gt-sm={{rowwidth90}} fxFlex.gt-xs={{rowwidth90}} fxFlex="100">
+            <mat-form-field appearance="outline" class="rowlineHeight">
+              <mat-label>Meeting URL</mat-label>
+              <input matInput #MeetingUrl title={{list.MeetingUrl}} value={{list.MeetingUrl}} readonly>
+              <button mat-icon-button matSuffix (click)="textcopy(list.MeetingUrl)" class="copybtncolor">
+                <mat-icon copyiconcolor>file_copy</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+          
+
+          <div class="p-l-5 p-r-5 " fxFlex.gt-sm={{rowwidth90}} fxFlex.gt-xs={{rowwidth90}} fxFlex="100">
+            <mat-form-field appearance="outline" class="rowlineHeight">
               <mat-label>Meeting Id</mat-label>
-              <input matInput title={{list.MeetingId}} value={{list.MeetingId}}>
+              <input matInput title={{list.MeetingId}} value={{list.MeetingId}} readonly>
+              <button mat-icon-button matSuffix (click)="textcopy(list.MeetingUrl)" class="copybtncolor">
+                <mat-icon copyiconcolor>file_copy</mat-icon>
+              </button>
             </mat-form-field>
           </div>
-          <div class="p-l-5 p-r-5" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
-            <mat-form-field appearance="outline">
+          <!-- <div class="p-l-5 p-r-5" fxFlex.gt-sm={{rowwidth10}} fxFlex.gt-xs={{rowwidth10}} fxFlex="15">
+            <button mat-button color="primary" (click)="textcopy(list.MeetingId)" class="copybtncolor">
+              <mat-icon copyiconcolor>file_copy</mat-icon>
+            </button>
+          </div> -->
+
+          <div class="p-l-5 p-r-5 " fxFlex.gt-sm={{rowwidth90}} fxFlex.gt-xs={{rowwidth90}} fxFlex="100">
+            <mat-form-field appearance="outline" class="rowlineHeight">
               <mat-label>User Id</mat-label>
-              <input matInput title={{list.UserId}} value={{list.UserId}}>
+              <input matInput title={{list.UserId}} value={{list.UserId}} readonly>
+              <button mat-icon-button matSuffix (click)="textcopy(list.MeetingUrl)" class="copybtncolor">
+                <mat-icon copyiconcolor>file_copy</mat-icon>
+              </button>
             </mat-form-field>
           </div>
-          <div class="p-l-5 p-r-5" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
-            <mat-form-field appearance="outline">
-              <mat-label>PassCode</mat-label>
-              <input matInput title={{list.PassCode}} value={{list.PassCode}}>
+          <!-- <div class="p-l-5 p-r-5" fxFlex.gt-sm={{rowwidth10}} fxFlex.gt-xs={{rowwidth10}} fxFlex="15">
+            <button mat-button color="primary" (click)="textcopy(list.UserId)" class="copybtncolor">
+              <mat-icon copyiconcolor>file_copy</mat-icon>
+            </button>
+          </div> -->
+
+          <div class="p-l-5 p-r-5 " fxFlex.gt-sm={{rowwidth90}} fxFlex.gt-xs={{rowwidth90}} fxFlex="100">
+            <mat-form-field appearance="outline" class="rowlineHeight">
+              <input matInput value={{list.PassCode}} readonly
+                [type]="hide ? 'password' : 'text'" autocomplete="off">
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
             </mat-form-field>
           </div>
-          <div class="p-l-5 p-r-5" fxFlex.gt-sm={{columwidth}} fxFlex.gt-xs={{columwidth}} fxFlex="100">
-            <mat-form-field appearance="outline">
+
+          <div class="p-l-5 p-r-5 " fxFlex.gt-sm={{rowwidth90}} fxFlex.gt-xs={{rowwidth90}} fxFlex="100">
+            <mat-form-field appearance="outline" class="rowlineHeight">
               <mat-label>Details</mat-label>
-              <input matInput title={{list.Details}} value={{list.Details}}>
+              <input matInput title={{list.Details}} value={{list.Details}} readonly>
+              <button mat-icon-button matSuffix (click)="textcopy(list.MeetingUrl)" class="copybtncolor">
+                <mat-icon copyiconcolor>file_copy</mat-icon>
+              </button>
             </mat-form-field>
           </div>
+
+        </div>
       </div>
     </div>
-  </div>
-</mat-dialog-content>
+  </mat-dialog-content>
+</div>

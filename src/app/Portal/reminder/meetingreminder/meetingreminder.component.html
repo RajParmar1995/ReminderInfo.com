@@ -1,150 +1,161 @@
 <mat-card>
-    <mat-card-content>
-      <div fxLayout="row wrap">
-        <div class="p-10" fxFlex.gt-sm="100" fxFlex.gt-xs="50" fxFlex="100">
-          <button mat-raised-button class="pull-right" color="warn" style="margin-left: 5px;"
+  <mat-card-content>
+    <div fxLayout="row wrap">
+      <div class="p-10" fxFlex.gt-sm="100" fxFlex.gt-xs="50" fxFlex="100">
+        <button mat-raised-button class="pull-right" color="warn" style="margin-left: 5px;"
           (click)="ResetMeeting()">Reset</button>
-          <button mat-raised-button [disabled]="!firstFormGroup.valid"  *ngIf="!updaterecord" class="pull-right" color="primary"
-          (click)="CreateMeetingReminder()">Save</button>
-          <button mat-raised-button [disabled]="!firstFormGroup.valid"  *ngIf="updaterecord" class="pull-right" color="primary"
-          (click)="UpdateMeetingReminder()">Update</button>
+        <button mat-raised-button [disabled]="!firstFormGroup.valid" *ngIf="!updaterecord" class="pull-right"
+          color="primary" (click)="CreateMeetingReminder()">Save</button>
+        <button mat-raised-button [disabled]="!firstFormGroup.valid" *ngIf="updaterecord" class="pull-right"
+          color="primary" (click)="UpdateMeetingReminder()">Update</button>
       </div>
-      </div>
-      <form [formGroup]="firstFormGroup">
-        <div fxLayout="row wrap">
-  
-          <div class="p-10" fxFlex.gt-sm={{columnwidth50}} fxFlex.gt-xs={{columnwidth50}} fxFlex="100">
-            <mat-form-field>
-              <input matInput placeholder="Meeting Title" formControlName="MeetingTitle" required>
-            </mat-form-field>
-            <p class="text-danger m-t-0 font-16"
-              *ngIf="firtsForm.MeetingTitle.touched && (firtsForm.MeetingTitle.errors?.minlength || firtsForm.MeetingTitle.errors?.maxlength)">
-              Meeting Title Name should be of Min. 3 characters, Max. 20 characters.</p>
-            <p class="text-danger m-t-0 font-16" *ngIf="firtsForm.MeetingTitle.touched && firtsForm.MeetingTitle.errors?.pattern">
-              Meeting Title Name contains only characters.</p>
-          </div>
-
-          <div class="p-10" fxFlex.gt-sm={{columnwidth50}} fxFlex.gt-xs={{columnwidth50}} fxFlex="100">
-            <mat-form-field>
-              <input matInput placeholder="URL" formControlName="MeetingUrl" required>
-            </mat-form-field>
-          </div>
-
-          <div class="p-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
-            <mat-form-field>
-              <input matInput placeholder="Meeting Id" formControlName="MeetingId">
-            </mat-form-field>
-          </div>
-
-          <div class="p-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
-            <mat-form-field>
-              <input matInput placeholder="Meeting UserId" formControlName="MeetingUserId">
-            </mat-form-field>
-          </div>
-
-          <div class="p-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
-            <mat-form-field>
-              <input matInput placeholder="Enter your PassCode" formControlName="MeetingPassCode"
-                [type]="hide ? 'password' : 'text'" autocomplete="off">
-              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                [attr.aria-pressed]="hide">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-              </button>
-            </mat-form-field>
-          </div>
-
-          <div class="p-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
-            <mat-form-field>
-              <input type="datetime-local" matInput placeholder="Meeting Date" id="MeetingdateInputID" formControlName="MeetingDateTime" required >
-            </mat-form-field>
-          </div>
-
-          <div class="p-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
-            <mat-form-field>
-              <input type="datetime-local" matInput placeholder="Reminder DateTime" id="ReminderDateTimeInputID" formControlName="ReminderDateTime" required>
-            </mat-form-field>
-          </div>
-
-          <div class="p-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
-            <mat-form-field>
-              <textarea matInput rows="1" placeholder="Notes" formControlName="Notes"> </textarea>
-            </mat-form-field>
-          </div>
-
-        </div>
-      </form>
-  
+    </div>
+    <form [formGroup]="firstFormGroup">
       <div fxLayout="row wrap">
-        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-            <div fxLayout="row wrap">
-                <div fxFlex.gt-sm="25" fxFlex.gt-xs="100" fxFlex="100">
-                    <mat-form-field>
-                        <input matInput (keyup)="common.TableFilter(meetinglist,$event.target.value)"
-                            placeholder="Search">
-                    </mat-form-field>
-                </div>
-                <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-                  <div style="overflow: hidden;overflow-x: auto;">
-                    <table mat-table matSort [dataSource]="meetinglist" class="tablewidth">
-                      <!-- <ng-container matColumnDef="id">
+
+        <div class="p-10" fxFlex.gt-sm={{columnwidth50}} fxFlex.gt-xs={{columnwidth50}} fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Meeting Title" formControlName="MeetingTitle" required>
+          </mat-form-field>
+          <p class="text-danger m-t-0 font-16"
+            *ngIf="firtsForm.MeetingTitle.touched && (firtsForm.MeetingTitle.errors?.minlength || firtsForm.MeetingTitle.errors?.maxlength)">
+            Meeting Title Name should be of Min. 3 characters, Max. 20 characters.</p>
+          <p class="text-danger m-t-0 font-16"
+            *ngIf="firtsForm.MeetingTitle.touched && firtsForm.MeetingTitle.errors?.pattern">
+            Meeting Title Name contains only characters.</p>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm={{columnwidth50}} fxFlex.gt-xs={{columnwidth50}} fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="URL" formControlName="MeetingUrl" required>
+          </mat-form-field>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Meeting Id" formControlName="MeetingId">
+          </mat-form-field>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Meeting UserId" formControlName="MeetingUserId">
+          </mat-form-field>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+          <mat-form-field>
+            <input matInput placeholder="Enter your PassCode" formControlName="MeetingPassCode"
+              [type]="hide ? 'password' : 'text'" autocomplete="off">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+          <mat-form-field>
+            <input type="datetime-local" matInput placeholder="Meeting Date" id="MeetingdateInputID"
+              formControlName="MeetingDateTime" required>
+          </mat-form-field>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+          <mat-form-field>
+            <input type="datetime-local" matInput placeholder="Reminder DateTime" id="ReminderDateTimeInputID"
+              formControlName="ReminderDateTime" required>
+          </mat-form-field>
+        </div>
+
+        <div class="p-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+          <mat-form-field>
+            <textarea matInput rows="1" placeholder="Notes" formControlName="Notes"> </textarea>
+          </mat-form-field>
+        </div>
+
+      </div>
+    </form>
+
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+        <div fxLayout="row wrap">
+          <div fxFlex.gt-sm="25" fxFlex.gt-xs="100" fxFlex="100">
+            <mat-form-field>
+              <input matInput (keyup)="common.TableFilter(meetinglist,$event.target.value)" placeholder="Search">
+            </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+            <div style="overflow: hidden;overflow-x: auto;">
+              <table mat-table matSort [dataSource]="meetinglist" class="tablewidth">
+                <!-- <ng-container matColumnDef="id">
                           <th mat-header-cell *matHeaderCellDef mat-sort-header>#Id </th>
                           <td mat-cell *matCellDef="let element"> {{element.reminderId}} </td>
                       </ng-container> -->
-                      <ng-container matColumnDef="meetingtitle">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
-                          <td mat-cell *matCellDef="let element"> {{element.bdayHolderName}} </td>
-                      </ng-container>
-                      <ng-container matColumnDef="meetingdatetime">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Meeting DateTime </th>
-                          <td mat-cell *matCellDef="let element"> {{element.dobDate | date:"MM/dd/yyyy HH:mma"}} </td>
-                      </ng-container>
-                      <ng-container matColumnDef="reminderdatetime">
-                          <th mat-header-cell *matHeaderCellDef>Reminder DateTime</th>
-                          <td mat-cell *matCellDef="let element"> {{element.reminderDateTime | date:"MM/dd/yyyy HH:mma"}} </td>
-                      </ng-container>
-                      <ng-container matColumnDef="notes">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Description </th>
-                        <td mat-cell *matCellDef="let element"><b><a (mouseover)="showdetail(element)" (mouseout)="hidedetails(element)" href="">Details</a></b></td>
-                        <!-- <td mat-cell *matCellDef="let element"   (mouseover)="changeText=true" (mouseout)="changeText=false" > {{element.notes | limitto:10}} </td> -->
-                    </ng-container>
-                    <ng-container matColumnDef="createdate">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Create Date </th>
-                      <td mat-cell *matCellDef="let element"> {{element.createDate | date:"MM/dd/yyyy HH:mma"}} </td>
-                  </ng-container>
-                  <ng-container matColumnDef="updateDate">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Update date </th>
-                    <td mat-cell *matCellDef="let element"> {{element.updateDate | date:"MM/dd/yyyy HH:mma"}} </td>
+                <ng-container matColumnDef="meetingtitle">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+                  <td mat-cell *matCellDef="let element"> {{element.bdayHolderName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="meetingdatetime">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Meeting DateTime </th>
+                  <td mat-cell *matCellDef="let element"> {{element.dobDate | date:"MM/dd/yyyy HH:mma"}} </td>
+                </ng-container>
+                <ng-container matColumnDef="reminderdatetime">
+                  <th mat-header-cell *matHeaderCellDef>Reminder DateTime</th>
+                  <td mat-cell *matCellDef="let element"> {{element.reminderDateTime | date:"MM/dd/yyyy HH:mma"}} </td>
+                </ng-container>
+                <ng-container matColumnDef="notes">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Description </th>
+                  <td mat-cell *matCellDef="let element"> <button mat-button color="primary" (click)="showdetail(element)">Details</button>
+                  </td>
+                  <!-- <td mat-cell *matCellDef="let element"   (mouseover)="changeText=true" (mouseout)="changeText=false" > {{element.notes | limitto:10}} </td> -->
+                </ng-container>
+                <ng-container matColumnDef="createdate">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Create Date </th>
+                  <td mat-cell *matCellDef="let element"> {{element.createDate | date:"MM/dd/yyyy HH:mma"}} </td>
+                </ng-container>
+                <ng-container matColumnDef="updateDate">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Update date </th>
+                  <td mat-cell *matCellDef="let element"> {{element.updateDate | date:"MM/dd/yyyy HH:mma"}} </td>
                 </ng-container>
                 <ng-container matColumnDef="Status">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
-  <td> <mat-slide-toggle *matCellDef="let element" [(ngModel)]="element.reminderStatus" (click)="UpdatereminderrStatus(element)"></mat-slide-toggle></td>
-  
+                  <td>
+                    <mat-slide-toggle *matCellDef="let element" [(ngModel)]="element.reminderStatus"
+                      (click)="UpdatereminderrStatus(element)"></mat-slide-toggle>
+                  </td>
                   <!-- <td mat-cell *matCellDef="let element"> {{element.status?'Active':'DeActive'}} </td> -->
-              </ng-container>
-              <ng-container matColumnDef="Action">
-                <th mat-header-cell *matHeaderCellDef> Action </th>
-                <td mat-cell *matCellDef="let element" class="action-link">
-                    <a>
-                        <mat-icon style="color:#E91E63" (click)="EditMeetingRecord(element)">edit
-                        </mat-icon>
-                    </a>
-                    <a class="m-l-10">
-                        <mat-icon style="color:#E91E63" (click)="DeleteMeetingRecord(element)">delete</mat-icon>
-                    </a>
-                </td>
-            </ng-container>
-                      <tr mat-header-row *matHeaderRowDef="lists.displayedColumns; sticky: true"></tr>
-                      <tr mat-row *matRowDef="let row; columns: lists.displayedColumns;"></tr>
-                  </table>
-                  </div>
-                    <mat-paginator [pageSizeOptions]="[10, 20,30,50,100]" showFirstLastButtons>
-                    </mat-paginator>
-                </div>
+                </ng-container>
+                <ng-container matColumnDef="Action">
+                  <th mat-header-cell *matHeaderCellDef> Action </th>
+                  <td mat-cell *matCellDef="let element" class="action-link">
+                    <div class="row" style="display: inline-flex;">
+                      <div class="col-6">
+                        <a>
+                          <mat-icon style="color:#E91E63" (click)="EditMeetingRecord(element)">edit
+                          </mat-icon>
+                        </a>
+                      </div>
+                      <div class="col-6">
+                        <a class="m-l-10">
+                          <mat-icon style="color:#E91E63" (click)="DeleteMeetingRecord(element)">delete</mat-icon>
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="lists.displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: lists.displayedColumns;"></tr>
+              </table>
             </div>
+            <mat-paginator [pageSizeOptions]="[10, 20,30,50,100]" showFirstLastButtons>
+            </mat-paginator>
+          </div>
         </div>
+      </div>
     </div>
-  
-      <!-- <div fxLayout="row wrap">
+
+    <!-- <div fxLayout="row wrap">
         <div *ngIf="firstFormGroup.value.usertype > 2" class="p-10" fxFlex.gt-sm="100" fxFlex.gt-xs="50" fxFlex="100">
           <button mat-raised-button [disabled]="!firstFormGroup.valid" class="pull-right" color="primary"
             (click)="CreateUser()">Submit</button>
@@ -153,6 +164,5 @@
           <button mat-raised-button color="warn" class="pull-right" matStepperNext>Next</button>
         </div>
       </div> -->
-    </mat-card-content>
-  </mat-card>
-  
+  </mat-card-content>
+</mat-card>
