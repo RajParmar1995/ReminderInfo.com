@@ -2,7 +2,7 @@ import { Component, ElementRef, Inject, OnInit, ViewChild } from "@angular/core"
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { EncriptionService } from '../../Service/encription.service';
 
- import * as jquery from 'jquery';
+import * as jquery from 'jquery';
 
 @Component({
   selector: 'app-meetingdetail',
@@ -12,7 +12,7 @@ import { EncriptionService } from '../../Service/encription.service';
 export class MeetingdetailComponent implements OnInit {
 
   //@ViewChild('inputval1') inputval1: ElementRef;
-hide = true;
+  hide = true;
   columwidth = "100";
   rowwidth90 = "100";
   rowwidth10 = "10";
@@ -43,23 +43,25 @@ hide = true;
       }
 
       if (detailarray.length > 0) {
-        this.list.MeetingUrl = (detailarray.filter(e => Object.keys(e).toString() == 'MUrl').length > 0 ?detailarray.filter(e => Object.keys(e).toString() == 'MUrl')[0].MUrl : '');
+        this.list.MeetingUrl = (detailarray.filter(e => Object.keys(e).toString() == 'MUrl').length > 0 ? detailarray.filter(e => Object.keys(e).toString() == 'MUrl')[0].MUrl : '');
 
-        this.list.MeetingId = (detailarray.filter(e => Object.keys(e).toString() == 'MId').length > 0 ?detailarray.filter(e => Object.keys(e).toString() == 'MId')[0].MId : '');
+        this.list.MeetingId = (detailarray.filter(e => Object.keys(e).toString() == 'MId').length > 0 ? detailarray.filter(e => Object.keys(e).toString() == 'MId')[0].MId : '');
 
         this.list.UserId = (detailarray.filter(e => Object.keys(e).toString() == 'MUId').length > 0 ? detailarray.filter(e => Object.keys(e).toString() == 'MUId')[0].MUId : '');
-        
+
         this.list.PassCode = (detailarray.filter(e => Object.keys(e).toString() == 'MPC').length > 0 ? detailarray.filter(e => Object.keys(e).toString() == 'MPC')[0].MPC : '');
-        
+
         this.list.Details = (detailarray.filter(e => Object.keys(e).toString() == 'ED').length > 0 ? detailarray.filter(e => Object.keys(e).toString() == 'ED')[0].ED : '');
       }
     }
   }
 
-  textcopy(val:any) {
-    val.select();
-    document.execCommand('copy')
-    val.setSelectionRange(0, 0);
+  textcopy(val: any) {
+    let sampleTextarea = document.createElement("textarea");
+    document.body.appendChild(sampleTextarea);
+    sampleTextarea.value = val;
+    sampleTextarea.select();
+    document.execCommand("copy");
   }
 
   closeModal() {
