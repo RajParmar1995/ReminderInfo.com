@@ -18,49 +18,38 @@
           <div class="p-l-5 p-r-5 " fxFlex.gt-sm={{rowwidth90}} fxFlex.gt-xs={{rowwidth90}} fxFlex="100">
             <mat-form-field appearance="outline" class="rowlineHeight">
               <mat-label>Meeting URL</mat-label>
-              <input matInput #MeetingUrl title={{list.MeetingUrl}} value={{list.MeetingUrl}} readonly>
-              <button mat-icon-button matSuffix (click)="textcopy(list.MeetingUrl)" class="copybtncolor">
+              <input matInput id="MeetingUrl" title={{list.MeetingUrl}} value={{list.MeetingUrl}} readonly>
+              <button mat-icon-button matSuffix data-clipboard-target="{list.MeetingUrl}" (click)="textcopy(list.MeetingUrl)" class="copybtncolor">
                 <mat-icon copyiconcolor>file_copy</mat-icon>
               </button>
             </mat-form-field>
           </div>
-          
 
           <div class="p-l-5 p-r-5 " fxFlex.gt-sm={{rowwidth90}} fxFlex.gt-xs={{rowwidth90}} fxFlex="100">
             <mat-form-field appearance="outline" class="rowlineHeight">
               <mat-label>Meeting Id</mat-label>
               <input matInput title={{list.MeetingId}} value={{list.MeetingId}} readonly>
-              <button mat-icon-button matSuffix (click)="textcopy(list.MeetingUrl)" class="copybtncolor">
+              <button mat-icon-button matSuffix data-clipboard-target="{list.MeetingId}" (click)="textcopy(list.MeetingId)" class="copybtncolor">
                 <mat-icon copyiconcolor>file_copy</mat-icon>
               </button>
             </mat-form-field>
           </div>
-          <!-- <div class="p-l-5 p-r-5" fxFlex.gt-sm={{rowwidth10}} fxFlex.gt-xs={{rowwidth10}} fxFlex="15">
-            <button mat-button color="primary" (click)="textcopy(list.MeetingId)" class="copybtncolor">
-              <mat-icon copyiconcolor>file_copy</mat-icon>
-            </button>
-          </div> -->
-
+ 
           <div class="p-l-5 p-r-5 " fxFlex.gt-sm={{rowwidth90}} fxFlex.gt-xs={{rowwidth90}} fxFlex="100">
             <mat-form-field appearance="outline" class="rowlineHeight">
               <mat-label>User Id</mat-label>
               <input matInput title={{list.UserId}} value={{list.UserId}} readonly>
-              <button mat-icon-button matSuffix (click)="textcopy(list.MeetingUrl)" class="copybtncolor">
+              <button mat-icon-button matSuffix data-clipboard-target="{list.UserId}" (click)="textcopy(list.UserId)" class="copybtncolor">
                 <mat-icon copyiconcolor>file_copy</mat-icon>
               </button>
             </mat-form-field>
           </div>
-          <!-- <div class="p-l-5 p-r-5" fxFlex.gt-sm={{rowwidth10}} fxFlex.gt-xs={{rowwidth10}} fxFlex="15">
-            <button mat-button color="primary" (click)="textcopy(list.UserId)" class="copybtncolor">
-              <mat-icon copyiconcolor>file_copy</mat-icon>
-            </button>
-          </div> -->
 
           <div class="p-l-5 p-r-5 " fxFlex.gt-sm={{rowwidth90}} fxFlex.gt-xs={{rowwidth90}} fxFlex="100">
             <mat-form-field appearance="outline" class="rowlineHeight">
               <input matInput value={{list.PassCode}} readonly
                 [type]="hide ? 'password' : 'text'" autocomplete="off">
-              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              <button mat-icon-button matSuffix data-clipboard-target="{list.PassCode}" (click)="hide = !hide;textcopy(list.PassCode);" [attr.aria-label]="'Hide password'"
                 [attr.aria-pressed]="hide">
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
@@ -71,7 +60,7 @@
             <mat-form-field appearance="outline" class="rowlineHeight">
               <mat-label>Details</mat-label>
               <input matInput title={{list.Details}} value={{list.Details}} readonly>
-              <button mat-icon-button matSuffix (click)="textcopy(list.MeetingUrl)" class="copybtncolor">
+              <button mat-icon-button matSuffix data-clipboard-target="{list.Details}" (click)="textcopy(list.Details)" class="copybtncolor">
                 <mat-icon copyiconcolor>file_copy</mat-icon>
               </button>
             </mat-form-field>
