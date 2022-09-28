@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-content>
-    <div fxLayout="row wrap">
+    <!-- <div fxLayout="row wrap">
       <div class="p-10" fxFlex.gt-sm="100" fxFlex.gt-xs="50" fxFlex="100">
         <button mat-raised-button class="pull-right" color="warn" style="margin-left: 5px;"
           (click)="ResetBirthday()">Reset</button>
@@ -42,23 +42,28 @@
           </mat-form-field>
         </div>
       </div>
-    </form>
+    </form> -->
 
     <div fxLayout="row wrap">
       <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
         <div fxLayout="row wrap">
-          <div fxFlex.gt-sm="25" fxFlex.gt-xs="100" fxFlex="100">
-            <mat-form-field>
+
+          <div fxFlex.gt-sm="25" fxFlex.gt-xs="25" fxFlex="75">
+            <mat-form-field appearance="outline" style="margin-bottom: -0.75em;margin-top: -0.75em;">
+              <mat-label>Search</mat-label>
               <input matInput (keyup)="common.TableFilter(birthdaypersonlist,$event.target.value)" placeholder="Search">
             </mat-form-field>
           </div>
+
+          <div fxFlex.gt-sm="75" fxFlex.gt-xs="75" fxFlex="25">
+            <button mat-raised-button class="pull-right" style="margin-left: 5px;background-color: #48d640; color: white;"
+            (click)="showdetail(0,null)"><mat-icon>add</mat-icon> Create New</button>
+          </div>
+
           <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
             <div style="overflow: hidden;overflow-x: auto;">
               <table mat-table matSort [dataSource]="birthdaypersonlist" class="tablewidth">
-                <!-- <ng-container matColumnDef="id">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>#Id </th>
-                        <td mat-cell *matCellDef="let element"> {{element.reminderId}} </td>
-                    </ng-container> -->
+                
                 <ng-container matColumnDef="birthdaypersonname">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
                   <td mat-cell *matCellDef="let element"> {{element.bdayHolderName}} </td>
@@ -98,7 +103,7 @@
                     <div class="row" style="display: inline-flex;">
                       <div class="col-6">
                         <a class="m-l-10">
-                          <mat-icon style="color:#E91E63" (click)="EditBirthdayRecord(element)">edit
+                          <mat-icon style="color: grey;" (click)="showdetail(1,element)">edit
                           </mat-icon>
                         </a>
                       </div>
@@ -110,12 +115,15 @@
                     </div>
                   </td>
                 </ng-container>
-                <tr mat-header-row *matHeaderRowDef="lists.displayedColumns; sticky: true"></tr>
+
+                <tr mat-header-row *matHeaderRowDef="lists.displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: lists.displayedColumns;"></tr>
               </table>
+              <mat-paginator [pageSizeOptions]="[5,10,20]"
+                             showFirstLastButtons 
+                             aria-label="Select page of periodic elements">
+              </mat-paginator>
             </div>
-            <mat-paginator [pageSizeOptions]="[10, 20,30,50,100]" showFirstLastButtons>
-            </mat-paginator>
           </div>
         </div>
       </div>

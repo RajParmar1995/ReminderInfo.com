@@ -1,52 +1,42 @@
 <mat-card>
   <mat-card-content>
-    <div fxLayout="row wrap">
-      <div class="p-10" fxFlex.gt-sm="100" fxFlex.gt-xs="50" fxFlex="100">
-        <button mat-raised-button class="pull-right" color="warn" style="margin-left: 5px;"
-          (click)="ResetMeeting()">Reset</button>
-        <button mat-raised-button [disabled]="!firstFormGroup.valid" *ngIf="!updaterecord" class="pull-right"
-          color="primary" (click)="CreateMeetingReminder()">Save</button>
-        <button mat-raised-button [disabled]="!firstFormGroup.valid" *ngIf="updaterecord" class="pull-right"
-          color="primary" (click)="UpdateMeetingReminder()">Update</button>
-      </div>
-    </div>
-    <form [formGroup]="firstFormGroup">
+    <!-- <form [formGroup]="firstFormGroup">
       <div fxLayout="row wrap">
-
-        <div class="p-10" fxFlex.gt-sm={{columnwidth50}} fxFlex.gt-xs={{columnwidth50}} fxFlex="100">
-          <mat-form-field>
+        <div class="p-l-10 p-r-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+          <mat-form-field appearance="outline">
+            <mat-label>Meeting Title</mat-label>
             <input matInput placeholder="Meeting Title" formControlName="MeetingTitle" required>
-          </mat-form-field>
-          <p class="text-danger m-t-0 font-16"
-            *ngIf="firtsForm.MeetingTitle.touched && (firtsForm.MeetingTitle.errors?.minlength || firtsForm.MeetingTitle.errors?.maxlength)">
-            Meeting Title Name should be of Min. 3 characters, Max. 20 characters.</p>
-          <p class="text-danger m-t-0 font-16"
-            *ngIf="firtsForm.MeetingTitle.touched && firtsForm.MeetingTitle.errors?.pattern">
-            Meeting Title Name contains only characters.</p>
-        </div>
-
-        <div class="p-10" fxFlex.gt-sm={{columnwidth50}} fxFlex.gt-xs={{columnwidth50}} fxFlex="100">
-          <mat-form-field>
-            <input matInput placeholder="URL" formControlName="MeetingUrl" required>
+              <mat-error *ngIf="firtsForm.MeetingTitle.invalid">{{getErrorMessage()}}</mat-error>
           </mat-form-field>
         </div>
 
-        <div class="p-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
-          <mat-form-field>
+        <div class="p-l-10 p-r-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+          <mat-form-field appearance="outline">
+            <mat-label>Meeting URL</mat-label>
+            <input matInput placeholder="Meeting URL" formControlName="MeetingUrl" required>
+            <mat-error *ngIf="firtsForm.MeetingUrl.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="p-l-10 p-r-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+          <mat-form-field appearance="outline">
+            <mat-label>Meeting Id</mat-label>
             <input matInput placeholder="Meeting Id" formControlName="MeetingId">
           </mat-form-field>
         </div>
 
-        <div class="p-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
-          <mat-form-field>
+        <div class="p-l-10 p-r-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+          <mat-form-field appearance="outline">
+            <mat-label>Meeting UserId</mat-label>
             <input matInput placeholder="Meeting UserId" formControlName="MeetingUserId">
           </mat-form-field>
         </div>
 
-        <div class="p-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
-          <mat-form-field>
-            <input matInput placeholder="Enter your PassCode" formControlName="MeetingPassCode"
-              [type]="hide ? 'password' : 'text'" autocomplete="off">
+        <div class="p-l-10 p-r-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+          <mat-form-field appearance="outline">
+            <mat-label>Meeting PassCode</mat-label>
+            <input matInput placeholder="PassCode" formControlName="MeetingPassCode" [type]="hide ? 'password' : 'text'"
+              autocomplete="off">
             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
               [attr.aria-pressed]="hide">
               <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -54,37 +44,59 @@
           </mat-form-field>
         </div>
 
-        <div class="p-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
-          <mat-form-field>
+         harshita   manisha
+
+        <div class="p-l-10 p-r-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+          <mat-form-field appearance="outline">
+            <mat-label>Meeting Date</mat-label>
             <input type="datetime-local" matInput placeholder="Meeting Date" id="MeetingdateInputID"
               formControlName="MeetingDateTime" required>
           </mat-form-field>
         </div>
 
-        <div class="p-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
-          <mat-form-field>
+        <div class="p-l-10 p-r-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+          <mat-form-field appearance="outline">
+            <mat-label>Meeting DateTime</mat-label>
             <input type="datetime-local" matInput placeholder="Reminder DateTime" id="ReminderDateTimeInputID"
               formControlName="ReminderDateTime" required>
           </mat-form-field>
         </div>
 
-        <div class="p-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
-          <mat-form-field>
+        <div class="p-l-10 p-r-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+          <mat-form-field appearance="outline">
+            <mat-label> Notes</mat-label>
             <textarea matInput rows="1" placeholder="Notes" formControlName="Notes"> </textarea>
           </mat-form-field>
         </div>
 
+        <div class="p-l-10 p-r-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+          <button mat-raised-button class="pull-right" color="warn" style="margin-left: 5px;"
+            (click)="ResetMeeting()">Reset</button>
+          <button mat-raised-button [disabled]="!firstFormGroup.valid" *ngIf="!updaterecord" class="pull-right"
+            color="primary" (click)="CreateMeetingReminder()">Save</button>
+          <button mat-raised-button [disabled]="!firstFormGroup.valid" *ngIf="updaterecord" class="pull-right"
+            color="primary" (click)="UpdateMeetingReminder()">Update</button>
+        </div>
+
       </div>
-    </form>
+    </form> -->
 
     <div fxLayout="row wrap">
       <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
         <div fxLayout="row wrap">
-          <div fxFlex.gt-sm="25" fxFlex.gt-xs="100" fxFlex="100">
-            <mat-form-field>
+         
+          <div fxFlex.gt-sm="25" fxFlex.gt-xs="25" fxFlex="75">
+            <mat-form-field appearance="outline" style="margin-bottom: -0.75em;margin-top: -0.75em;">
+              <mat-label>Search</mat-label>
               <input matInput (keyup)="common.TableFilter(meetinglist,$event.target.value)" placeholder="Search">
             </mat-form-field>
           </div>
+
+          <div fxFlex.gt-sm="75" fxFlex.gt-xs="75" fxFlex="25">
+            <button mat-raised-button class="pull-right" style="margin-left: 5px;background-color: #48d640; color: white;"
+            (click)="createUpdateMeeting(0,null)"><mat-icon>add</mat-icon> Create New</button>
+          </div>
+
           <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
             <div style="overflow: hidden;overflow-x: auto;">
               <table mat-table matSort [dataSource]="meetinglist" class="tablewidth">
@@ -106,7 +118,8 @@
                 </ng-container>
                 <ng-container matColumnDef="notes">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>Description </th>
-                  <td mat-cell *matCellDef="let element"> <button mat-button color="primary" (click)="showdetail(element)">Details</button>
+                  <td mat-cell *matCellDef="let element"> <button mat-button color="primary"
+                      (click)="showdetail(element)">Details</button>
                   </td>
                   <!-- <td mat-cell *matCellDef="let element"   (mouseover)="changeText=true" (mouseout)="changeText=false" > {{element.notes | limitto:10}} </td> -->
                 </ng-container>
@@ -132,7 +145,7 @@
                     <div class="row" style="display: inline-flex;">
                       <div class="col-6">
                         <a>
-                          <mat-icon style="color:#E91E63" (click)="EditMeetingRecord(element)">edit
+                          <mat-icon style="color: grey;" (click)="createUpdateMeeting(1,element)">edit
                           </mat-icon>
                         </a>
                       </div>

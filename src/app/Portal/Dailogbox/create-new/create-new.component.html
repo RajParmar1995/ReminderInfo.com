@@ -1,0 +1,141 @@
+<div fxLayout="row wrap" style="margin: -20px 0px 0px;">
+    <div class="p-l-5 p-r-5" style="margin-top: -10px;" fxFlex.gt-sm="70" fxFlex.gt-xs="70" fxFlex="70">
+        <h4><b>{{modelheader}}</b></h4>
+    </div>
+    <div class="p-l-5 p-r-5" fxFlex.gt-sm="30" fxFlex.gt-xs="30" fxFlex="30" style="text-align: right;margin-top: 10px">
+        <button mat-raised-button color="warn" style="margin: auto;align-self: center;" (click)="closeModal()">
+            <mat-icon aria-hidden="false" aria-label="Example home icon">close</mat-icon>
+        </button>
+    </div>
+</div>
+<!-- create birthday -->
+<mat-dialog-content *ngIf="data.type == 'Birthday'" class="mat-typography">
+    <form [formGroup]="firstFormGroupbirthday">
+        <div fxLayout="row wrap">
+
+            <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                <mat-form-field appearance="outline">
+                    <mat-label>Person Name</mat-label>
+                    <input matInput placeholder="Birthday Person Name" formControlName="BirthdayPersonName" required>
+                </mat-form-field>
+                <p class="text-danger m-t-0 font-16"
+                    *ngIf="firtsFormbirthday.BirthdayPersonName.touched && (firtsFormbirthday.BirthdayPersonName.errors?.minlength || firtsFormbirthday.BirthdayPersonName.errors?.maxlength)">
+                    Birthday Person Name should be of Min. 3 characters, Max. 20 characters.</p>
+                <p class="text-danger m-t-0 font-16"
+                    *ngIf="firtsFormbirthday.BirthdayPersonName.touched && firtsFormbirthday.BirthdayPersonName.errors?.pattern">
+                    Birthday Person Name contains only characters.</p>
+            </div>
+            <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                <mat-form-field appearance="outline">
+                    <mat-label>Birthday Date</mat-label>
+                    <input type="date" matInput placeholder="Birthday Date" id="DOBdateInputID"
+                        formControlName="DOBdate" required>
+                </mat-form-field>
+            </div>
+            <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                <mat-form-field appearance="outline">
+                    <mat-label>Reminder DateTime</mat-label>
+                    <input type="datetime-local" matInput placeholder="Reminder DateTime" id="ReminderDateTimeInputID"
+                        formControlName="ReminderDateTime" required>
+                </mat-form-field>
+            </div>
+            <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                <mat-form-field appearance="outline">
+                    <mat-label>Notes</mat-label>
+                    <textarea matInput rows="1" placeholder="Notes" formControlName="Notes"> </textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" *ngIf="data.type == 'Birthday'">
+    <button mat-raised-button [disabled]="!firtsFormbirthday.valid" *ngIf="!updaterecord" class="pull-right"
+        color="primary" (click)="CreateBirthdayReminder()">Save</button>
+    <button mat-raised-button [disabled]="!firtsFormbirthday.valid" *ngIf="updaterecord" class="pull-right" color="primary"
+        (click)="UpdateBirthdayReminder()">Update</button>
+    <button mat-raised-button class="pull-right" color="warn" style="margin-left: 5px;"
+        (click)="ResetBirthday()">Reset</button>
+</mat-dialog-actions>
+<!-- create birthday end-->
+
+<!-- create meeting -->
+<mat-dialog-content *ngIf="data.type == 'Meeting'" class="mat-typography">
+    <form [formGroup]="firstFormGroupmeeting">
+        <div fxLayout="row wrap">
+          <div class="p-l-10 p-r-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+            <mat-form-field appearance="outline">
+              <mat-label>Meeting Title</mat-label>
+              <input matInput placeholder="Meeting Title" formControlName="MeetingTitle" required>
+                <mat-error *ngIf="firtsFormmeeting.MeetingTitle.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+  
+          <div class="p-l-10 p-r-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+            <mat-form-field appearance="outline">
+              <mat-label>Meeting URL</mat-label>
+              <input matInput placeholder="Meeting URL" formControlName="MeetingUrl" required>
+              <mat-error *ngIf="firtsFormmeeting.MeetingUrl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+  
+          <div class="p-l-10 p-r-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+            <mat-form-field appearance="outline">
+              <mat-label>Meeting Id</mat-label>
+              <input matInput placeholder="Meeting Id" formControlName="MeetingId">
+            </mat-form-field>
+          </div>
+  
+          <div class="p-l-10 p-r-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+            <mat-form-field appearance="outline">
+              <mat-label>Meeting UserId</mat-label>
+              <input matInput placeholder="Meeting UserId" formControlName="MeetingUserId">
+            </mat-form-field>
+          </div>
+  
+          <div class="p-l-10 p-r-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+            <mat-form-field appearance="outline">
+              <mat-label>Meeting PassCode</mat-label>
+              <input matInput placeholder="PassCode" formControlName="MeetingPassCode" [type]="hide ? 'password' : 'text'"
+                autocomplete="off">
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+  
+          <!-- harshita   manisha -->
+  
+          <div class="p-l-10 p-r-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+            <mat-form-field appearance="outline">
+              <mat-label>Meeting Date</mat-label>
+              <input type="datetime-local" matInput placeholder="Meeting Date" id="MeetingdateInputID"
+                formControlName="MeetingDateTime" required>
+            </mat-form-field>
+          </div>
+  
+          <div class="p-l-10 p-r-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+            <mat-form-field appearance="outline">
+              <mat-label>Meeting DateTime</mat-label>
+              <input type="datetime-local" matInput placeholder="Reminder DateTime" id="ReminderDateTimeInputID"
+                formControlName="ReminderDateTime" required>
+            </mat-form-field>
+          </div>
+  
+          <div class="p-l-10 p-r-10" fxFlex.gt-sm={{columnwidth30}} fxFlex.gt-xs={{columnwidth30}} fxFlex="100">
+            <mat-form-field appearance="outline">
+              <mat-label> Notes</mat-label>
+              <textarea matInput rows="1" placeholder="Notes" formControlName="Notes"> </textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" *ngIf="data.type == 'Meeting'">
+  <button mat-raised-button [disabled]="!firtsFormmeeting.valid" *ngIf="!updaterecord" class="pull-right"
+    color="primary" (click)="CreateMeetingReminder()">Save</button>
+  <button mat-raised-button [disabled]="!firtsFormmeeting.valid" *ngIf="updaterecord" class="pull-right"
+    color="primary" (click)="UpdateMeetingReminder()">Update</button>
+    <button mat-raised-button class="pull-right" color="warn" style="margin-left: 5px;"
+    (click)="ResetMeeting()">Reset</button>
+</mat-dialog-actions>

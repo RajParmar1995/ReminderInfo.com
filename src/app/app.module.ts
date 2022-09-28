@@ -41,13 +41,9 @@ import { UserdetailComponent } from './Portal/Dailogbox/userdetail/userdetail.co
 import { PipeModule } from './Portal/Pipes/pipe/pipe.module';
 import { ReminderinfodailogComponent } from './Portal/Dailogbox/reminderinfodailog/reminderinfodailog.component';
 import { MeetingdetailComponent } from './Portal/Dailogbox/meetingdetail/meetingdetail.component';
-//import { Clipboard } from '@angular/cdk/c';
-//import { ClipboardModule } from "@angular/cdk/clipboard";
-//import { ClipboardModule } from 'ngx-clipboard';
 
-
-
-import {   }  from '@angular/cdk'
+import {   }  from '@angular/cdk';
+import { CreateNewComponent } from './Portal/Dailogbox/create-new/create-new.component'
 
 @NgModule({
   declarations: [
@@ -65,6 +61,7 @@ import {   }  from '@angular/cdk'
     UserdetailComponent,
     ReminderinfodailogComponent,
     MeetingdetailComponent,
+    CreateNewComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,7 +89,7 @@ import {   }  from '@angular/cdk'
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     }
   ],
-  entryComponents: [ConfirmboxComponent, OtpComponent, ChangepasswordComponent,UserdetailComponent,ReminderinfodailogComponent,MeetingdetailComponent],
+  entryComponents: [ConfirmboxComponent, OtpComponent, ChangepasswordComponent,UserdetailComponent,ReminderinfodailogComponent,MeetingdetailComponent,CreateNewComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

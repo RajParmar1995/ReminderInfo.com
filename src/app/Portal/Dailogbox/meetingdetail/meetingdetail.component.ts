@@ -62,6 +62,7 @@ export class MeetingdetailComponent implements OnInit {
     sampleTextarea.value = val;
     sampleTextarea.select();
     document.execCommand("copy");
+    document.body.removeChild(sampleTextarea);
   }
 
   closeModal() {

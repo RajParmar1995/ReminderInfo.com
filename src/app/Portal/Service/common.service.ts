@@ -23,6 +23,7 @@ export class CommonService {
   // })
 
   InsuranceType: any = [
+    // {id:1,insType:"birthday"},
     {id:2,insType:"Health Insurance"},
     {id:3,insType:"Personal Accident Insurance"},
     {id:4,insType:"Corporate Health Insurance"},
@@ -32,6 +33,7 @@ export class CommonService {
     {id:8,insType:"Home Insurance"},
     {id:9,insType:"Shop Insurance"},
     {id:10,insType:"other Insurance/Policy"},
+    // {id:11,insType:"meeting"},
   ]
 
   PaymentCycle: any = [
